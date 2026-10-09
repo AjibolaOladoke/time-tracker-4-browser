@@ -1,0 +1,51 @@
+import { createTab, listTabs, updateTab } from '@api/chrome/tab'
+import { View } from "@element-plus/icons-vue"
+import { Flex } from '@pages/components'
+import { t } from '@popup/locale'
+import { HEADER_OPTION_SLOT } from '@popup/slot'
+import { IS_MOBILE } from "@util/constant/environment"
+import { getAppPageUrl } from "@util/constant/url"
+import { ElLink } from "element-plus"
+import type { FunctionalComponent } from "vue"
+import DarkSwitch from "./DarkSwitch"
+import Donation from './Donation'
+import LangSelect from "./LangSelect"
+import Logo from "./Logo"
+import MoreInfo from './MoreInfo'
+
+const openAppPage = async () => {
+    const appPageUrl = getAppPageUrl()
+    if (IS_MOBILE) return location.replace(appPageUrl)
+    try {
+        const tabs = await listTabs({ currentWindow: true })
+        // If there are non-highlighted app page tab, jump to it
+        const tabId2Jump = tabs.find(tab => !!tab.url?.startsWith(appPageUrl) && !tab.highlighted)?.id
+        if (tabId2Jump) {
+            await updateTab(tabId2Jump, { highlighted: true, active: true })
+            return
+        }
+    } catch (ignored) {
+    }
+    // fall back to open new tab
+    await createTab(appPageUrl)
+}
+
+const Header: FunctionalComponent<{}> = () => (
+    <Flex justify="space-between" padding='0 10px' color='text-primary'>
+        <Logo />
+        <Flex gap={10}>
+            <ElLink underline="never" onClick={openAppPage} icon={View} style={{ gap: '3px' }}>
+                {t(msg => msg.base.allFunction)}
+            </ElLink>
+            <Flex align="center" gap={8} fontSize={30}>
+                <LangSelect />
+                <DarkSwitch />
+                <Flex id={HEADER_OPTION_SLOT} align='center' />
+                <Donation />
+                <MoreInfo />
+            </Flex>
+        </Flex>
+    </Flex>
+)
+
+export default Header

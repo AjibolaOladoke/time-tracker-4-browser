@@ -1,0 +1,48 @@
+import { useSiteMerge } from '@hooks'
+import { Flex } from '@pages/components'
+import { t } from '@popup/locale'
+import { ALL_DIMENSIONS } from '@util/stat'
+import { ElSelect, ElText } from 'element-plus'
+import { defineComponent } from 'vue'
+import DurationSelect from './DurationSelect'
+import { useStatQuery } from './context'
+
+const StatToolbar = defineComponent(() => {
+    const query = useStatQuery()
+    const methods = useSiteMerge()
+
+    return () => (
+        <Flex gap={8}>
+            <Flex gap={4}>
+                <ElText>{t(msg => msg.shared.merge.mergeBy)}</ElText>
+                <ElSelect
+                    modelValue={query.mergeMethod}
+                    onChange={v => query.mergeMethod = v ?? undefined}
+                    placeholder={t(msg => msg.shared.merge.mergeMethod.notMerge)}
+                    popperOptions={{ placement: 'top' }}
+                    style={{ width: '90px' }}
+                    options={[
+                        { value: '', label: t(msg => msg.shared.merge.mergeMethod.notMerge) },
+                        ...methods.value.map(value => ({ value, label: t(msg => msg.shared.merge.mergeMethod[value]) })),
+                    ]}
+                />
+            </Flex>
+            <DurationSelect
+                modelValue={[query.duration, query.durationNum]}
+                onChange={([duration, durationNum]) => {
+                    query.duration = duration
+                    query.durationNum = durationNum
+                }}
+            />
+            <ElSelect
+                modelValue={query.dimension}
+                onChange={v => query.dimension = v}
+                popperOptions={{ placement: 'top' }}
+                style={{ width: '120px' }}
+                options={ALL_DIMENSIONS.map(value => ({ value, label: t(msg => msg.item[value]) }))}
+            />
+        </Flex>
+    )
+})
+
+export default StatToolbar

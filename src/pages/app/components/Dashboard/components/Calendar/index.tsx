@@ -1,0 +1,77 @@
+/**
+ * Copyright (c) 2022 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { createTabAfterCurrent } from "@api/chrome/tab"
+import { getWeekStartTime } from '@api/sw/option'
+import { listSiteStats } from '@api/sw/stat'
+import ChartTitle from '@app/components/Dashboard/ChartTitle'
+import { t } from "@app/locale"
+import { RECORD_ROUTE, type RecordQuery } from '@app/router/constants'
+import { isCalendarValue } from '@app/util/echarts'
+import { useEcharts, useRemoteValue } from "@hooks"
+import { Flex } from '@pages/components'
+import { groupBy, sum } from "@util/array"
+import { getAppPageUrl } from "@util/constant/url"
+import { cvtDateRange2Str, formatTimeYMD, MILL_PER_DAY, MILL_PER_HOUR, parseTime } from "@util/time"
+import { defineComponent } from "vue"
+import Wrapper, { type BizOption } from "./Wrapper"
+
+const titleText = (option: Result | undefined) => {
+    const { value, yearAgo } = option || {}
+    const start = yearAgo ? formatTimeYMD(yearAgo) : '-'
+    const statValues = Object.entries(value || {}).filter(([date]) => date.localeCompare(start) >= 0).map(([, v]) => v)
+    const totalMills = sum(statValues)
+    const totalHours = Math.floor(totalMills / MILL_PER_HOUR)
+    return t(msg => totalHours
+        ? msg.dashboard.heatMap.title0
+        : msg.dashboard.heatMap.title1,
+        { hour: totalHours }
+    )
+}
+
+type Result = BizOption & { yearAgo: Date }
+
+const fetchData = async (remote: boolean): Promise<Result> => {
+    const endTime = new Date()
+    const yearAgo = endTime.getTime() - MILL_PER_DAY * 365
+    const startTime = await getWeekStartTime(yearAgo)
+    const items = await listSiteStats({ date: cvtDateRange2Str([startTime, endTime]), sortKey: 'date', remote })
+    const value = groupBy(items, i => i.date, list => sum(list.map(i => i.focus)))
+    return { value, startTime, endTime, yearAgo: new Date(yearAgo) }
+}
+
+/**
+ * Click to jump to the record page
+ *
+ * @since 1.1.1
+ */
+function handleClick(value: unknown): void {
+    if (!isCalendarValue(value) || !value[2]) return
+    const currentTs = parseTime(value[3]).getTime().toString()
+    const url = getAppPageUrl(RECORD_ROUTE, { ds: currentTs, de: currentTs } satisfies RecordQuery)
+    createTabAfterCurrent(url)
+}
+
+const _default = defineComponent<{}>(() => {
+    const remote = useRemoteValue()
+    const { elRef, data } = useEcharts(Wrapper, () => fetchData(remote.value), {
+        afterInit(ew) {
+            const supportClick = !window.matchMedia("(any-pointer:coarse)").matches
+            supportClick && ew.instance?.on("click", params => handleClick(params.value))
+        },
+        deps: remote,
+    })
+
+    return () => (
+        <Flex height="100%" gap={4} column>
+            <ChartTitle text={titleText(data.value)} remote={remote.value} />
+            <div ref={elRef} style={{ flex: 1 }} />
+        </Flex>
+    )
+})
+
+export default _default

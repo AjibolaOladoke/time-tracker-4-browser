@@ -1,0 +1,717 @@
+{
+    "zh_CN": {
+        "genAliasConfirmMsg": "是否自动批量补全站点名称？",
+        "column": {
+            "type": "网站类型",
+            "alias": "网站名称",
+            "cate": "网站类目",
+            "icon": "网站图标",
+            "white": "白名单",
+            "whiteInfo": "白名单内的网站不会被追踪或拦截。",
+            "runtimeInfo": "记录网站运行的时间。不需要网站处于焦点状态。",
+            "mediaTimeInfo": "记录网站播放音频或者视频的时间。"
+        },
+        "typeInfo": {
+            "normal": "按域名的维度统计",
+            "merged": "将多个相关的域名合并统计，合并规则可以自定义",
+            "virtual": "统计 Ant Pattern 格式的任意 URL，可以在右上角新增自定义站点"
+        },
+        "cate": {
+            "name": "类目名称",
+            "relatedMsg": "该类目已有 {siteCount} 个站点，无法删除",
+            "removeConfirm": "确认删除类目：{category}？",
+            "batchChange": "批量修改类目",
+            "batchDisassociate": "批量清除类目"
+        },
+        "form": {
+            "emptyAlias": "请输入网站名称",
+            "emptyHost": "请输入网站域名"
+        },
+        "msg": {
+            "hostExistWarn": "{host} 已经存在",
+            "existedTag": "已存在",
+            "disassociatedMsg": "是否需要清除所有已选中站点的类目？",
+            "batchDeleteMsg": "是否需要删除所有已选中站点？"
+        },
+        "merge": {
+            "label": "网站合并",
+            "removeConfirmMsg": "自定义合并规则 {origin} 将被移除",
+            "originPlaceholder": "原域名",
+            "mergedPlaceholder": "合并后域名",
+            "errorOrigin": "原域名格式错误",
+            "duplicateMsg": "合并规则已存在：{origin}",
+            "addConfirmMsg": "将为 {origin} 设置自定义合并规则",
+            "infoAlertTitle": "该页面可以配置子域名的合并规则",
+            "infoAlert0": "点击新增按钮，会弹出原域名和合并后域名的输入框，填写并保存规则",
+            "infoAlert1": "原域名可填具体的域名或者正则表达式，比如 www.baidu.com，*.baidu.com，*.google.com.*。以此确定哪些域名在合并时会使用该条规则",
+            "infoAlert2": "合并后域名可填具体的域名，或者填数字，或者不填",
+            "infoAlert3": "如果填数字，则表示合并后域名的级数。比如存在规则【 *.*.edu.cn >>> 3 】，那么 www.hust.edu.cn 将被合并至 hust.edu.cn",
+            "infoAlert4": "如果不填，则表示原域名不会被合并",
+            "infoAlert5": "如果没有命中任何规则，则默认会合并至 {psl} 的前一级",
+            "tagResult": {
+                "blank": "不合并",
+                "level": "{level} 级域名"
+            }
+        }
+    },
+    "zh_TW": {
+        "genAliasConfirmMsg": "是否要自動批次產生網站名稱？",
+        "column": {
+            "type": "網站類型",
+            "alias": "網站名稱",
+            "cate": "網站分類",
+            "icon": "網站圖示"
+        },
+        "typeInfo": {
+            "normal": "依網域名稱統計",
+            "merged": "將多個相關網域名稱合併統計，可自訂合併規則",
+            "virtual": "統計 Ant Pattern 格式的任意 URL，可於右上角新增自訂網站"
+        },
+        "cate": {
+            "name": "分類名稱",
+            "relatedMsg": "此分類已與 {siteCount} 個網站建立關聯，無法刪除",
+            "removeConfirm": "確定要刪除「{category}」分類嗎？",
+            "batchChange": "變更分類",
+            "batchDisassociate": "解除分類關聯"
+        },
+        "form": {
+            "emptyAlias": "請輸入網站名稱",
+            "emptyHost": "請輸入網域"
+        },
+        "msg": {
+            "hostExistWarn": "「{host}」已存在",
+            "existedTag": "已存在",
+            "disassociatedMsg": "確定要清除所有選取網站的分類嗎？",
+            "batchDeleteMsg": "確定要刪除所有選取的網站嗎？"
+        },
+        "merge": {
+            "removeConfirmMsg": "自訂合併規則 {origin} 將被刪除",
+            "originPlaceholder": "原始網域",
+            "mergedPlaceholder": "合併後網域",
+            "errorOrigin": "原始網域格式錯誤",
+            "duplicateMsg": "合併規則已存在：{origin}",
+            "addConfirmMsg": "將為 {origin} 設定自訂合併規則",
+            "infoAlertTitle": "此頁面可設定子網域合併規則",
+            "infoAlert0": "點擊「新增」按鈕後，需填寫原始網域與合併後網域",
+            "infoAlert1": "原始網域可填寫具體網域或正規表示式，例如：www.baidu.com、*.baidu.com、*.google.com.*",
+            "infoAlert2": "合併後網域可填寫：具體網域／數字／留空",
+            "infoAlert3": "若填數字，代表合併後的網域層級數。例如規則【 *.*.edu.cn >>> 3 】會將 www.hust.edu.cn 合併為 hust.edu.cn",
+            "infoAlert4": "若留空，表示原始網域將保持不變",
+            "infoAlert5": "若未匹配任何規則，預設會合併至 {psl} 的上一層級",
+            "tagResult": {
+                "blank": "保持原網域",
+                "level": "{level} 層網域"
+            }
+        }
+    },
+    "en": {
+        "genAliasConfirmMsg": "Whether to automatically complete site names in batches?",
+        "column": {
+            "type": "Site Type",
+            "alias": "Site Name",
+            "cate": "Site Category",
+            "icon": "Icon",
+            "white": "Whitelist",
+            "whiteInfo": "Whitelisted sites are not tracked or blocked.",
+            "runtimeInfo": "Record the time a website is open. Does not require the website's tab to active, or the window to be focused.",
+            "mediaTimeInfo": "Record the time a website is playing audio."
+        },
+        "typeInfo": {
+            "normal": "statistics by domain name",
+            "merged": "merge statistics of multiple related domain names, and the merge rules can be customized",
+            "virtual": "count all subpages within the Ant Pattern format"
+        },
+        "cate": {
+            "name": "Name",
+            "relatedMsg": "This category has been associated with {siteCount} sites and cannot be deleted",
+            "removeConfirm": "Confirm to delete category: {category}?",
+            "batchChange": "Change categories",
+            "batchDisassociate": "Disassociate categories"
+        },
+        "form": {
+            "emptyAlias": "Please enter site name",
+            "emptyHost": "Please enter site URL"
+        },
+        "msg": {
+            "hostExistWarn": "{host} exists",
+            "existedTag": "EXISTED",
+            "disassociatedMsg": "Do you want to clear the categories of all selected sites?",
+            "batchDeleteMsg": "Do you want to delete all selected sites?"
+        },
+        "merge": {
+            "label": "Merge-site Rules",
+            "removeConfirmMsg": "{origin} will be removed from customized merge rules.",
+            "originPlaceholder": "Original site",
+            "mergedPlaceholder": "Merged",
+            "errorOrigin": "The format of original site is invalid.",
+            "duplicateMsg": "The rule already exists: {origin}",
+            "addConfirmMsg": "Customized merge rules will be set for {origin}",
+            "infoAlertTitle": "the merge rules when counting sites on this page",
+            "infoAlert0": "Click the [New] button, the input boxes of the source site and the merge site will be displayed, fill in and save the rule",
+            "infoAlert1": "The original site can be filled with a specific site or regular expression, such as www.baidu.com, *.baidu.com, *.google.com.*, to determine which sites will match this rule while merging",
+            "infoAlert2": "The merged site can be filled with a specific site, a number or blank",
+            "infoAlert3": "A number means the level of merged site. For example, there is a rule '*.*.edu.cn >>> 3', then 'www.hust.edu.cn' will be merged to 'hust.edu.cn'",
+            "infoAlert4": "Blank means the original site will not be merged",
+            "infoAlert5": "If no rule is matched, it will default to the level before {psl}",
+            "tagResult": {
+                "blank": "Not Merge",
+                "level": "Keep Level {level}"
+            }
+        }
+    },
+    "ja": {
+        "genAliasConfirmMsg": "サイトを自動的に完了してからバッチをシンするかどうか？",
+        "column": {
+            "type": "サイト種別",
+            "alias": "サイト名",
+            "cate": "サイトカテゴリー",
+            "icon": "Icon"
+        },
+        "typeInfo": {
+            "normal": "ドメイン名による統計",
+            "merged": "関連する複数のドメイン名の統計をマージし、マージ ルールをカスタマイズできます。",
+            "virtual": "Ant Pattern 形式の任意の URL をカウントします。右上隅にカスタムサイトを追加できます"
+        },
+        "cate": {
+            "name": "カテゴリ名",
+            "relatedMsg": "このカテゴリは {siteCount} 個のサイトに関連付けられているため、削除できません",
+            "removeConfirm": "カテゴリ「{category}」を削除しますか?",
+            "batchChange": "カテゴリを変更する",
+            "batchDisassociate": "カテゴリの関連付けを解除する"
+        },
+        "form": {
+            "emptyAlias": "サイト名を入力してください",
+            "emptyHost": "ドメイン名を入力してください"
+        },
+        "msg": {
+            "hostExistWarn": "{host} が存在します",
+            "existedTag": "既存",
+            "disassociatedMsg": "選択したすべてのサイトのカテゴリーを消去しますか？",
+            "batchDeleteMsg": "選択したサイトをすべて削除しますか？"
+        },
+        "merge": {
+            "removeConfirmMsg": "カスタム マージ ルール {origin} は削除されます",
+            "originPlaceholder": "独自ドメイン名",
+            "mergedPlaceholder": "統計的ドメイン名",
+            "errorOrigin": "元のドメイン名の形式が間違っています",
+            "duplicateMsg": "ルールはすでに存在します：{origin}",
+            "addConfirmMsg": "カスタム マージ ルールが {origin} に設定されます",
+            "infoAlertTitle": "このページでは、サブドメインのマージ ルールを設定できます",
+            "infoAlert0": "[追加] ボタンをクリックすると、元のドメイン名と結合されたドメイン名の入力ボックスがポップアップし、ルールを入力して保存します。",
+            "infoAlert1": "元のドメイン名には、特定のドメイン名または正規表現 (www.baidu.com、*.baidu.com、*.google.com.* など) を入力できます。 マージ時にこのルールを使用するドメインを決定するには",
+            "infoAlert2": "統合されたドメイン名の後、特定のドメイン名を入力するか、番号を入力するか、空白のままにすることができます",
+            "infoAlert3": "数字を記入する場合は、ドメイン名のレベルが予約されていることを意味します。 たとえば、ルール [*.*.edu.cn >>> 3 ] がある場合、www.hust.edu.cn は hust.edu.cn にマージされます。",
+            "infoAlert4": "記入しない場合は、元のドメイン名が統合されないことを意味します",
+            "infoAlert5": "一致するルールがない場合、デフォルトで {psl} より前のレベルになります",
+            "tagResult": {
+                "blank": "不合并",
+                "level": "{level} 次ドメイン"
+            }
+        }
+    },
+    "pt_PT": {
+        "genAliasConfirmMsg": "Preencher automaticamente nomes de sites em lote?",
+        "column": {
+            "type": "Tipo de Site",
+            "alias": "Nome do Site",
+            "cate": "Categoria",
+            "icon": "Ícone"
+        },
+        "typeInfo": {
+            "normal": "estatísticas por domínio",
+            "merged": "agrupa estatísticas de múltiplos domínios relacionados (regras personalizáveis)",
+            "virtual": "contabiliza URLs no formato Ant Pattern (adicione sites personalizados no canto superior direito)"
+        },
+        "cate": {
+            "name": "Nome",
+            "relatedMsg": "Esta categoria está associada a {siteCount} sites e não pode ser eliminada",
+            "removeConfirm": "Eliminar categoria: {category}?",
+            "batchChange": "Alterar categorias",
+            "batchDisassociate": "Desassociar categorias"
+        },
+        "form": {
+            "emptyAlias": "Insira o nome do site",
+            "emptyHost": "Insira o URL do site"
+        },
+        "msg": {
+            "hostExistWarn": "{host} já existe",
+            "existedTag": "EXISTENTE",
+            "disassociatedMsg": "Limpar categorias de todos os sites selecionados?",
+            "batchDeleteMsg": "Eliminar todos os sites selecionados?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} será removido das regras de agrupamento personalizadas.",
+            "originPlaceholder": "Site original",
+            "mergedPlaceholder": "Agrupado",
+            "errorOrigin": "Formato do site original inválido.",
+            "duplicateMsg": "A regra já existe: {origin}",
+            "addConfirmMsg": "Será criada uma regra de agrupamento para {origin}",
+            "infoAlertTitle": "Regras de agrupamento para contagem de sites nesta página",
+            "infoAlert0": "Clique em [Novo] para mostrar os campos do site original e do site agrupado",
+            "infoAlert1": "O site original pode ser um URL específico ou expressão regular (ex: www.baidu.com, *.baidu.com, *.google.com.*)",
+            "infoAlert2": "O site agrupado pode ser um URL específico, um número ou ficar em branco",
+            "infoAlert3": "Um número indica o nível de agrupamento. Ex: com a regra '*.*.edu.cn >>> 3', 'www.hust.edu.cn' será agrupado como 'hust.edu.cn'",
+            "infoAlert4": "Em branco significa que o site original não será agrupado",
+            "infoAlert5": "Se nenhuma regra for encontrada, usará o nível anterior a {psl}",
+            "tagResult": {
+                "blank": "Não Agrupar",
+                "level": "Manter Nível {level}"
+            }
+        }
+    },
+    "uk": {
+        "genAliasConfirmMsg": "Автозавершення назв сайтів у групах",
+        "column": {
+            "type": "Тип сайту",
+            "alias": "Назва сайту",
+            "cate": "Категорія сайту",
+            "icon": "Піктограма"
+        },
+        "typeInfo": {
+            "normal": "статистика за доменним ім'ям",
+            "merged": "статистику об'єднаних записів для пов'язаних доменних імен та правила об'єднання можна налаштувати",
+            "virtual": "враховувати будь-яку URL-адресу в форматі параметрів Ant, ви можете додати свій сайт у верхньому правому куті"
+        },
+        "cate": {
+            "name": "Назва",
+            "relatedMsg": "Цю категорію пов'язано з {siteCount} сайтами, тому її не можна видалити",
+            "removeConfirm": "Підтвердити видалення категорії: {category}?",
+            "batchChange": "Змінити категорії",
+            "batchDisassociate": "Роз'єднати категорії"
+        },
+        "form": {
+            "emptyAlias": "Введіть назву сайту",
+            "emptyHost": "Введіть URL-адресу сайту"
+        },
+        "msg": {
+            "hostExistWarn": "{host} вже існує",
+            "existedTag": "ВЖЕ ІСНУЄ",
+            "disassociatedMsg": "Хочете очистити категорії всіх вибраних сайтів?",
+            "batchDeleteMsg": "Хочете видалити всі вибрані сайти?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} буде вилучено з налаштованих правил об'єднання.",
+            "originPlaceholder": "Оригінальний сайт",
+            "mergedPlaceholder": "Об'єднуваний",
+            "errorOrigin": "Неприпустимий формат оригінального сайту.",
+            "duplicateMsg": "Правило вже існує: {origin}",
+            "addConfirmMsg": "Для {origin} буде встановлено користувацьке правило об'єднання",
+            "infoAlertTitle": "На цій сторінці ви можете встановити правила об’єднання для статистики використання сайтів",
+            "infoAlert0": "Натисніть кнопку [Нове], заповніть поля оригінального та об'єднуваного сайту, після чого збережіть правило",
+            "infoAlert1": "Оригінальний сайт можна ввести як URL-адресу або регулярний вираз, як-от www.wikipedia.org, *.wikipedia.org, *.google.com.*, щоб визначити відповідні сайти для об'єднання",
+            "infoAlert2": "Об'єднуваний сайт можна ввести як URL-адресу, число, або залишити пустим",
+            "infoAlert3": "Число означає рівень об'єднуваного сайту. Наприклад, для правила '*.*.edu.cn >>> 3' об'єднуваний сайт 'www.hust.edu.cn' буде об'єднано з 'hust.edu.cn'",
+            "infoAlert4": "Пусте поле означає, що сайт не буде об'єднано",
+            "infoAlert5": "Якщо жодне правило не збігається, його буде встановлено до типового рівня {psl}",
+            "tagResult": {
+                "blank": "Не об'єднувати",
+                "level": "Зберегти рівень {level}"
+            }
+        }
+    },
+    "es": {
+        "genAliasConfirmMsg": "¿Completar automáticamente los nombres de sitios en lotes?",
+        "column": {
+            "type": "Tipo de sitio",
+            "alias": "Nombre del sitio",
+            "cate": "Categoría del sitio",
+            "icon": "Icono"
+        },
+        "typeInfo": {
+            "normal": "estadísticas por nombre de dominio",
+            "merged": "fusionar las estadísticas de múltiples nombres de dominio relacionados, y las reglas de fusión pueden ser personalizadas",
+            "virtual": "contar cualquier URL en formato Ant Pattern, puedes agregar un sitio personalizado en la esquina superior derecha"
+        },
+        "cate": {
+            "name": "Nombre",
+            "relatedMsg": "Esta categoría se ha asociado con {siteCount} sitios y no se puede eliminar",
+            "removeConfirm": "¿Confirmar para eliminar la categoría: {category}?",
+            "batchChange": "Cambiar categorías",
+            "batchDisassociate": "Disociar categorías"
+        },
+        "form": {
+            "emptyAlias": "Por favor, ingresa el nombre de sitio",
+            "emptyHost": "Por favor, ingresa la URL del sitio"
+        },
+        "msg": {
+            "hostExistWarn": "{host} existe",
+            "existedTag": "EXISTIÓ",
+            "disassociatedMsg": "¿Quieres borrar las categorías de todos los sitios seleccionados?",
+            "batchDeleteMsg": "¿Quieres eliminar todos los sitios seleccionados?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} será eliminado de las reglas de fusión personalizadas.",
+            "originPlaceholder": "Sitio original",
+            "mergedPlaceholder": "Fusionado",
+            "errorOrigin": "El formato del sitio original no es válido.",
+            "duplicateMsg": "La regla ya existe: {origin}",
+            "addConfirmMsg": "Las reglas de fusión personalizadas se establecerán para {origin}",
+            "infoAlertTitle": "Puedes establecer las reglas de fusión al contar sitios en esta página",
+            "infoAlert0": "Haz clic en el botón [New One], se mostrarán los recuadros del sitio fuente y el sitio fusionado, llénalos y guarda la regla",
+            "infoAlert1": "El sitio original puede ser llenado con un sitio específico o una expresión regular, tal como www.baidu.com, *.baidu.com, *.google.com.*, para determinar qué sitios seguirán esta regla al fusionarse",
+            "infoAlert2": "El sitio fusionado puede ser llenado con un sitio específico, un número o en dejarse en blanco",
+            "infoAlert3": "Un número significa el nivel del sitio fusionado. Por ejemplo, hay una regla '*.*.edu.cn >>> 3', entonces 'www.hust.edu.cn' se fusionará con 'hust.edu.cn'",
+            "infoAlert4": "Dejar en blanco significa que el sitio original no se fusionará",
+            "infoAlert5": "Si no se sigue ninguna regla, se establecerá por defecto al nivel antes de {psl}",
+            "tagResult": {
+                "blank": "No fusionar",
+                "level": "Mantener en nivel {level}"
+            }
+        }
+    },
+    "de": {
+        "genAliasConfirmMsg": "Sollen die Namen der Seite automatisch in Batches vervollständigt werden?",
+        "column": {
+            "type": "Website-Typ",
+            "alias": "Site-Name",
+            "cate": "Seitenkategorie",
+            "icon": "Symbol"
+        },
+        "typeInfo": {
+            "normal": "statistische Daten nach Domainname",
+            "merged": "Zusammenführungsstatistiken mehrerer verwandter Domänennamen, und die Zusammenführungsregeln können angepasst werden",
+            "virtual": "Wenn Sie eine beliebige URL im Ant-Pattern-Format zählen, können Sie in der oberen rechten Ecke eine benutzerdefinierte Site hinzufügen"
+        },
+        "cate": {
+            "name": "Namen",
+            "relatedMsg": "Diese Kategorie wurde mit {siteCount} Seiten verknüpft und kann nicht gelöscht werden",
+            "removeConfirm": "Löschen der Kategorie: {category}?",
+            "batchChange": "Kategorien ändern",
+            "batchDisassociate": "Kategorien trennen"
+        },
+        "form": {
+            "emptyAlias": "Bitte gib einen Website-Namen ein",
+            "emptyHost": "Bitte geben Sie die URL ein"
+        },
+        "msg": {
+            "hostExistWarn": "{host} existiert",
+            "existedTag": "EXISTIERT",
+            "disassociatedMsg": "Möchten Sie die Kategorien aller ausgewählten Sites löschen?",
+            "batchDeleteMsg": "Möchten Sie alle ausgewählten Sites löschen?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} wird aus den benutzerdefinierten Zusammenführen Regeln entfernt.",
+            "originPlaceholder": "Ursprüngliche Website",
+            "mergedPlaceholder": "Zusammengeführt",
+            "errorOrigin": "Das Format der Original-Website ist ungültig.",
+            "duplicateMsg": "Die Regel existiert bereits: {origin}",
+            "addConfirmMsg": "Für {origin} werden benutzerdefinierte Zusammenführungsregeln festgelegt",
+            "infoAlertTitle": "Auf dieser Seite können Sie Zusammenführen Regeln für die Zählung von Websites festlegen",
+            "infoAlert0": "Klicken Sie auf die Schaltfläche [Erstellen]. Die Eingabefelder der ursprünglichen Website und der zusammengeführten Website werden angezeigt. Füllen Sie die Regel aus und speichern Sie sie",
+            "infoAlert1": "Die ursprüngliche Website kann mit einer bestimmten Website oder einem regulären Ausdruck wie www.baidu.com, *.baidu.com, *.google.com.* gefüllt werden, um zu bestimmen, welche Websites beim Zusammenführen dieser Regel entsprechen",
+            "infoAlert2": "Die zusammengeführte Website kann mit einer bestimmten Site, einer Zahl oder einem Leerzeichen gefüllt werden",
+            "infoAlert3": "Eine Zahl gibt die Ebene der zusammengeführten Website an. Gibt es beispielsweise eine Regel „*.*.edu.cn >>> 3“, dann wird „www.hust.edu.cn“ als „hust.edu.cn“ zusammengeführt",
+            "infoAlert4": "Leer bedeutet, dass die ursprüngliche Website nicht zusammengeführt wird",
+            "infoAlert5": "Wenn keine Regel zutrifft, wird standardmäßig die Ebene vor {psl} verwendet",
+            "tagResult": {
+                "blank": "Nicht zusammenführen",
+                "level": "Level behalten {level}"
+            }
+        }
+    },
+    "fr": {
+        "genAliasConfirmMsg": "Compléter automatiquement les noms de sites par lots ?",
+        "column": {
+            "type": "Type de Site",
+            "alias": "Nom du site",
+            "cate": "Catégorie du site",
+            "icon": "Icône"
+        },
+        "typeInfo": {
+            "normal": "statistiques par nom de domaine",
+            "merged": "fusionner les statistiques de plusieurs noms de domaine connexes, et les règles de fusion peuvent être personnalisées",
+            "virtual": "comptez n'importe quelle URL au format Ant Pattern, vous pouvez ajouter un site personnalisé dans le coin supérieur droit"
+        },
+        "cate": {
+            "name": "Nom",
+            "relatedMsg": "Cette catégorie a été associée à {siteCount} sites et ne peut pas être supprimée",
+            "removeConfirm": "Confirmer la suppression de la catégorie : {category}?",
+            "batchChange": "Changer de catégorie",
+            "batchDisassociate": "Dissocier les catégories"
+        },
+        "form": {
+            "emptyAlias": "Veuillez entrer le nom du site",
+            "emptyHost": "Veuillez saisir l'URL du site"
+        },
+        "msg": {
+            "hostExistWarn": "{host} existe",
+            "existedTag": "EXISÉ",
+            "disassociatedMsg": "Voulez-vous effacer les catégories de tous les sites sélectionnés ?",
+            "batchDeleteMsg": "Voulez-vous supprimer tous les sites sélectionnés ?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} sera supprimé des règles de fusion personnalisées.",
+            "originPlaceholder": "Site original",
+            "mergedPlaceholder": "Fusionné",
+            "errorOrigin": "Le format du site original est invalide.",
+            "duplicateMsg": "La règle existe déjà : {origin}",
+            "addConfirmMsg": "Les règles de fusion personnalisées seront définies pour {origin}",
+            "infoAlertTitle": "Vous pouvez définir les règles de fusion lorsque vous comptez des sites sur cette page",
+            "infoAlert0": "Cliquez sur le bouton [Nouveau], les boîtes de saisie du site source et le site de fusion sera affiché, remplissez et enregistrez la règle",
+            "infoAlert1": "Le site d'origine peut être rempli avec un site spécifique ou une expression régulière, telle que www.baidu.com, *.baidu.com, *.google.com.*, pour déterminer quels sites correspondront à cette règle lors de la fusion",
+            "infoAlert2": "Le site fusionné peut être rempli avec un site spécifique, un numéro ou vide",
+            "infoAlert3": "Un nombre signifie le niveau du site fusionné. Par exemple, il existe une règle '*.*.edu.cn >>> 3', alors 'www.hust.edu.cn' sera fusionné avec 'hust.edu.cn'",
+            "infoAlert4": "Vide signifie que le site d'origine ne sera pas fusionné",
+            "infoAlert5": "Si aucune règle ne correspond, le niveau par défaut sera celui d'avant {psl}",
+            "tagResult": {
+                "blank": "Non Fusionner",
+                "level": "Garder le niveau {level}"
+            }
+        }
+    },
+    "ru": {
+        "genAliasConfirmMsg": "Нужно ли автоматически заполнить названия сайтов сериями?",
+        "column": {
+            "type": "Тип сайта",
+            "alias": "Название сайта",
+            "cate": "Категория сайта",
+            "icon": "Иконки"
+        },
+        "typeInfo": {
+            "normal": "статистика по доменному имени",
+            "merged": "статистика слияния нескольких связанных доменных имен, а также возможность настройки правил слияния",
+            "virtual": "подсчитайте любой URL в формате Ant Pattern, вы можете добавить пользовательский сайт в правом верхнем углу"
+        },
+        "cate": {
+            "name": "Наименование",
+            "relatedMsg": "Эта категория была связана с {siteCount} сайтами и не может быть удалена",
+            "removeConfirm": "Вы уверены, что хотите удалить категорию: {category}?",
+            "batchChange": "Изменить категории",
+            "batchDisassociate": "Отделить категории"
+        },
+        "form": {
+            "emptyAlias": "Введите название сайта",
+            "emptyHost": "Введите URL-адрес сайта"
+        },
+        "msg": {
+            "hostExistWarn": "{host} существует",
+            "existedTag": "ВЫПОЛНЕНО",
+            "disassociatedMsg": "Вы хотите очистить категории всех выбранных сайтов?",
+            "batchDeleteMsg": "Вы уверены, что хотите удалить все выбранные сайты?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} будет удален из настроенных правил слияния.",
+            "originPlaceholder": "Оригинальный сайт",
+            "mergedPlaceholder": "Соединено",
+            "errorOrigin": "Недопустимый формат оригинального сайта.",
+            "duplicateMsg": "Это правило уже существует: {origin}",
+            "addConfirmMsg": "Для {origin} будут установлены индивидуальные правила слияния",
+            "infoAlertTitle": "правила слияния при подсчете сайтов на этой странице",
+            "infoAlert0": "Нажмите кнопку [Новый], будут показаны поля ввода сайта источника и будут отображаться слияния, заполнять и сохранять правило",
+            "infoAlert1": "Исходный сайт может быть заполнен определенным сайтом или регулярным выражением, например www.baidu.com, *.baidu.com, *.google.com.*, чтобы определить, какие сайты будут соответствовать этому правилу при слиянии",
+            "infoAlert2": "Объединенный сайт может быть заполнен определенным сайтом, номером или пустым местом",
+            "infoAlert3": "Число означает уровень слияния сайта. Например, правило '*.*.edu.cn >>> 3', то 'www.hust.edu.cn' будет объединено с 'hust.edu.cn'",
+            "infoAlert4": "Пустое значение означает, что оригинальный сайт не будет объединён",
+            "infoAlert5": "Если правило не совпадает, оно будет по умолчанию на уровне до {psl}",
+            "tagResult": {
+                "blank": "Не объединять",
+                "level": "Сохранять уровень {level}"
+            }
+        }
+    },
+    "ar": {
+        "genAliasConfirmMsg": "هل ترغب في إكمال أسماء المواقع تلقائيًا على دفعات؟",
+        "column": {
+            "type": "نوع الموقع",
+            "alias": "اسم الموقع",
+            "cate": "فئة الموقع",
+            "icon": "الأيقونة"
+        },
+        "typeInfo": {
+            "normal": "إحصائيات حسب اسم النطاق",
+            "merged": "دمج إحصائيات أسماء النطاقات المرتبطة، مع إمكانية تخصيص قواعد الدمج",
+            "virtual": "احسب أي عنوان URL بتنسيق Ant Pattern، ويمكنك إضافة موقع مخصص في الزاوية اليمنى العليا"
+        },
+        "cate": {
+            "name": "الاسم",
+            "relatedMsg": "تم ربط هذه الفئة بمواقع {siteCount} ولا يمكن حذفها",
+            "removeConfirm": "تأكيد حذف الفئة: {category}؟",
+            "batchChange": "تغيير الفئات",
+            "batchDisassociate": "فصل الفئات"
+        },
+        "form": {
+            "emptyAlias": "الرجاء إدخال اسم الموقع",
+            "emptyHost": "الرجاء إدخال عنوان الموقع"
+        },
+        "msg": {
+            "hostExistWarn": "{host} موجود فعلًا",
+            "existedTag": "موجودة",
+            "disassociatedMsg": "هل تريد إخلاء فئات جميع المواقع المحددة؟",
+            "batchDeleteMsg": "هل تريد حذف جميع المواقع المحددة؟"
+        },
+        "merge": {
+            "removeConfirmMsg": "سيتم إزالة {origin} من قواعد الدمج المخصصة.",
+            "originPlaceholder": "الموقع الأصلي",
+            "mergedPlaceholder": "تم الدمج",
+            "errorOrigin": "تنسيق الموقع الأصلي غير صالح.",
+            "duplicateMsg": "القاعدة موجودة فعلًا: {origin}",
+            "addConfirmMsg": "سيتم تعيين قواعد الدمج المخصصة لـ {origin}",
+            "infoAlertTitle": "قواعد الدمج عند حساب المواقع الموجودة على هذه الصفحة",
+            "infoAlert0": "انقر فوق الزر [جديد]، سيتم عرض مربعات الإدخال الخاصة بموقع المصدر وموقع الدمج، املأ القاعدة واحفظها",
+            "infoAlert1": "يمكن ملء الموقع الأصلي بموقع معين أو تعبير عادي، مثل www.baidu.com، و*.baidu.com، و*.google.com.*، لتحديد المواقع التي ستطابق هذه القاعدة أثناء الدمج",
+            "infoAlert2": "يمكن ملء الموقع المدمج بموقع محدد أو رَقَم أو مساحة فارغة",
+            "infoAlert3": "يشير الرقم إلى مستوى الموقع المدمج. على سبيل المثال، هناك قاعدة '*.*.edu.cn >>> 3'، ثم سيتم دمج 'www.hust.edu.cn' في 'hust.edu.cn'",
+            "infoAlert4": "الفراغ يعني أن الموقع الأصلي لن يتم دمجه",
+            "infoAlert5": "إذا لم يتم مطابقة أي قاعدة، فسيتم تعيينها افتراضيًا على المستوى قبل {psl}",
+            "tagResult": {
+                "blank": "لا دمج",
+                "level": "الحفاظ على المستوى {level}"
+            }
+        }
+    },
+    "tr": {
+        "genAliasConfirmMsg": "Site adlarını toplu olarak otomatik olarak tamamlayacak mısınız?",
+        "column": {
+            "type": "Site Türü",
+            "alias": "Site Adı",
+            "cate": "Site Kategorisi",
+            "icon": "İkon"
+        },
+        "typeInfo": {
+            "normal": "alan adına göre istatistikler",
+            "merged": "birden fazla ilgili alan adının istatistiklerini birleştirir ve birleştirme kuralları özelleştirilebilir",
+            "virtual": "Ant Pattern formatındaki herhangi bir URL'yi saymak için, sağ üst köşeye özel bir site ekleyebilirsiniz"
+        },
+        "cate": {
+            "name": "Adı",
+            "relatedMsg": "Bu kategori {siteCount} siteyle ilişkilendirilmiştir ve silinemez",
+            "removeConfirm": "Kategoriyi silmek için onaylayın: {category}?",
+            "batchChange": "Kategorileri değiştir",
+            "batchDisassociate": "Kategorileri ayır"
+        },
+        "form": {
+            "emptyAlias": "Lütfen site adını girin",
+            "emptyHost": "Lütfen site URL'sini girin"
+        },
+        "msg": {
+            "hostExistWarn": "{host} zaten mevcut",
+            "existedTag": "MEVCUT",
+            "disassociatedMsg": "Seçilen tüm sitelerin kategorilerini temizlemek ister misiniz?",
+            "batchDeleteMsg": "Seçili tüm siteleri silmek istiyor musunuz?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} özelleştirilmiş birleştirme kurallarından kaldırılacaktır.",
+            "originPlaceholder": "Orijinal site",
+            "mergedPlaceholder": "Birleştirildi",
+            "errorOrigin": "Orijinal sitenin formatı geçersiz.",
+            "duplicateMsg": "Kural zaten mevcut: {origin}",
+            "addConfirmMsg": "{origin} için özelleştirilmiş birleştirme kuralları ayarlanacaktır",
+            "infoAlertTitle": "bu sayfadaki siteleri sayarken birleştirme kuralları",
+            "infoAlert0": "[Yeni] düğmesine tıklayın, kaynak sitenin ve birleştirme sitesinin giriş kutuları görüntülenecektir, kuralı doldurun ve kaydedin",
+            "infoAlert1": "Orijinal site, birleştirme sırasında bu kuralla eşleşecek siteleri belirlemek için www.baidu.com, *.baidu.com, *.google.com.* gibi belirli bir site veya düzenli ifade ile doldurulabilir",
+            "infoAlert2": "Birleştirilen site, belirli bir site, bir sayı veya boşluk ile doldurulabilir",
+            "infoAlert3": "Bir sayı, birleştirilen sitenin seviyesini ifade eder. Örneğin, ‘*.*.edu.cn >>> 3’ kuralı varsa, ‘www.hust.edu.cn’ sitesi ‘hust.edu.cn’ sitesiyle birleştirilir",
+            "infoAlert4": "Boşluk, orijinal sitenin birleştirilmeyeceği anlamına gelir",
+            "infoAlert5": "Eşleşen kural yoksa, varsayılan olarak {psl} öncesindeki seviyeye geçilir",
+            "tagResult": {
+                "blank": "Birleştirilemez",
+                "level": "Seviyeyi {level} koruyun"
+            }
+        }
+    },
+    "pl": {
+        "genAliasConfirmMsg": "Czy automatycznie uzupełniać nazwy witryny w seriach?",
+        "column": {
+            "type": "Typ witryny",
+            "alias": "Nazwa strony",
+            "cate": "Kategoria witryny",
+            "icon": "Ikona",
+            "white": "Whitelista",
+            "whiteInfo": "Witryny na białej liście nie są śledzone ani blokowane.",
+            "runtimeInfo": "Rejestruj czas, przez jaki strona internetowa jest otwarta. Nie wymaga, aby karta ze stroną/okno przeglądarki było aktywnie używane.",
+            "mediaTimeInfo": "Rejestruj czas odtwarzania dźwięku przez stronę internetową."
+        },
+        "typeInfo": {
+            "normal": "statystyki według nazwy domeny",
+            "merged": "łączenie statystyk wielu powiązanych nazw stron i reguły łączenia mogą być dostosowywane",
+            "virtual": "policz dowolny adres URL w formacie Ant Pattern, możesz dodać niestandardową stronę w prawym górnym rogu"
+        },
+        "cate": {
+            "name": "Nazwa",
+            "relatedMsg": "Ta kategoria została przypisana do witryn {siteCount} i nie może zostać usunięta",
+            "removeConfirm": "Potwierdzasz usunięcie kategorii: {category}?",
+            "batchChange": "Zmień kategorie",
+            "batchDisassociate": "Odłącz kategorie"
+        },
+        "form": {
+            "emptyAlias": "Wprowadź nazwę witryny",
+            "emptyHost": "Wprowadź adres URL witryny"
+        },
+        "msg": {
+            "hostExistWarn": "{host} istnieje",
+            "existedTag": "WYŁĄCZONE",
+            "disassociatedMsg": "Czy chcesz wyczyścić kategorie wszystkich wybranych witryn?",
+            "batchDeleteMsg": "Czy chcesz usunąć wszystkie wybrane witryny?"
+        },
+        "merge": {
+            "label": "Reguły scalania witryn",
+            "removeConfirmMsg": "{origin} zostanie usunięty ze spersonalizowanych reguł scalania.",
+            "originPlaceholder": "Oryginalna strona",
+            "mergedPlaceholder": "Scalony",
+            "errorOrigin": "Format oryginalnej strony jest nieprawidłowy.",
+            "duplicateMsg": "Ta reguła już istnieje: {origin}",
+            "addConfirmMsg": "Spersonalizowane reguły scalania zostaną ustawione dla {origin}",
+            "infoAlertTitle": "reguły scalania podczas liczenia witryn na tej stronie",
+            "infoAlert0": "Kliknij przycisk [New One], pola wprowadzania strony źródłowej oraz strony scalenia zostaną wyświetlone, wypełnij i zapisz regułę",
+            "infoAlert1": "Oryginalna strona może być wypełniona konkretną stroną lub wyrażeniem regularnym, takim jak *.baidu.com, *.google.com.*, aby określić, które witryny będą odpowiadać tej regule podczas scalania",
+            "infoAlert2": "Scalona witryna może być wypełniona określoną witryną, liczbą lub zostawiona pusta",
+            "infoAlert3": "Liczba oznacza poziom scalonej witryny. Na przykład istnieje reguła '*.*.edu.cn >>> 3', a następnie 'www.hust.edu.cn' zostanie połączona z 'hust.edu.cn'",
+            "infoAlert4": "Puste oznacza, że oryginalna strona nie zostanie połączona",
+            "infoAlert5": "Jeśli żadna reguła nie jest dopasowana, będzie domyślnie przed {psl}",
+            "tagResult": {
+                "blank": "Nie scalaj",
+                "level": "Zachowaj poziom {level}"
+            }
+        }
+    },
+    "it": {
+        "genAliasConfirmMsg": "Indica se completare automaticamente i nomi dei siti nei batch?",
+        "column": {
+            "type": "Site Type",
+            "alias": "Nome del sito",
+            "cate": "Categoria di Sito",
+            "icon": "Icone"
+        },
+        "typeInfo": {
+            "normal": "statistiche in base al nome dominio",
+            "merged": "fonde le statistiche di più nomi di dominio correlati, e le regole di fusione possono essere personalizzate",
+            "virtual": "conta qualsiasi URL in formato Ant Pattern, è possibile aggiungere un sito personalizzato nell'angolo in alto a destra"
+        },
+        "cate": {
+            "name": "Nome",
+            "relatedMsg": "Questa categoria è stata associata ai siti {siteCount} e non può essere eliminata",
+            "removeConfirm": "Confermi di voler eliminare la categoria: {category}?",
+            "batchChange": "Cambia categorie",
+            "batchDisassociate": "Dissocia categorie"
+        },
+        "form": {
+            "emptyAlias": "Inserisci il nome del sito",
+            "emptyHost": "Inserisci l'URL del sito"
+        },
+        "msg": {
+            "hostExistWarn": "{host} esiste",
+            "existedTag": "ESISTEVA",
+            "disassociatedMsg": "Vuoi cancellare le categorie di tutti i siti selezionati?",
+            "batchDeleteMsg": "Vuoi eliminare tutti i siti selezionati?"
+        },
+        "merge": {
+            "removeConfirmMsg": "{origin} Verrà rimosso dalle regole di unione personalizzate.",
+            "originPlaceholder": "Sito originale",
+            "mergedPlaceholder": "Uniti",
+            "errorOrigin": "Il formato del sito originale non è valido.",
+            "duplicateMsg": "La regola esiste già: {origin}",
+            "addConfirmMsg": "Verranno impostate regole di unione personalizzate per {origin}",
+            "infoAlertTitle": "le regole di unione quando si contano i siti su questa pagina",
+            "infoAlert0": "Fai clic sul pulsante [Nuovo]; verranno visualizzati i campi d'immissione relativi al sito di origine e al sito di unione; compila i campi e salva la regola",
+            "infoAlert1": "Il sito originale può essere compilato con un sito specifico o un'espressione regolare, ad esempio www.baidu.com, *.baidu.com, *.google.com*, per determinare quali siti saranno interessati da questa regola durante l'unione",
+            "infoAlert2": "Il sito unito può contenere il nome di un sito specifico, un numero o essere lasciato vuoto",
+            "infoAlert3": "Un numero indica il livello del sito a cui viene unito. Ad esempio, se esiste una regola del tipo '*.*.edu.cn >>> 3', allora 'www.hust.edu.cn' verrà unito a 'hust.edu.cn'",
+            "infoAlert4": "Vuoto significa che il sito originale non verrà unito",
+            "infoAlert5": "Se non viene individuata alcuna regola corrispondente, verrà utilizzato per impostazione predefinita il livello precedente {psl}",
+            "tagResult": {
+                "blank": "Non unite",
+                "level": "Mantiene Livello {level}"
+            }
+        }
+    }
+}

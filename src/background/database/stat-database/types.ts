@@ -1,0 +1,61 @@
+
+export type StatCondition = {
+    /**
+     * Date
+     * {y}{m}{d}
+     */
+    date?: string | [string?, string?]
+    /**
+     * Whether to include virtual sites
+     *
+     * @since 1.6.1
+     */
+    virtual?: boolean
+    /**
+     * Host or groupId, full match
+     */
+    keys?: string[] | string
+}
+
+export interface StatDatabase {
+    get(host: string, date: Date): Promise<tt4b.core.Row>
+    batchSelect(keys: tt4b.core.RowKey[]): Promise<tt4b.core.Row[]>
+    select(condition?: StatCondition): Promise<tt4b.core.Row[]>
+    /**
+     * Accumulate data
+     */
+    accumulate(host: string, date: Date | string, item: tt4b.core.Result): Promise<tt4b.core.Result>
+    batchAccumulate(data: Record<string, tt4b.core.Result>, date: Date | string): Promise<Record<string, tt4b.core.Result>>
+    delete(...rows: tt4b.core.RowKey[]): Promise<void>
+    /**
+     * Delete by host
+     *
+     * @param host host
+     * @param range date range, inclusive start and end, if null, delete all
+     * @return dates to deleted
+     */
+    deleteByHost(host: string, range?: string | [string?, string?]): Promise<void>
+    /**
+     * Delete group data
+     *
+     * @param groupId the id of group
+     * @param range date range, inclusive start and end, if null, delete all
+     */
+    deleteByGroup(groupId: number, range?: string | [string?, string?]): Promise<void>
+    /******* GROUP *******/
+    /**
+     * Accumulate data for tab group
+     */
+    accumulateGroup(groupId: number, date: Date | string, item: tt4b.core.Result): Promise<tt4b.core.Result>
+    selectGroup(condition?: StatCondition): Promise<tt4b.core.Row[]>
+    deleteGroup(...rows: [groupId: number, date: string][]): Promise<void>
+    /**
+     * Force update data with overwriting
+     */
+    forceUpdate(...rows: tt4b.core.Row[]): Promise<void>
+
+    /**
+     * Force update group data with overwriting
+     */
+    forceUpdateGroup(...rows: tt4b.core.Row[]): Promise<void>
+}

@@ -1,0 +1,78 @@
+/**
+ * Copyright (c) 2022-present Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { broadcast2Tabs, listTabs, sendMsg2Tab } from "@api/chrome/tab"
+import optionHolder from '@service/components/option-holder'
+import { getSite } from '@service/site-service'
+import { anyChanged } from '@util/lang'
+import { matches } from "@util/limit"
+import { extractHostname } from '@util/pattern'
+import { getStartOfDay, MILL_PER_DAY } from "@util/time"
+import alarmManager from "./alarm-manager"
+import MessageDispatcher from "./message-dispatcher"
+import {
+    createLimitRule, delayLimit, noticeLimitChanged, removeLimitRules, selectLimit, updateLimitRules,
+} from "./service/limit-service"
+
+function initDailyBroadcast() {
+    // Broadcast rules at the start of each day
+    alarmManager.setWhen(
+        'limit-daily-broadcast',
+        () => getStartOfDay(new Date()) + MILL_PER_DAY,
+        noticeLimitChanged,
+    )
+}
+
+function initOptionBroadcast() {
+    optionHolder.addChangeListener(async (newVal, oldVal) => {
+        if (!anyChanged(newVal, oldVal, 'limitCountdown', 'limitDelayDuration')) return
+        const { limitCountdown, limitDelayDuration } = newVal
+        await broadcast2Tabs('limitOptionChanged', { limitCountdown, limitDelayDuration })
+    })
+}
+
+const processAskHitVisit = async (item: tt4b.limit.Item) => {
+    let tabs = await listTabs()
+    const { cond } = item
+    for (const { id, url } of tabs) {
+        try {
+            if (!url || !matches(cond, url) || !id) continue
+
+            const visitHit = await sendMsg2Tab(id, "askVisitHit", item.id)
+            if (visitHit) return true
+        } catch {
+            // Ignored
+        }
+    }
+    return false
+}
+
+async function querySummary(): Promise<tt4b.limit.Summary | undefined> {
+    const tabs = await listTabs({ currentWindow: true, active: true })
+    const url = tabs[0]?.url
+    if (!url) return undefined
+
+    const { host } = extractHostname(url)
+    const site = await getSite({ host, type: 'normal' })
+    const items = await selectLimit({ url, effective: true })
+
+    return { url, site, items }
+}
+
+export default function init(dispatcher: MessageDispatcher) {
+    initDailyBroadcast()
+    initOptionBroadcast()
+
+    dispatcher
+        .register('limit.list', selectLimit)
+        .register('limit.delete', removeLimitRules)
+        .register('limit.update', updateLimitRules)
+        .register('limit.add', createLimitRule)
+        .register('limit.hitVisit', processAskHitVisit)
+        .register('limit.delay', delayLimit)
+        .register('limit.summary', querySummary)
+}

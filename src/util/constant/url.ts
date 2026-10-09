@@ -1,0 +1,129 @@
+/**
+ * Copyright (c) 2021-present Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { getUrl, getVersion } from "@api/chrome/runtime"
+import { locale } from "@i18n"
+import { BROWSER_MAJOR_VERSION, BROWSER_NAME, IS_ANDROID, IS_IOS, IS_LINUX, IS_MAC, IS_WINDOWS } from "./environment"
+
+export const FIREFOX_HOMEPAGE = 'https://addons.mozilla.org/firefox/addon/besttimetracker'
+export const CHROME_HOMEPAGE = 'https://chromewebstore.google.com/detail/time-tracker/dkdhhcbjijekmneelocdllcldcpmekmm'
+export const EDGE_HOMEPAGE = 'https://microsoftedge.microsoft.com/addons/detail/timer-the-web-time-is-e/fepjgblalcnepokjblgbgmapmlkgfahc'
+export const INSTALL_PAGE = 'https://time-tracker-4-browser.app/en/install'
+
+/**
+ * @since 0.4.0
+ */
+export const SOURCE_CODE_PAGE = 'https://github.com/sheepzh/time-tracker-4-browser'
+
+/**
+ * @since 1.9.4
+ */
+export const CHANGE_LOG_PAGE = 'https://github.com/sheepzh/time-tracker-4-browser/blob/main/CHANGELOG.md'
+
+const issueTemplatePage = (type: 'bug' | 'feature') => {
+    const template = type === 'bug' ? 'bug-report.yaml' : 'feature-request.yaml'
+    const version = `v${getVersion()}`
+    const browserVersion = BROWSER_MAJOR_VERSION
+    const os = [
+        IS_WINDOWS && 'Win',
+        IS_MAC && 'Mac',
+        IS_LINUX && 'Linux',
+        IS_ANDROID && 'Android',
+        IS_IOS && 'iOS',
+    ].filter(Boolean).join(',')
+    return `https://github.com/sheepzh/time-tracker-4-browser/issues/new?template=${template}&version=${version}&browser_version=${browserVersion}&os=${os}`
+}
+
+export const GITHUB_ISSUE_BUG = issueTemplatePage('bug')
+export const GITHUB_ISSUE_FEATURE = issueTemplatePage('feature')
+
+export const PRIVACY_PAGE = 'https://time-tracker-4-browser.app/en/privacy.html'
+
+export const LICENSE_PAGE = 'https://github.com/sheepzh/time-tracker-4-browser/blob/main/LICENSE'
+
+const UNINSTALL_QUESTIONNAIRE_EN = 'https://docs.google.com/forms/d/e/1FAIpQLSflhZAFTw1rTUjAEwgxqCaBuhLBBthwEK9fIjvmwWfITLSK9A/viewform?usp=sf_link'
+/**
+ * @since 0.9.6
+ */
+export const UNINSTALL_QUESTIONNAIRE: { [locale in tt4b.RequiredLocale]: string } & { [locale in tt4b.OptionalLocale]?: string } = {
+    zh_CN: 'https://www.wjx.cn/vj/YDgY9Yz.aspx',
+    zh_TW: 'https://docs.google.com/forms/d/e/1FAIpQLSdK93q-548dK-2naoS3DaArdc7tEGoUY9JQvaXP5Kpov8h6-A/viewform?usp=sf_link',
+    ja: 'https://docs.google.com/forms/d/e/1FAIpQLSdsB3onZuleNf6j7KJJLbcote647WV6yeUr-9m7Db5QXakfpg/viewform?usp=sf_link',
+    en: UNINSTALL_QUESTIONNAIRE_EN,
+}
+
+/**
+ * @since 0.2.2
+ */
+export function getAppPageUrl(route?: string, query?: any): string {
+    let url = getUrl('static/app.html')
+    route && (url += '#' + route)
+    const queries = query ? Object.entries(query).map(([k, v]) => `${k}=${v}`).join('&') : ''
+    queries && (url += '?' + queries)
+    return url
+}
+
+export const HOMEPAGE = "https://time-tracker-4-browser.app"
+const HOMEPAGE_LOCALES: tt4b.Locale[] = [
+    "zh_CN", "zh_TW", "en",
+    "ja", "de", "ru",
+    "fr", "es", "pt_PT",
+]
+
+export function getHomepageWithLocale(): string {
+    const homepageLocale: tt4b.Locale = HOMEPAGE_LOCALES.includes(locale) ? locale : "en"
+    return `${HOMEPAGE}/${homepageLocale}/`
+}
+
+/**
+ * @since 1.3.2
+ */
+export function getGuidePageUrl(): string {
+    return getHomepageWithLocale() + 'guide/start'
+}
+
+/**
+ * @since 0.9.3
+ */
+export const PSL_HOMEPAGE = 'https://publicsuffix.org/'
+
+/**
+ * The id of project on crowdin.com
+ *
+ * @since 1.4.0
+ */
+export const CROWDIN_PROJECT_ID = 516822
+
+/**
+ * The url of project on crowdin.com
+ *
+ * @since 1.4.0
+ */
+export const CROWDIN_HOMEPAGE = 'https://crowdin.com/project/timer-chrome-edge-firefox'
+
+const REVIEW_PAGES: Partial<Record<typeof BROWSER_NAME, string>> = {
+    firefox: FIREFOX_HOMEPAGE + "/reviews",
+    chrome: CHROME_HOMEPAGE + "/reviews",
+    edge: EDGE_HOMEPAGE,
+}
+
+/**
+ * @since 2.2.4
+ */
+export const REVIEW_PAGE = REVIEW_PAGES[BROWSER_NAME] ?? CHROME_HOMEPAGE + "/reviews"
+
+/**
+ * @since 3.7.13
+ */
+export const BUY_ME_A_COFFEE_PAGE = 'https://buymeacoffee.com/sheepysheep'
+
+/**
+ * Only available for simplified chinese users
+ *
+ * @since 4.0.0
+ */
+export const DONATION_PAGE = 'https://github.com/sheepzh/sheepzh?tab=contributing-ov-file'

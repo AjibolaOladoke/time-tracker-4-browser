@@ -1,0 +1,87 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+import { useLimitAction } from "@app/components/Limit/context"
+import { t } from '@app/locale'
+import { Delete, EditPen } from "@element-plus/icons-vue"
+import { Flex } from '@pages/components'
+import { ElButton, ElCard, ElDivider, ElTag, type TagProps } from "element-plus"
+import { defineComponent, type FunctionalComponent, type StyleValue } from "vue"
+import Rule from "./Rule"
+
+type Props = {
+    value: tt4b.limit.Item
+}
+
+const CARD_PADDING = 10
+
+const ALL_WEEKDAYS = t(msg => msg.calendar.weekDays).split('|')
+
+const Divider: FunctionalComponent<{}> = () => {
+    const marginInline = `${-CARD_PADDING}px`
+    const width = `calc(100% + ${CARD_PADDING * 2}px)`
+    return <ElDivider style={{ marginBlock: '6px', marginInline, width } satisfies StyleValue} />
+}
+
+const EffectiveDays: FunctionalComponent<{ weekdays?: number[] }> = ({ weekdays = [] }) => {
+    const weekdayNum = weekdays.length
+    const first = weekdays[0]
+    let text: string = ''
+    let type: TagProps['type'] | undefined = undefined
+    if (!weekdayNum || weekdayNum === 7) {
+        text = t(msg => msg.calendar.range.everyday)
+        type = 'success'
+    } else if (first !== undefined && weekdayNum === 1) {
+        text = ALL_WEEKDAYS[first] ?? ''
+    } else if (first !== undefined) {
+        text = `${ALL_WEEKDAYS[first] ?? ''}...${weekdayNum}`
+    }
+
+    return <ElTag size="small" type={type}>{text}</ElTag>
+}
+
+const _default = defineComponent<Props>(props => {
+    const { modify, remove } = useLimitAction()
+
+    return () => (
+        <ElCard shadow="never" bodyStyle={{ padding: `${CARD_PADDING}px` }}>
+            <Flex column gap={8}>
+                <Flex justify="space-between" align="center">
+                    <Flex align="center" gap={8}>
+                        <span style={{ fontWeight: 'bold' }}>
+                            {props.value.name ?? 'Unnamed'}
+                        </span>
+                        <EffectiveDays weekdays={props.value.weekdays} />
+                    </Flex>
+                    <ElButton
+                        size="small"
+                        type='danger'
+                        text
+                        icon={Delete}
+                        onClick={() => remove(props.value)}
+                    />
+                </Flex>
+                <Divider />
+                {/* Sites */}
+                <Flex gap={2}>
+                    {props.value.cond.map((c, idx) => <ElTag key={idx} type='info'>{c}</ElTag>)}
+                </Flex>
+                <Divider />
+                {/** Content */}
+                <Rule value={props.value} />
+                <Divider />
+                {/* Footer Button */}
+                <Flex justify='end'>
+                    <ElButton text icon={EditPen} onClick={() => modify(props.value)} size='small'>
+                        {t(msg => msg.button.modify)}
+                    </ElButton>
+                </Flex>
+            </Flex>
+        </ElCard>
+    )
+}, { props: ['value'] })
+
+export default _default

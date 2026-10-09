@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "editorconfig.editorconfig",
+        "foxundermoon.shell-format",
+    ],
+    "unwantedRecommendations": [
+        "esbenp.prettier-vscode",
+    ]
+}

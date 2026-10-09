@@ -1,0 +1,179 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { isSidePanelEnabled, setSidePanelEnabled, SIDE_PANEL_STATE_SUPPORTED_CONTROL } from '@api/chrome/sidePanel'
+import { OptionItem, OptionLines, OptionTag } from '@app/components/Option/components'
+import { useOption } from '@app/components/Option/useOption'
+import { type I18nKey, t } from '@app/locale'
+import { useRequest } from '@hooks'
+import { ALL_LOCALES, localeSameAsBrowser } from "@i18n"
+import localeMessages from "@i18n/message/common/locale"
+import { processDarkMode } from '@pages/util/dark-mode'
+import { IS_MOBILE } from "@util/constant/environment"
+import { DEFAULT_APPEARANCE } from "@util/constant/option"
+import { ElColorPicker, ElSelect, ElSlider, ElSwitch, ElTag, type TagProps } from "element-plus"
+import { computed, defineComponent, type StyleValue } from "vue"
+import type { CategoryInstance } from '../../types'
+import { confirmReload } from '../common'
+import DarkModeInput from "./DarkModeInput"
+
+const FOLLOW_BROWSER: I18nKey = msg => msg.shared.followBrowser
+
+const SORTED_LOCALES: tt4b.Locale[] = ALL_LOCALES
+    // Keep the locale same as this browser first position
+    .sort((a, _b) => a === localeSameAsBrowser ? -1 : 0)
+
+const allLocaleOptions = (["default", ...SORTED_LOCALES] satisfies tt4b.option.LocaleOption[]).map(locale => ({
+    value: locale,
+    label: locale === "default" ? t(FOLLOW_BROWSER) : localeMessages[locale].name
+}))
+
+function copy(target: tt4b.option.AppearanceOption, source: tt4b.option.AppearanceOption) {
+    target.displayBadgeText = source.displayBadgeText
+    target.badgeBgColor = source.badgeBgColor
+    target.locale = source.locale
+    target.printInConsole = source.printInConsole
+    target.darkMode = source.darkMode
+    target.darkModeTimeStart = source.darkModeTimeStart
+    target.darkModeTimeEnd = source.darkModeTimeEnd
+    target.chartAnimationDuration = source.chartAnimationDuration
+}
+
+const DEFAULT_SIDE_PANEL_ENABLED = true
+
+const _default = defineComponent((_props, ctx) => {
+    const { option } = useOption<tt4b.option.AppearanceOption>({
+        defaultValue: DEFAULT_APPEARANCE, copy,
+        onChange: processDarkMode,
+    })
+    const { data: sidePanelEnabled, refresh: refreshSidePanel } = useRequest(isSidePanelEnabled, {
+        defaultValue: DEFAULT_SIDE_PANEL_ENABLED,
+    })
+    const handleSidePanelChange = async (val: boolean) => {
+        await setSidePanelEnabled(val)
+        refreshSidePanel()
+    }
+
+    ctx.expose({
+        reset() {
+            handleSidePanelChange(DEFAULT_SIDE_PANEL_ENABLED)
+            copy(option, DEFAULT_APPEARANCE)
+        }
+    } satisfies CategoryInstance)
+
+    const handleLocaleChange = (newVal: tt4b.option.LocaleOption) => {
+        option.locale = newVal
+        // await maybe not work in Firefox, so calculate the real locale again
+        // GG Firefox
+        const realLocale: tt4b.Locale = newVal === "default"
+            ? localeSameAsBrowser
+            : newVal
+        confirmReload(realLocale)
+    }
+    const animaDurationTagType = computed<TagProps['type']>(() => {
+        const val = option.chartAnimationDuration
+        if (!val) return 'info'
+        if (val > DEFAULT_APPEARANCE.chartAnimationDuration) return 'warning'
+        return 'primary'
+    })
+
+    return () => (
+        <OptionLines>
+            <OptionItem label={msg => msg.option.appearance.darkMode.label} defaultValue={FOLLOW_BROWSER}>
+                <DarkModeInput
+                    modelValue={option.darkMode}
+                    startSecond={option.darkModeTimeStart}
+                    endSecond={option.darkModeTimeEnd}
+                    onChange={async (darkMode, range) => {
+                        option.darkMode = darkMode
+                        option.darkModeTimeStart = range?.[0]
+                        option.darkModeTimeEnd = range?.[1]
+                    }}
+                />
+            </OptionItem>
+            <OptionItem label={msg => msg.option.appearance.locale} defaultValue={FOLLOW_BROWSER}>
+                <ElSelect
+                    modelValue={option.locale}
+                    size="small"
+                    style={{ width: "120px" }}
+                    onChange={(newVal: tt4b.option.LocaleOption) => handleLocaleChange(newVal)}
+                    filterable
+                    options={allLocaleOptions}
+                />
+            </OptionItem>
+            {!IS_MOBILE && <>
+                <OptionItem
+                    label={msg => msg.option.appearance.displayBadge}
+                    defaultValue={DEFAULT_APPEARANCE.displayBadgeText}
+                >
+                    <ElSwitch
+                        modelValue={option.displayBadgeText}
+                        onChange={val => option.displayBadgeText = !!val}
+                    />
+                </OptionItem>
+                <OptionItem
+                    v-show={option.displayBadgeText}
+                    label={msg => msg.option.appearance.badgeBgColor}
+                >
+                    <ElColorPicker
+                        size="small"
+                        modelValue={option.badgeBgColor}
+                        onChange={val => option.badgeBgColor = val ?? undefined}
+                    />
+                </OptionItem>
+                <OptionItem
+                    label={msg => msg.option.appearance.printInConsole.label}
+                    defaultValue={DEFAULT_APPEARANCE.printInConsole}
+                    v-slots={{
+                        console: () => <OptionTag>{t(msg => msg.option.appearance.printInConsole.console)}</OptionTag>,
+                        info: () => <OptionTag>{t(msg => msg.option.appearance.printInConsole.info)}</OptionTag>,
+                    }}
+                >
+                    <ElSwitch
+                        modelValue={option.printInConsole}
+                        onChange={val => option.printInConsole = val as boolean}
+                    />
+                </OptionItem>
+            </>}
+            {SIDE_PANEL_STATE_SUPPORTED_CONTROL && (
+                <OptionItem
+                    label={msg => msg.option.appearance.sidePanel}
+                    defaultValue={DEFAULT_SIDE_PANEL_ENABLED}
+                >
+                    <ElSwitch
+                        modelValue={sidePanelEnabled.value}
+                        onChange={v => handleSidePanelChange(!!v)}
+                    />
+                </OptionItem>
+            )}
+            <OptionItem
+                label={msg => msg.option.appearance.animationDuration}
+                defaultValue={`${DEFAULT_APPEARANCE.chartAnimationDuration}ms`}
+            >
+                <ElSlider
+                    modelValue={option.chartAnimationDuration}
+                    showStops step={100}
+                    min={0} max={1500}
+                    size="small"
+                    persistent={false}
+                    style={{ width: '250px', display: 'inline-flex', marginInlineStart: '10px' } satisfies StyleValue}
+                    formatTooltip={val => `${val}ms`}
+                    onUpdate:modelValue={val => option.chartAnimationDuration = Array.isArray(val) ? (val[0] ?? 0) : val}
+                />
+                <ElTag
+                    size="small"
+                    type={animaDurationTagType.value}
+                    style={{ marginInlineStart: '12px' } satisfies StyleValue}
+                >
+                    {option.chartAnimationDuration}ms
+                </ElTag>
+            </OptionItem>
+        </OptionLines>
+    )
+})
+
+export default _default

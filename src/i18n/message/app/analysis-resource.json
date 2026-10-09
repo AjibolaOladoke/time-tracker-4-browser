@@ -1,0 +1,394 @@
+{
+    "zh_CN": {
+        "target": {
+            "site": "网站",
+            "cate": "类别"
+        },
+        "common": {
+            "focusTotal": "总计浏览时长",
+            "visitTotal": "总计访问次数",
+            "hostPlaceholder": "选择要分析的站点或类别",
+            "emptyDesc": "未选择站点或类别"
+        },
+        "summary": {
+            "title": "数据总览",
+            "day": "总计活跃天数",
+            "firstDay": "首次访问 {value}",
+            "calendarTitle": "最近一段时间的活跃度"
+        },
+        "trend": {
+            "title": "区间趋势",
+            "activeDay": "活跃天数",
+            "maxFocus": "单日最大浏览时长",
+            "averageFocus": "单日平均浏览时长",
+            "maxVisit": "单日最大访问次数",
+            "averageVisit": "单日平均访问次数",
+            "focusTitle": "浏览时长趋势",
+            "visitTitle": "访问次数趋势"
+        }
+    },
+    "zh_TW": {
+        "target": {
+            "site": "網站",
+            "cate": "類別"
+        },
+        "common": {
+            "focusTotal": "總瀏覽時數",
+            "visitTotal": "總造訪次數",
+            "hostPlaceholder": "搜尋想分析的網站",
+            "emptyDesc": "未選擇網站"
+        },
+        "summary": {
+            "title": "數據總覽",
+            "day": "總活躍天數",
+            "firstDay": "首次造訪 {value}",
+            "calendarTitle": "近期活動週曆"
+        },
+        "trend": {
+            "title": "時段趨勢",
+            "activeDay": "活躍天數",
+            "maxFocus": "單日最高瀏覽時數",
+            "averageFocus": "單日均瀏覽時數",
+            "maxVisit": "單日最高造訪次數",
+            "averageVisit": "單日均造訪次數",
+            "focusTitle": "瀏覽時數趨勢",
+            "visitTitle": "造訪次數趨勢"
+        }
+    },
+    "en": {
+        "target": {
+            "site": "Website",
+            "cate": "Category"
+        },
+        "common": {
+            "focusTotal": "Total browsing time",
+            "visitTotal": "Total visits",
+            "hostPlaceholder": "Select the site or category",
+            "emptyDesc": "No item selected"
+        },
+        "summary": {
+            "title": "Summary",
+            "day": "Total active days",
+            "firstDay": "First visit {value}",
+            "calendarTitle": "Activity in Recent Weeks"
+        },
+        "trend": {
+            "title": "Trends",
+            "activeDay": "Active days",
+            "maxFocus": "Daily maximum browsing time",
+            "averageFocus": "Daily average browsing time",
+            "maxVisit": "Daily maximum visits",
+            "averageVisit": "Daily average visits",
+            "focusTitle": "Browsing Time Trends",
+            "visitTitle": "Visit Trends"
+        }
+    },
+    "ja": {
+        "target": {
+            "site": "Web サイト",
+            "cate": "カテゴリー"
+        },
+        "common": {
+            "focusTotal": "総閲覧時間",
+            "visitTotal": "総訪問数",
+            "hostPlaceholder": "ドメイン名を検索",
+            "emptyDesc": "サイトは空です"
+        },
+        "summary": {
+            "title": "まとめ",
+            "day": "合計アクティブ日数",
+            "firstDay": "{value} を初めて訪問する",
+            "calendarTitle": "最近の活動"
+        },
+        "trend": {
+            "title": "レンジトレンド",
+            "activeDay": "アクティブな日",
+            "maxFocus": "1 日の最大閲覧時間",
+            "averageFocus": "1 日あたりの平均閲覧時間",
+            "maxVisit": "1 日あたりの最大訪問数",
+            "averageVisit": "1 日あたりの平均訪問数",
+            "focusTitle": "タイム トレンドの閲覧",
+            "visitTitle": "訪問数の傾向"
+        }
+    },
+    "pt_PT": {
+        "target": {
+            "site": "Site",
+            "cate": "Categoria"
+        },
+        "common": {
+            "focusTotal": "Tempo total de navegação",
+            "visitTotal": "Total de visitas",
+            "hostPlaceholder": "Selecione o site ou categoria",
+            "emptyDesc": "Nenhum item selecionado"
+        },
+        "summary": {
+            "title": "Resumo",
+            "day": "Total de dias ativos",
+            "firstDay": "Primeira visita {value}",
+            "calendarTitle": "Atividade nas últimas semanas"
+        },
+        "trend": {
+            "title": "Tendências",
+            "activeDay": "Dias ativos",
+            "maxFocus": "Máx. tempo navegação",
+            "averageFocus": "Méd. tempo navegação",
+            "maxVisit": "Máx. visitas",
+            "averageVisit": "Méd. visitas",
+            "focusTitle": "Tempo navegação",
+            "visitTitle": "Visitas"
+        }
+    },
+    "uk": {
+        "target": {
+            "site": "Вебсайт",
+            "cate": "Категорія"
+        },
+        "common": {
+            "focusTotal": "Загальний час перегляду",
+            "visitTotal": "Всього відвідувань",
+            "hostPlaceholder": "Знайти сайт для аналізу",
+            "emptyDesc": "Сайт не вибрано"
+        },
+        "summary": {
+            "title": "Підсумок",
+            "day": "Всього активних днів",
+            "firstDay": "Перше відвідування {value}",
+            "calendarTitle": "Активність за останні тижні"
+        },
+        "trend": {
+            "title": "Тенденції",
+            "activeDay": "Активні дні",
+            "maxFocus": "Максимальний час перегляду на день",
+            "averageFocus": "Середній час перегляду на день",
+            "maxVisit": "Максимальна кількість відвідувань на день",
+            "averageVisit": "Середня кількість відвідувань на день",
+            "focusTitle": "Тенденції перегляду",
+            "visitTitle": "Тенденції відвідувань"
+        }
+    },
+    "es": {
+        "target": {
+            "site": "Sitio web",
+            "cate": "Categoría"
+        },
+        "common": {
+            "focusTotal": "Tiempo total de navegación",
+            "visitTotal": "Total de visitas",
+            "hostPlaceholder": "Buscar un sitio para analizar",
+            "emptyDesc": "Ningún sitio seleccionado"
+        },
+        "summary": {
+            "title": "Resumen",
+            "day": "Total de días activos",
+            "firstDay": "Primera visita a {value}",
+            "calendarTitle": "Actividad en Semanas Recientes"
+        },
+        "trend": {
+            "title": "Tendencias",
+            "activeDay": "Días activos",
+            "maxFocus": "Tiempo máximo de navegación diario",
+            "averageFocus": "Tiempo promedio de navegación diario",
+            "maxVisit": "Visitas máximas diarias",
+            "averageVisit": "Visitas promedio diarias",
+            "focusTitle": "Tendencias del tiempo de navegación",
+            "visitTitle": "Tendencias de visitas"
+        }
+    },
+    "de": {
+        "target": {
+            "site": "Webseite",
+            "cate": "Kategorie"
+        },
+        "common": {
+            "focusTotal": "Gesamte Browsingzeit",
+            "visitTotal": "Gesamtbesuche",
+            "hostPlaceholder": "Suchen Sie nach einer Website zur Analyse",
+            "emptyDesc": "Keine Website ausgewählt"
+        },
+        "summary": {
+            "title": "Zusammenfassung",
+            "day": "Gesamtzahl der aktiven Tage",
+            "firstDay": "Erster Besuch {value}",
+            "calendarTitle": "Aktivität in den letzten Wochen"
+        },
+        "trend": {
+            "title": "Trends",
+            "activeDay": "Aktive Tage",
+            "maxFocus": "Tägliche maximale Surfzeit",
+            "averageFocus": "Tägliche durchschnittliche Surfzeit",
+            "maxVisit": "Tägliche maximale Besuche",
+            "averageVisit": "Tägliche durchschnittliche Besuche",
+            "focusTitle": "Durchsuchen von Zeittrends",
+            "visitTitle": "Besuchen Sie Trends"
+        }
+    },
+    "fr": {
+        "target": {
+            "site": "Site Web",
+            "cate": "Catégorie"
+        },
+        "common": {
+            "focusTotal": "Temps total de navigation",
+            "visitTotal": "Nombre total de visites",
+            "hostPlaceholder": "Chercher un site à analyser",
+            "emptyDesc": "Aucun site sélectionné"
+        },
+        "summary": {
+            "title": "Bilan général",
+            "day": "Nombre total de jours actifs",
+            "firstDay": "Première visite {value}",
+            "calendarTitle": "Activité des dernières semaines"
+        },
+        "trend": {
+            "title": "Tendances",
+            "activeDay": "Jours actifs",
+            "maxFocus": "Temps de navigation maximum quotidien",
+            "averageFocus": "Durée moyenne de navigation quotidienne",
+            "maxVisit": "Visites maximales quotidiennes",
+            "averageVisit": "Visites moyennes quotidiennes",
+            "focusTitle": "Tendances sur le temps de navigation",
+            "visitTitle": "Tendances de visite"
+        }
+    },
+    "ru": {
+        "target": {
+            "site": "Сайт",
+            "cate": "Категория"
+        },
+        "common": {
+            "focusTotal": "Общее время просмотра",
+            "visitTotal": "Всего посещений",
+            "hostPlaceholder": "Поиск сайта для анализа",
+            "emptyDesc": "Сайт не выбран"
+        },
+        "summary": {
+            "title": "Сводка",
+            "day": "Всего активных дней",
+            "firstDay": "Первое посещение {value}",
+            "calendarTitle": "Активность за последние недели"
+        },
+        "trend": {
+            "title": "Тренды",
+            "activeDay": "Активные дни",
+            "maxFocus": "Ежедневное максимальное время просмотра",
+            "averageFocus": "Ежедневное среднее время просмотра",
+            "maxVisit": "Ежедневные максимальные посещения",
+            "averageVisit": "Ежедневные средние посещения",
+            "focusTitle": "Время просмотра трендов",
+            "visitTitle": "Посетить тренды"
+        }
+    },
+    "ar": {
+        "target": {
+            "site": "الموقع الإلكتروني",
+            "cate": "الفئة"
+        },
+        "common": {
+            "focusTotal": "إجمالي وقت التصفح",
+            "visitTotal": "مجموع الزيارات",
+            "hostPlaceholder": "ابحث عن موقع لتحليله",
+            "emptyDesc": "لم يتم تحديد الموقع"
+        },
+        "summary": {
+            "title": "ملخص",
+            "day": "مجموع الأيام النشطة",
+            "firstDay": "الزيارة الأولى {value}",
+            "calendarTitle": "النشاط في الأسابيع الأخيرة"
+        },
+        "trend": {
+            "title": "الاتجاهات",
+            "activeDay": "أيام نشطة",
+            "maxFocus": "الحد الأقصى لوقت التصفح اليومي",
+            "averageFocus": "متوسط ​​وقت التصفح اليومي",
+            "maxVisit": "الحد الأقصى للزيارات اليومية",
+            "averageVisit": "متوسط ​​الزيارات اليومية",
+            "focusTitle": "اتجاهات وقت التصفح",
+            "visitTitle": "زيارة الاتجاهات"
+        }
+    },
+    "tr": {
+        "target": {
+            "site": "Web Sitesi",
+            "cate": "Kategori"
+        },
+        "common": {
+            "focusTotal": "Toplam gezinme süresi",
+            "visitTotal": "Toplam Ziyaretler",
+            "hostPlaceholder": "Site veya kategoriyi seçin",
+            "emptyDesc": "Seçilen öğe yok"
+        },
+        "summary": {
+            "title": "Özet",
+            "day": "Toplam aktif gün",
+            "firstDay": "İlk ziyaret {value}",
+            "calendarTitle": "Son Haftalarda Gerçekleştirilen Aktiviteler"
+        },
+        "trend": {
+            "title": "Eğilimler",
+            "activeDay": "Aktif Günler",
+            "maxFocus": "Günlük maksimum gezinme süresi",
+            "averageFocus": "Günlük ortalama gezinme süresi",
+            "maxVisit": "Günlük maksimum ziyaret sayısı",
+            "averageVisit": "Günlük ortalama ziyaret sayısı",
+            "focusTitle": "Gezinme Zamanı Eğilimleri",
+            "visitTitle": "Ziyaret Eğilimleri"
+        }
+    },
+    "pl": {
+        "target": {
+            "site": "Strona",
+            "cate": "Kategoria"
+        },
+        "common": {
+            "focusTotal": "Całkowity czas przeglądania",
+            "visitTotal": "Łącznie wizyt",
+            "hostPlaceholder": "Wyszukaj stronę do analizy",
+            "emptyDesc": "Nie wybrano strony"
+        },
+        "summary": {
+            "title": "Podsumowanie",
+            "day": "Całkowita liczba dni aktywnych",
+            "firstDay": "Pierwsza wizyta {value}",
+            "calendarTitle": "Aktywność w ostatnich tygodniach"
+        },
+        "trend": {
+            "title": "Trendy",
+            "activeDay": "Aktywnych dni",
+            "maxFocus": "Maksymalny dzienny czas przeglądania",
+            "averageFocus": "Średni dzienny czas przeglądania",
+            "maxVisit": "Maksymalna dzienna ilość wizyt",
+            "averageVisit": "Średnia dzienna ilość wizyt",
+            "focusTitle": "Trendy czasu przeglądania",
+            "visitTitle": "Trendy wizyt"
+        }
+    },
+    "it": {
+        "target": {
+            "site": "Sito web",
+            "cate": "Categoria"
+        },
+        "common": {
+            "focusTotal": "Tempo totale di navigazione",
+            "visitTotal": "Visite totali",
+            "hostPlaceholder": "Cerca un sito da analizzare",
+            "emptyDesc": "Nessun sito selezionato"
+        },
+        "summary": {
+            "title": "Riepilogo",
+            "day": "Giorni attivi in totale",
+            "firstDay": "Prima visita {value}",
+            "calendarTitle": "Attività nelle ultime settimane"
+        },
+        "trend": {
+            "title": "Tendenze",
+            "activeDay": "Giorni attivi",
+            "maxFocus": "Tempo di navigazione massimo giornaliero",
+            "averageFocus": "Tempo medio di navigazione giornaliero",
+            "maxVisit": "Visite massime giornaliere",
+            "averageVisit": "Visite medie giornaliere",
+            "focusTitle": "Tendenze di Navigazione nel periodo",
+            "visitTitle": "Tendenze Di Visite"
+        }
+    }
+}

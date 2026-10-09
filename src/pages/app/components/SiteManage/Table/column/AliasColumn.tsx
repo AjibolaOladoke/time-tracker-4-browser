@@ -1,0 +1,74 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { getInitialAlias, modifySite } from "@api/sw/site"
+import Editable from "@app/components/common/Editable"
+import { t } from '@app/locale'
+import { MagicStick } from "@element-plus/icons-vue"
+import { useManualRequest } from '@hooks'
+import { Flex } from '@pages/components'
+import { identifySiteKey } from "@util/site"
+import { ElIcon, ElPopconfirm, ElTableColumn, ElText } from "element-plus"
+import { defineComponent, type StyleValue } from "vue"
+
+type Props = {
+    onFillAlias: NoArgCallback
+    onChanged: NoArgCallback
+}
+
+const AliasColumn = defineComponent<Props>(props => {
+    const { refresh: doChange } = useManualRequest((row: tt4b.site.SiteInfo, alias: string | undefined) => {
+        const { type, host, iconUrl } = row
+        return modifySite({ type, host, alias, iconUrl })
+    }, { onSuccess: props.onChanged })
+
+    const genInitialAlias = async ({ host, type, alias }: tt4b.site.SiteInfo) => {
+        if (alias) return alias
+        if (type === 'normal') return await getInitialAlias(host)
+        return undefined
+    }
+
+    return () => (
+        <ElTableColumn
+            minWidth={160}
+            align="center"
+            v-slots={{
+                header: () => (
+                    <Flex justify="center" align="center" gap={4}>
+                        <span>{t(msg => msg.siteManage.column.alias)}</span>
+                        <ElPopconfirm
+                            title={t(msg => msg.siteManage.genAliasConfirmMsg)}
+                            width={400}
+                            onConfirm={props.onFillAlias}
+                            v-slots={{
+                                reference: () => (
+                                    <Flex height='100%'>
+                                        <ElText type="primary" style={{ cursor: 'pointer' } satisfies StyleValue}>
+                                            <ElIcon color="primary">
+                                                <MagicStick />
+                                            </ElIcon>
+                                        </ElText>
+                                    </Flex>
+                                )
+                            }}
+                        />
+                    </Flex>
+                ),
+                default: ({ row }: { row: tt4b.site.SiteInfo }) => (
+                    <Editable
+                        key={`${identifySiteKey(row)}_${row.alias}`}
+                        modelValue={row.alias}
+                        initialValue={() => genInitialAlias(row)}
+                        onChange={val => doChange(row, val)}
+                    />
+                )
+            }}
+        />
+    )
+}, { props: ['onChanged', 'onFillAlias'] })
+
+export default AliasColumn

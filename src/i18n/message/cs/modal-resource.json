@@ -1,0 +1,94 @@
+{
+    "zh_CN": {
+        "defaultPrompt": "古希腊时间与浏览器之神正在阻止您访问该页面",
+        "delay": "延长{n}分钟",
+        "browsingTime": "当前浏览时长",
+        "ruleDetail": "规则详情",
+        "pomodoroActive": "番茄钟已开启",
+        "focusActive": "深度专注已开启"
+    },
+    "en": {
+        "defaultPrompt": "This page was blocked!",
+        "delay": "{n} more minutes",
+        "browsingTime": "Browsing time",
+        "ruleDetail": "Rule details",
+        "pomodoroActive": "Pomodoro active",
+        "focusActive": "Focus active"
+    },
+    "ja": {
+        "defaultPrompt": "このページはブロックされました!",
+        "delay": "{n}分延長",
+        "browsingTime": "閲覧時間",
+        "ruleDetail": "ルール詳細"
+    },
+    "zh_TW": {
+        "defaultPrompt": "古希臘時間與瀏覽器之神暫時封鎖此頁面",
+        "delay": "延長{n}分鐘",
+        "browsingTime": "目前瀏覽時長",
+        "ruleDetail": "規則詳情"
+    },
+    "pt_PT": {
+        "defaultPrompt": "Esta página foi bloqueada!",
+        "delay": "Mais {n} minutos",
+        "browsingTime": "Tempo de Navegação",
+        "ruleDetail": "Detalhes da Regra"
+    },
+    "uk": {
+        "defaultPrompt": "Цю сторінку заблоковано!",
+        "delay": "Ще {n} хвилин",
+        "browsingTime": "Час перегляду",
+        "ruleDetail": "Подробиці правила"
+    },
+    "fr": {
+        "defaultPrompt": "Cette page a été bloquée !",
+        "delay": "{n} minutes supplémentaires",
+        "browsingTime": "Temps de navigation",
+        "ruleDetail": "Détails des règles",
+        "pomodoroActive": "Pomodoro est activé",
+        "focusActive": "Focus activé"
+    },
+    "es": {
+        "defaultPrompt": "¡Esta página fue bloqueada!",
+        "delay": "{n} minutos más",
+        "browsingTime": "Tiempo de navegación",
+        "ruleDetail": "Detalles de la regla"
+    },
+    "de": {
+        "defaultPrompt": "Diese Seite wurde gesperrt!",
+        "delay": "Noch {n} Minuten",
+        "browsingTime": "Browsing-Zeit",
+        "ruleDetail": "Regeldetails"
+    },
+    "ru": {
+        "defaultPrompt": "Эта страница заблокирована!",
+        "delay": "Ещё {n} минут",
+        "browsingTime": "Время просмотра",
+        "ruleDetail": "Подробности правила"
+    },
+    "ar": {
+        "defaultPrompt": "تم حظر هذه الصفحة!",
+        "delay": "{n} دقائق إضافية",
+        "browsingTime": "وقت التصفح",
+        "ruleDetail": "تفاصيل القاعدة"
+    },
+    "tr": {
+        "defaultPrompt": "Bu sayfa engellendi!",
+        "delay": "{n} dakika daha",
+        "browsingTime": "Gezinme süresi",
+        "ruleDetail": "Kural Detayları"
+    },
+    "pl": {
+        "defaultPrompt": "Ta strona została zablokowana!",
+        "delay": "jeszcze {n} minut",
+        "browsingTime": "Czas przeglądania",
+        "ruleDetail": "Szczegóły zasad",
+        "pomodoroActive": "Pomodoro aktywne",
+        "focusActive": "Koncentracja aktywna"
+    },
+    "it": {
+        "defaultPrompt": "Questa pagina è stata bloccata!",
+        "delay": "{n} altri minuti",
+        "browsingTime": "Tempo di navigazione",
+        "ruleDetail": "Dettagli regola"
+    }
+}

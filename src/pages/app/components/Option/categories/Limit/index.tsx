@@ -1,0 +1,239 @@
+/**
+ * Copyright (c) 2023 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+import { OptionItem, OptionLines } from '@app/components/Option/components'
+import { useOption } from "@app/components/Option/useOption"
+import { t } from '@app/locale'
+import { processVerification } from "@app/util/limit"
+import { Edit } from "@element-plus/icons-vue"
+import { css } from '@emotion/css'
+import { locale } from '@i18n'
+import { DEFAULT_LIMIT } from "@util/constant/option"
+import { ElButton, ElInput, ElInputNumber, ElMessage, ElMessageBox, ElSelect, ElSwitch, useNamespace } from "element-plus"
+import { defineComponent, FunctionalComponent, type StyleValue } from "vue"
+import type { CategoryInstance } from '../../types'
+import { use2faSetup } from './use2faSetup'
+import { usePswEdit } from "./usePswEdit"
+import { useVerify } from "./useVerify"
+
+const useLevelSelectStyle = () => {
+    const selectNs = useNamespace('select')
+    const localWidth: Partial<Record<tt4b.Locale, number>> = {
+        en: 330,
+        uk: 330,
+        zh_CN: 210,
+        zh_TW: 210,
+    }
+    const width = localWidth[locale] ?? 370
+
+    const cls = css`
+        & .${selectNs.e('wrapper')} {
+            width: 100% !important;
+        }
+    `
+
+    return { width, cls }
+}
+
+const ALL_LEVEL: tt4b.limit.RestrictionLevel[] = [
+    'nothing',
+    'verification',
+    'password',
+    '2fa',
+    'strict',
+]
+
+const ALL_DIFF: tt4b.limit.VerificationDifficulty[] = [
+    'easy',
+    'hard',
+    'disgusting',
+]
+
+function copy(target: tt4b.option.LimitOption, source: Readonly<tt4b.option.LimitOption>) {
+    target.limitPrompt = source.limitPrompt
+    target.limitLevel = source.limitLevel
+    target.limitPassword = source.limitPassword
+    target.limitVerifyDifficulty = source.limitVerifyDifficulty
+    target.limitReminder = source.limitReminder
+    target.limitReminderDuration = source.limitReminderDuration
+    target.limitDelayDuration = source.limitDelayDuration
+    target.limitCountdown = source.limitCountdown
+}
+
+function reset(target: tt4b.option.LimitOption) {
+    const defaultValue: MakeOptional<
+        tt4b.option.LimitOption, 'limitPassword' | 'limitVerifyDifficulty' | 'limitReminderDuration'
+    > = structuredClone(DEFAULT_LIMIT)
+    // Not to reset limitPassword
+    delete defaultValue.limitPassword
+    // Not to reset difficulty
+    delete defaultValue.limitVerifyDifficulty
+    // Not to reset notification duration
+    delete defaultValue.limitReminderDuration
+    Object.entries(defaultValue).forEach(([key, val]) => (target as any)[key] = val)
+}
+
+const confirm4Strict = async (): Promise<void> => {
+    const title = t(msg => msg.option.limit.level.strictTitle)
+    const content = t(msg => msg.option.limit.level.strictContent)
+    await ElMessageBox.confirm(content, title, {
+        type: "warning",
+        confirmButtonText: t(msg => msg.button.confirm),
+        cancelButtonText: t(msg => msg.button.cancel),
+    })
+}
+
+const TestButton: FunctionalComponent<{ onClick: NoArgCallback }> = props => (
+    <ElButton
+        size="small"
+        style={{ height: '28px', marginInlineStart: '5px' } satisfies StyleValue}
+        onClick={props.onClick}
+    >
+        {t(msg => msg.button.test)}
+    </ElButton>
+)
+
+const _default = defineComponent((_, ctx) => {
+    const { option } = useOption<tt4b.option.LimitOption>({ defaultValue: DEFAULT_LIMIT, copy })
+    const { verified, verify } = useVerify(option, true)
+    const { modifyPsw } = usePswEdit({ reset: () => option.limitPassword })
+    const { setup2fa } = use2faSetup()
+
+    ctx.expose({
+        reset: () => verify().then(() => reset(option)).catch(() => { })
+    } satisfies CategoryInstance)
+
+    const handleLevelChange = (val: tt4b.limit.RestrictionLevel) => {
+        verify().then(async () => {
+            if (val === "strict") {
+                await confirm4Strict()
+            } else if (val === '2fa') {
+                await setup2fa()
+            } else if (val === "password") {
+                option.limitPassword = await modifyPsw()
+            }
+            option.limitLevel = val
+        }).catch(e => console.warn("Failed to verify", e))
+    }
+
+    const handlePswEdit = async () => {
+        verify().then(async () => {
+            option.limitPassword = await modifyPsw()
+            ElMessage.success(t(msg => msg.operation.successMsg))
+        }).catch(e => console.warn("Failed to verify", e))
+    }
+
+    const handleDurationChange = (val: number | undefined) => {
+        if (typeof val !== "number") return
+        verify()
+            .then(() => option.limitDelayDuration = val)
+            .catch(e => console.warn("Failed to verify", e))
+    }
+
+    const handleTest = () => processVerification(option).then(() => ElMessage.success('Valid!')).catch(console.warn)
+
+    const levelSelectStyle = useLevelSelectStyle()
+
+    return () => <OptionLines>
+        <OptionItem
+            label={msg => msg.option.limit.unblockDuration}
+            defaultValue={DEFAULT_LIMIT.limitDelayDuration}
+        >
+            <ElInputNumber
+                modelValue={option.limitDelayDuration}
+                size="small" min={1} max={20}
+                style={{ width: "80px" } satisfies StyleValue}
+                onChange={handleDurationChange}
+            />
+        </OptionItem>
+        <OptionItem
+            label={msg => msg.option.limit.countdown}
+            defaultValue={DEFAULT_LIMIT.limitCountdown}
+        >
+            <ElSwitch
+                modelValue={option.limitCountdown}
+                onChange={val => option.limitCountdown = !!val}
+            />
+        </OptionItem>
+        <OptionItem
+            label={msg => msg.option.limit.reminder}
+            defaultValue={DEFAULT_LIMIT.limitReminder}
+            v-slots={{
+                default: () => (
+                    <ElSwitch
+                        modelValue={option.limitReminder}
+                        onChange={val => option.limitReminder = !!val}
+                    />
+                ),
+                minInput: () => (
+                    <ElInputNumber
+                        disabled={!option.limitReminder}
+                        modelValue={option.limitReminderDuration}
+                        onChange={val => val && (option.limitReminderDuration = val)}
+                        min={1} max={20} size="small"
+                        style={{ width: "80px" } satisfies StyleValue}
+                    />
+                ),
+            }}
+        />
+        <OptionItem
+            label={msg => msg.option.limit.level.label}
+            defaultValue={t(msg => msg.option.limit.level[DEFAULT_LIMIT.limitLevel])}
+        >
+            <ElSelect
+                modelValue={option.limitLevel}
+                size="small"
+                class={levelSelectStyle.cls}
+                style={{ width: `${levelSelectStyle.width}px` }}
+                onChange={handleLevelChange}
+                options={ALL_LEVEL.map(value => ({ value, label: t(msg => msg.option.limit.level[value]) }))}
+            />
+            {option.limitLevel === '2fa' && <TestButton onClick={handleTest} />}
+        </OptionItem>
+        <OptionItem
+            v-show={option.limitLevel === "password"}
+            label={msg => msg.option.limit.level.passwordLabel}
+        >
+            <ElInput
+                modelValue={option.limitPassword}
+                size="small"
+                type="password"
+                showPassword={verified.value}
+                style={{ width: "300px" }}
+                v-slots={{
+                    append: () => <ElButton icon={Edit} onClick={handlePswEdit} />,
+                }}
+            />
+        </OptionItem>
+        <OptionItem
+            v-show={option.limitLevel === "verification"}
+            label={msg => msg.option.limit.level.verificationLabel}
+            defaultValue={t(msg => (msg.option.limit.level as any)[DEFAULT_LIMIT.limitVerifyDifficulty])}
+        >
+            <ElSelect
+                modelValue={option.limitVerifyDifficulty}
+                size="small"
+                onChange={(val: tt4b.limit.VerificationDifficulty) => verify()
+                    .then(() => option.limitVerifyDifficulty = val)
+                    .catch(console.warn)
+                }
+                options={ALL_DIFF.map(value => ({ value, label: t(msg => msg.option.limit.level.verificationDifficulty[value]) }))}
+            />
+            <TestButton onClick={handleTest} />
+        </OptionItem>
+        <OptionItem label={msg => msg.option.limit.prompt}>
+            <ElInput
+                modelValue={option.limitPrompt}
+                size="small"
+                onInput={val => option.limitPrompt = val}
+                placeholder={t(msg => msg.limitModal.defaultPrompt)}
+                style={{ width: "280px" }}
+            />
+        </OptionItem>
+    </OptionLines>
+})
+
+export default _default

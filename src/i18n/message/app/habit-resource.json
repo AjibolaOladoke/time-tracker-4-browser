@@ -1,0 +1,534 @@
+{
+    "zh_CN": {
+        "common": {
+            "focusAverage": "平均每天 {value}"
+        },
+        "period": {
+            "title": "不同时段的访问习惯",
+            "busiest": "每天最繁忙时段",
+            "idle": "最长空闲时段",
+            "chartType": {
+                "average": "日均",
+                "trend": "趋势",
+                "stack": "累积"
+            },
+            "sizes": {
+                "fifteen": "每十五分钟统计一次",
+                "halfHour": "每半小时统计一次",
+                "hour": "每一小时统计一次",
+                "twoHour": "每两小时统计一次"
+            }
+        },
+        "site": {
+            "title": "网站访问习惯",
+            "histogramTitle": "最长访问 TOP {n}",
+            "exclusiveToday": "今天的数据不计入平均值",
+            "countTotal": "总计访问次数/网站数",
+            "siteAverage": "平均每天访问 {value} 个网站",
+            "distribution": {
+                "title": "日均访问频率分布",
+                "aveTime": "日平均浏览时间",
+                "aveVisit": "日平均访问次数",
+                "tooltip": "共 {value} 个网站"
+            },
+            "trend": {
+                "title": "访问日趋势",
+                "siteCount": "网站数"
+            }
+        }
+    },
+    "zh_TW": {
+        "common": {
+            "focusAverage": "平均每日 {value}"
+        },
+        "period": {
+            "title": "不同時段的使用習慣",
+            "busiest": "每日最忙碌時段",
+            "idle": "最長閒置時段",
+            "chartType": {
+                "average": "日平均",
+                "trend": "趨勢線",
+                "stack": "堆疊圖"
+            },
+            "sizes": {
+                "fifteen": "15分鐘區間",
+                "halfHour": "30分鐘區間",
+                "hour": "1小時區間",
+                "twoHour": "2小時區間"
+            }
+        },
+        "site": {
+            "title": "網站使用習慣",
+            "histogramTitle": "最常造訪 TOP {n}",
+            "exclusiveToday": "今日資料不列入平均計算",
+            "countTotal": "總造訪次數/網站數量",
+            "siteAverage": "平均每日造訪 {value} 個網站",
+            "distribution": {
+                "title": "每日平均頻率分佈",
+                "aveTime": "平均瀏覽時間",
+                "aveVisit": "平均瀏覽次數",
+                "tooltip": "共 {value} 個網站"
+            },
+            "trend": {
+                "title": "每日變化趨勢",
+                "siteCount": "網站數量"
+            }
+        }
+    },
+    "en": {
+        "common": {
+            "focusAverage": "Average {value} per day"
+        },
+        "period": {
+            "title": "Habit of time periods",
+            "busiest": "Busiest time of day",
+            "idle": "Longest idle period",
+            "chartType": {
+                "average": "Daily average",
+                "trend": "Trend",
+                "stack": "Stack"
+            },
+            "sizes": {
+                "fifteen": "Per 15 minutes",
+                "halfHour": "Per half hour",
+                "hour": "Per one hour",
+                "twoHour": "Per two hours"
+            }
+        },
+        "site": {
+            "title": "Habit of websites",
+            "histogramTitle": "TOP {n} most visited",
+            "exclusiveToday": "Today's data is not included in the average",
+            "countTotal": "Total visits/sites",
+            "siteAverage": "Average visits to {value} websites per day",
+            "distribution": {
+                "title": "Daily average frequency distribution",
+                "aveTime": "Average daily browsing time",
+                "aveVisit": "Average daily visit count",
+                "tooltip": "Total {value} websites"
+            },
+            "trend": {
+                "title": "Daily trends",
+                "siteCount": "Website count"
+            }
+        }
+    },
+    "ja": {
+        "common": {
+            "focusAverage": "1日あたりの平均 {value}"
+        },
+        "period": {
+            "title": "期間の習慣",
+            "busiest": "一日の中で一番の時間",
+            "idle": "最も長いアイドル期間",
+            "chartType": {
+                "average": "日平均",
+                "trend": "トレンド",
+                "stack": "スタック"
+            },
+            "sizes": {
+                "fifteen": "15分で統計",
+                "halfHour": "30分で統計",
+                "hour": "1時間ごとの統計",
+                "twoHour": "2時間ごとの統計"
+            }
+        },
+        "site": {
+            "title": "ウェブサイトの習慣について",
+            "histogramTitle": "トップ {n} が最も多く訪れた",
+            "exclusiveToday": "今日のデータは平均に含まれていません",
+            "countTotal": "総訪問数/サイト",
+            "siteAverage": "1日あたりの平均訪問数 {value}",
+            "distribution": {
+                "title": "毎日の平均頻度分布",
+                "aveTime": "毎日の平均閲覧時間",
+                "aveVisit": "毎日の平均訪問回数",
+                "tooltip": "合計 {value} ウェブサイト数"
+            },
+            "trend": {
+                "title": "日々のトレンド",
+                "siteCount": "ウェブサイト数"
+            }
+        }
+    },
+    "pt_PT": {
+        "common": {
+            "focusAverage": "Média diária: {value}"
+        },
+        "period": {
+            "title": "Hábitos por períodos",
+            "busiest": "Período mais ativo",
+            "idle": "Período mais inativo",
+            "chartType": {
+                "average": "Média diária",
+                "trend": "Tendência",
+                "stack": "Agrupado"
+            },
+            "sizes": {
+                "fifteen": "A cada 15 minutos",
+                "halfHour": "A cada meia hora",
+                "hour": "A cada hora",
+                "twoHour": "A cada 2 horas"
+            }
+        },
+        "site": {
+            "title": "Hábitos de websites",
+            "histogramTitle": "TOP {n} mais visitados",
+            "exclusiveToday": "Dados de hoje não incluídos na média",
+            "countTotal": "Total de visitas/sites",
+            "siteAverage": "Média diária: {value} sites visitados",
+            "distribution": {
+                "title": "Distribuição de frequência média",
+                "aveTime": "Tempo médio de navegação",
+                "aveVisit": "Média diária de visitas",
+                "tooltip": "Total: {value} sites"
+            },
+            "trend": {
+                "title": "Tendências diárias",
+                "siteCount": "Número de websites"
+            }
+        }
+    },
+    "uk": {
+        "common": {
+            "focusAverage": "В середньому {value} на день"
+        },
+        "period": {
+            "title": "Проміжки часу",
+            "busiest": "Найзавантаженіший час доби",
+            "idle": "Найдовший період бездіяльності",
+            "chartType": {
+                "average": "Середнє за день",
+                "trend": "Тенденція",
+                "stack": "Накопичення"
+            },
+            "sizes": {
+                "fifteen": "Кожних 15 хвилин",
+                "halfHour": "Кожні пів години",
+                "hour": "Кожну годину",
+                "twoHour": "Кожні 2 години"
+            }
+        },
+        "site": {
+            "title": "Вебсайти",
+            "histogramTitle": "{n} найвідвідуваніших сайтів",
+            "exclusiveToday": "Сьогоднішні дані не включені в середній показник",
+            "countTotal": "Всього відвідувань/сайтів",
+            "siteAverage": "Середнє відвідування – {value} вебсайтів на день",
+            "distribution": {
+                "title": "Розподіл середньоденної частоти",
+                "aveTime": "Середній щоденний час перегляду",
+                "aveVisit": "Середня щоденна кількість відвідувань",
+                "tooltip": "Всього {value} вебсайтів"
+            },
+            "trend": {
+                "title": "Щоденні тенденції",
+                "siteCount": "Кількість вебсайтів"
+            }
+        }
+    },
+    "es": {
+        "common": {
+            "focusAverage": "Promedio {value} por día"
+        },
+        "period": {
+            "title": "Hábito de períodos de tiempo",
+            "busiest": "Hora más ocupada del día",
+            "idle": "Periodo inactivo más largo",
+            "chartType": {
+                "average": "Promedio diario",
+                "trend": "Tendencia",
+                "stack": "Apilado"
+            },
+            "sizes": {
+                "fifteen": "Por 15 minutos",
+                "halfHour": "Por media hora",
+                "hour": "Por una hora",
+                "twoHour": "Por dos horas"
+            }
+        },
+        "site": {
+            "title": "Hábito de sitios web",
+            "histogramTitle": "TOP {n} más visitados",
+            "exclusiveToday": "Los datos de hoy no están incluidos en el promedio",
+            "countTotal": "Total de visitas/sitios",
+            "siteAverage": "Promedio de visitas a {value} sitios web por día",
+            "distribution": {
+                "title": "Distribución de frecuencia promedio diaria",
+                "aveTime": "Tiempo medio de navegación diario",
+                "aveVisit": "Recuento promedio de visitas diarias",
+                "tooltip": "Total de {value} sitios web"
+            },
+            "trend": {
+                "title": "Tendencias diarias",
+                "siteCount": "Recuento de sitios web"
+            }
+        }
+    },
+    "de": {
+        "common": {
+            "focusAverage": "Tagesdurchschnitt {value}"
+        },
+        "period": {
+            "title": "Nutzung nach Tageszeit",
+            "busiest": "Aktivste Tageszeit",
+            "idle": "Längste Ruhezeit",
+            "chartType": {
+                "average": "Tagesdurchschnitt",
+                "trend": "Trend",
+                "stack": "Stapel"
+            },
+            "sizes": {
+                "fifteen": "Pro 15 Minuten",
+                "halfHour": "Pro halbe Stunde",
+                "hour": "Pro Stunde",
+                "twoHour": "Pro zwei Stunden"
+            }
+        },
+        "site": {
+            "title": "Gewohnheit von Websites",
+            "histogramTitle": "TOP {n} der meistbesuchten",
+            "exclusiveToday": "Der Durchschnitt berücksichtigt nicht die heutigen Daten",
+            "countTotal": "Gesamtzahl der Besuche/Websites",
+            "siteAverage": "Durchschnittliche Besuche auf {value} Websites pro Tag",
+            "distribution": {
+                "title": "Tägliche durchschnittliche Häufigkeitsverteilung",
+                "aveTime": "Durchschnittliche tägliche Browsing-Zeit",
+                "aveVisit": "Durchschnittliche tägliche Besuchszahl",
+                "tooltip": "{value} Websites insgesamt"
+            },
+            "trend": {
+                "title": "Tagestrends",
+                "siteCount": "Webseitenanzahl"
+            }
+        }
+    },
+    "fr": {
+        "common": {
+            "focusAverage": "{value} par jour en moyenne"
+        },
+        "period": {
+            "title": "Habitude des périodes de temps",
+            "busiest": "Période de la journée la plus chargée",
+            "idle": "La plus longue période d'inactivité",
+            "chartType": {
+                "average": "Moyenne quotidienne",
+                "trend": "Tendances",
+                "stack": "Cumulées"
+            },
+            "sizes": {
+                "fifteen": "Par tranche de 15 minutes",
+                "halfHour": "Par demi-heure",
+                "hour": "Par heure",
+                "twoHour": "Par tranche de deux heures"
+            }
+        },
+        "site": {
+            "title": "Habitude des sites web",
+            "histogramTitle": "Top {n} des plus visités",
+            "exclusiveToday": "Les données d'aujourd'hui ne sont pas incluses dans la moyenne",
+            "countTotal": "Nombre total de visites/sites",
+            "siteAverage": "Visite en moyenne {value} sites Web par jour",
+            "distribution": {
+                "title": "Distribution de fréquence moyenne quotidienne",
+                "aveTime": "Temps de navigation quotidien moyen",
+                "aveVisit": "Nombre moyen de visites quotidiennes",
+                "tooltip": "Total de {value} sites Web"
+            },
+            "trend": {
+                "title": "Tendances quotidiennes",
+                "siteCount": "Nombre de sites Web"
+            }
+        }
+    },
+    "ru": {
+        "common": {
+            "focusAverage": "Средняя {value} в день"
+        },
+        "period": {
+            "title": "Привычка разного времени",
+            "busiest": "Самое загруженное время",
+            "idle": "Максимальное время простоя",
+            "chartType": {
+                "average": "Среднесуточная",
+                "trend": "Тенденция",
+                "stack": "Стек"
+            },
+            "sizes": {
+                "fifteen": "За 15 минут",
+                "halfHour": "За полчаса",
+                "hour": "За один час",
+                "twoHour": "За два часа"
+            }
+        },
+        "site": {
+            "title": "Привычка к веб-сайту",
+            "histogramTitle": "ТОП {n} наиболее посещаемые",
+            "exclusiveToday": "Сегодняшние данные не включены в среднее значение",
+            "countTotal": "Всего посещений/сайтов",
+            "siteAverage": "Средние посещения {value} сайтов в день",
+            "distribution": {
+                "title": "Распределение среднесуточной частоты",
+                "aveTime": "Среднее дневное время просмотра",
+                "aveVisit": "Среднее количество посещений",
+                "tooltip": "Всего {value} сайтов"
+            },
+            "trend": {
+                "title": "Ежедневные тренды",
+                "siteCount": "Счетчик сайтов"
+            }
+        }
+    },
+    "ar": {
+        "common": {
+            "focusAverage": "متوسط ​​{value} في اليوم"
+        },
+        "period": {
+            "title": "عادات الوقت",
+            "busiest": "أكثر أوقات اليوم ازدحاما",
+            "idle": "أطول مدّة خمول",
+            "chartType": {
+                "average": "المعدل اليومي",
+                "trend": "اتجاه",
+                "stack": "المكدس"
+            },
+            "sizes": {
+                "fifteen": "كل 15 دقيقة",
+                "halfHour": "كل نصف ساعة",
+                "hour": "لكل ساعة",
+                "twoHour": "لكل ساعتين"
+            }
+        },
+        "site": {
+            "title": "عادات المواقع الإلكترونية",
+            "histogramTitle": "أفضل {n} مواقع الأكثر زيارة",
+            "exclusiveToday": "بيانات اليوم ليست مدرجة في المتوسط",
+            "countTotal": "إجمالي الزيارات/المواقع",
+            "siteAverage": "متوسط ​​عدد الزيارات إلى {value} موقعًا إلكترونيًا يوميًا",
+            "distribution": {
+                "title": "متوسط ​​توزيع التردد اليومي",
+                "aveTime": "متوسط ​​وقت التصفح اليومي",
+                "aveVisit": "متوسط ​​عدد الزيارات اليومية",
+                "tooltip": "مجموع {value} مواقع"
+            },
+            "trend": {
+                "title": "الاتجاهات اليومية",
+                "siteCount": "عدد المواقع"
+            }
+        }
+    },
+    "tr": {
+        "common": {
+            "focusAverage": "Günde ortalama {value}"
+        },
+        "period": {
+            "title": "Zaman dilimleri alışkanlığı",
+            "busiest": "Günün en yoğun saati",
+            "idle": "En uzun bekleme süresi",
+            "chartType": {
+                "average": "Günlük ortalama",
+                "trend": "Eğilim",
+                "stack": "Yığın"
+            },
+            "sizes": {
+                "fifteen": "15 dakikada bir",
+                "halfHour": "Yarım saat başına",
+                "hour": "Saat başına",
+                "twoHour": "İki saat başına"
+            }
+        },
+        "site": {
+            "title": "Web sitelerinin alışkanlığı",
+            "histogramTitle": "En çok ziyaret edilen {n} site",
+            "exclusiveToday": "Bugünün verileri ortalamaya dahil edilmemiştir",
+            "countTotal": "Toplam ziyaret/site sayısı",
+            "siteAverage": "Günde ortalama {value} web sitesi ziyaret ettin",
+            "distribution": {
+                "title": "Günlük ortalama sıklık dağılımı",
+                "aveTime": "Günlük ortalama gezinme süresi",
+                "aveVisit": "Günlük ortalama ziyaret sayısı",
+                "tooltip": "Toplam {value} site"
+            },
+            "trend": {
+                "title": "Günlük eğilim",
+                "siteCount": "Web sitesi sayısı"
+            }
+        }
+    },
+    "pl": {
+        "common": {
+            "focusAverage": "Średnio {value} dziennie"
+        },
+        "period": {
+            "title": "Nawyki w określonym przedziale czasowym",
+            "busiest": "Najbardziej aktywny czas dnia",
+            "idle": "Najdłuższy czas bezczynności",
+            "chartType": {
+                "average": "Średnia dzienna",
+                "trend": "Trend",
+                "stack": "Stos"
+            },
+            "sizes": {
+                "fifteen": "Co 15 minut",
+                "halfHour": "Co pół godziny",
+                "hour": "Co godzinę",
+                "twoHour": "Co dwie godziny"
+            }
+        },
+        "site": {
+            "title": "Nawyk stron internetowych",
+            "histogramTitle": "TOP {n} najczęściej odwiedzanych",
+            "exclusiveToday": "Dzisiejsze dane nie są uwzględniane w średniej",
+            "countTotal": "Całkowita liczba wizyt/stron",
+            "siteAverage": "Średnia liczba odwiedzin na stronach {value} dziennie",
+            "distribution": {
+                "title": "Dzienny średni rozkład częstotliwości",
+                "aveTime": "Średni dzienny czas przeglądania",
+                "aveVisit": "Średnia dzienna liczba odwiedzin",
+                "tooltip": "Łącznie {value} stron"
+            },
+            "trend": {
+                "title": "Dzienne trendy",
+                "siteCount": "Liczba stron"
+            }
+        }
+    },
+    "it": {
+        "common": {
+            "focusAverage": "{value} medio giornaliera"
+        },
+        "period": {
+            "title": "Abitudine per periodi di tempo",
+            "busiest": "Ora più attiva della giornata",
+            "idle": "Periodo d'inattività più lungo",
+            "chartType": {
+                "average": "Media giornaliera",
+                "trend": "Tendenza",
+                "stack": "Stack"
+            },
+            "sizes": {
+                "fifteen": "Per 15 minuti",
+                "halfHour": "Per mezz'ora",
+                "hour": "Per un'ora",
+                "twoHour": "Per due ore"
+            }
+        },
+        "site": {
+            "title": "Abitudine dei siti",
+            "histogramTitle": "TOP {n} più visitati",
+            "exclusiveToday": "I dati di oggi non sono inclusi nella media",
+            "countTotal": "Totale visite/siti",
+            "siteAverage": "Visite medie a {value} siti web al giorno",
+            "distribution": {
+                "title": "Distribuzione di frequenza media giornaliera",
+                "aveTime": "Tempo medio di navigazione giornaliero",
+                "aveVisit": "Numero medio di visite giornaliere",
+                "tooltip": "Totale: {value} siti"
+            },
+            "trend": {
+                "title": "Tendenze quotidiane",
+                "siteCount": "Conteggio siti web"
+            }
+        }
+    }
+}

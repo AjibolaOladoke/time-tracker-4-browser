@@ -1,0 +1,156 @@
+{
+    "zh_CN": {
+        "title": "欢迎一起来改善本地化翻译！",
+        "alert": {
+            "l1": "为了能够提供更好的用户体验，我将除英语外的翻译任务托管在了 Crowdin 上。",
+            "l2": "如果您觉得这个扩展对您有用，并且您愿意完善它的文本翻译的话，可以点击下方按钮前往 Crowdin 上的项目主页。",
+            "l3": "当某种语言的翻译进度达到 50% 之后，我将会考虑在扩展中支持它。"
+        },
+        "button": "前往 Crowdin",
+        "loading": "正在查询翻译进度...",
+        "contributors": "贡献者名单"
+    },
+    "en": {
+        "title": "Feel free to help improve the extension's localization translations!",
+        "alert": {
+            "l1": "In order to provide a better user experience, I host the translation tasks on Crowdin.",
+            "l2": "If you find this extension useful to you and you are willing to improve its translation, you can click the button below to go to the project home page on Crowdin.",
+            "l3": "When the translation progress of a language reaches 50%, I will consider supporting it in this extension."
+        },
+        "button": "Go Crowdin",
+        "loading": "Checking translation progress...",
+        "contributors": "Contributor List"
+    },
+    "zh_TW": {
+        "title": "歡迎協助我們完善擴充功能的本地化翻譯！",
+        "alert": {
+            "l1": "為了提供更好的使用者體驗，我將翻譯任務託管在 Crowdin 上。",
+            "l2": "如果您覺得此擴充功能對您有幫助，且願意協助改善其翻譯，可以點擊下方按鈕前往 Crowdin 上的專案首頁。",
+            "l3": "當某種語言的翻譯進度達到 50% 時，我會考慮在本擴充功能中支援該語言。"
+        },
+        "button": "前往 Crowdin 平台",
+        "loading": "正在載入翻譯進度……",
+        "contributors": "翻譯貢獻者名單"
+    },
+    "uk": {
+        "title": "Допоможіть поліпшити переклад розширення!",
+        "alert": {
+            "l1": "Для забезпечення доступності для ширшого кола користувачів я пропоную можливість перекладу на Crowdin.",
+            "l2": "Якщо вам корисне це розширення і ви бажаєте покращити його переклад, натисніть кнопку нижче, щоб перейти на домашню сторінку проєкту на Crowdin.",
+            "l3": "Коли прогрес перекладу мови досягне 50%, я розгляну можливість її активації в цьому розширенні."
+        },
+        "button": "Перейти на Crowdin",
+        "loading": "Перевірка перекладу...",
+        "contributors": "Список помічників"
+    },
+    "es": {
+        "title": "¡Siéntete libre de ayudar a mejorar las traducciones de la extensión!",
+        "alert": {
+            "l1": "Para ofrecer una mejor experiencia de usuario, alojo las tareas de traducción en Crowdin.",
+            "l2": "Si consideras útil esta extensión y deseas mejorar su traducción, puedes hacer clic en el botón de abajo para ir a la página del proyecto en Crowdin.",
+            "l3": "Cuando el progreso de traducción de un idioma alcance el 50%, consideraré incluirlo en esta extensión."
+        },
+        "button": "Ir a Crowdin",
+        "loading": "Comprobando el progreso de la traducción...",
+        "contributors": "Lista de contribuidores"
+    },
+    "de": {
+        "title": "Hilf mit die Übersetzungen der Erweiterung zu verbessern!",
+        "alert": {
+            "l1": "Um ein besseres Benutzererlebnis zu bieten, hoste ich die Übersetzungsaufgaben auf Crowdin.",
+            "l2": "Wenn Sie diese Erweiterung für nützlich halten und zur Verbesserung der Übersetzung beitragen möchten, können Sie auf die Schaltfläche unten klicken, um zur Projektseite auf Crowdin zu gelangen.",
+            "l3": "Sobald der Übersetzungsfortschritt einer Sprache 50 % erreicht, werde ich erwägen, sie in dieser Erweiterung zu unterstützen."
+        },
+        "button": "Zu Crowdin gehen",
+        "loading": "Übersetzungsfortschritt wird überprüft...",
+        "contributors": "Mitwirkende"
+    },
+    "fr": {
+        "title": "N'hésitez pas à aider à améliorer la traduction de l'extension !",
+        "alert": {
+            "l1": "Afin d’offrir une meilleure expérience utilisateur, j’héberge les tâches de traduction sur Crowdin.",
+            "l2": "Si vous trouvez cette extension utile et que vous souhaitez améliorer sa traduction, vous pouvez cliquer sur le bouton ci-dessous pour accéder à la page du projet sur Crowdin.",
+            "l3": "Lorsqu’une langue atteint un taux de traduction de 50 %, j’envisagerai de la prendre en charge dans cette extension."
+        },
+        "button": "Allez sur Crowdin",
+        "loading": "Vérification de la progression de la traduction...",
+        "contributors": "Liste des contributeurs"
+    },
+    "ja": {
+        "title": "拡張機能のローカライズ翻訳を改善するために自由にご協力ください!",
+        "alert": {
+            "l1": "より良いユーザー体験を提供するため、翻訳タスクをCrowdin上でホストしています。",
+            "l2": "この拡張機能が役に立ち、翻訳の改善にご協力いただける場合は、下のボタンをクリックしてCrowdin上のプロジェクトページへアクセスできます。",
+            "l3": "ある言語の翻訳進捗が50％に達した場合、その言語をこの拡張機能でサポートすることを検討します。"
+        },
+        "button": "Crowdin に移動",
+        "loading": "翻訳の進捗を確認しています...",
+        "contributors": "貢献者一覧"
+    },
+    "pt_PT": {
+        "title": "Ajude a melhorar as traduções da extensão!",
+        "alert": {
+            "l1": "De modo a proporcionar uma melhor experiência ao utilizador, alojo as tarefas de tradução na Crowdin.",
+            "l2": "Se considerar que esta extensão lhe é útil e quiser melhorar a sua tradução, pode clicar no botão abaixo para aceder à página inicial do projeto na Crowdin.",
+            "l3": "Quando o progresso da tradução de um idioma atingir os 50%, considerarei apoiá-lo nesta extensão."
+        },
+        "button": "Ir para o Crowdin",
+        "loading": "A verificar progresso das traduções...",
+        "contributors": "Lista de Contribuidores"
+    },
+    "ru": {
+        "title": "Не стесняйтесь помочь улучшить локализацию расширений!",
+        "alert": {
+            "l1": "Чтобы обеспечить лучший пользовательский опыт, я размещаю задачи по переводу на Crowdin.",
+            "l2": "Если вам полезно это расширение и вы хотите улучшить его перевод, вы можете нажать кнопку ниже, чтобы перейти на домашнюю страницу проекта на Crowdin.",
+            "l3": "Когда прогресс перевода языка достигнет 50%, я рассмотрю возможность его поддержки в этом расширении."
+        },
+        "button": "Перейти в Crowdin",
+        "loading": "Проверка перевода...",
+        "contributors": "Список участников"
+    },
+    "ar": {
+        "title": "ساهم في تحسين ترجمة هذه الإضافة!",
+        "alert": {
+            "l1": "من أجل تقديم تجربة مستخدم أفضل، أقوم باستضافة مهام الترجمة على Crowdin.",
+            "l2": "إذا وجدت هذا الامتداد مفيدًا لك وكنت راغبًا في تحسين ترجمته، يمكنك النقر على الزر أدناه للانتقال إلى الصفحة الرئيسية للمشروع على Crowdin.",
+            "l3": "عندما يصل تقدم ترجمة لغة ما إلى 50%، سأفكر في دعمها في هذا الامتداد."
+        },
+        "button": "الذهاب إلى Crowdin",
+        "loading": "التحقق من تقدم الترجمة...",
+        "contributors": "قائمة المساهمين"
+    },
+    "tr": {
+        "title": "Uzantının yerelleştirme çevirilerini iyileştirmeye yardımcı olmaktan çekinmeyin!",
+        "alert": {
+            "l1": "Daha iyi bir kullanıcı deneyimi sunmak amacıyla, çeviri görevlerini Crowdin üzerinde barındırıyorum.",
+            "l2": "Bu eklentiyi sizin için faydalı buluyorsanız ve çevirisini geliştirmek istiyorsanız, Crowdin'deki proje ana sayfasına gitmek için aşağıdaki butona tıklayabilirsiniz.",
+            "l3": "Bir dilin çeviri ilerlemesi %50'ye ulaştığında, bu eklentide ilgili dili desteklemeyi değerlendireceğim."
+        },
+        "button": "Crowdin'e git",
+        "loading": "Çevirinin ilerleyişi kontrol ediliyor...",
+        "contributors": "Katkıda Bulunanlar"
+    },
+    "pl": {
+        "title": "Możesz pomóc w ulepszaniu tłumaczeń tego rozszerzenia!",
+        "alert": {
+            "l1": "W celu zapewnienia lepszego doświadczenia użytkownikom hostuję pliki do przetłumaczenia na platformie Crowdin.",
+            "l2": "Jeżeli uważasz, że to rozszerzenie jest dla Ciebie przydatne i chciałbyś poprawić jego tłumaczenie, kliknij przycisk poniżej, aby przejść do strony głównej projektu na Crowdin.",
+            "l3": "Kiedy postęp w tłumaczeniu języka osiągnie 50%, rozważę poparcie go w tym rozszerzeniu."
+        },
+        "button": "Przejdź do Crowdin",
+        "loading": "Sprawdzanie postępu tłumaczenia...",
+        "contributors": "Lista współtwórców"
+    },
+    "it": {
+        "title": "Sentitevi liberi di contribuire a migliorare le traduzioni di localizzazione dell'estensione!",
+        "alert": {
+            "l1": "Al fine di fornire una migliore esperienza utente, ospito le attività di traduzione su Crowdin.",
+            "l2": "Se trovate questa estensione utile per voi e siete disposti a migliorare la sua traduzione, è possibile fare clic sul pulsante qui sotto per andare alla home page del progetto su Crowdin.",
+            "l3": "Quando il progresso della traduzione di una lingua raggiunge il 50 per cento, considererò di sostenerla in questa estensione."
+        },
+        "button": "Vai A Crowdin",
+        "loading": "Controllo avanzamento traduzione...",
+        "contributors": "Lista Contributori"
+    }
+}

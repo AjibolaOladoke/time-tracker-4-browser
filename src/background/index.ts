@@ -1,0 +1,55 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { trySendMsg2Tab } from "@api/chrome/tab"
+import { initBrowserAction, initSidePanel } from './action'
+import badgeManager from "./badge-manager"
+import initCsHandler from "./content-script-handler"
+import initDataCleaner from "./data-cleaner"
+import { initAfterInstalled } from './install-handler'
+import initLimitProcessor from "./limit-processor"
+import MessageDispatcher from "./message-dispatcher"
+import { initScheduler } from './scheduler'
+import TabListener from './tab-listener'
+import initTrackServer from "./track-server"
+
+initAfterInstalled()
+
+// Initialize side panel
+initSidePanel()
+
+// Initialize context menu and icon action
+initBrowserAction()
+
+// Init data cleaner
+initDataCleaner()
+
+const messageDispatcher = new MessageDispatcher()
+
+// Limit processor
+initLimitProcessor(messageDispatcher)
+
+// Content-script's request handler
+initCsHandler(messageDispatcher)
+
+// Start server
+initTrackServer(messageDispatcher)
+
+// scheduler
+initScheduler()
+
+// Badge manager
+badgeManager.init(messageDispatcher)
+
+// Listen to tab changed
+new TabListener()
+    .onActivated(({ url, tabId }) => badgeManager.updateFocus({ url, tabId }))
+    .onUpdated((tabId, { audible }) => audible !== undefined && trySendMsg2Tab(tabId, 'syncAudible', audible))
+    .start()
+
+// Start message dispatcher
+messageDispatcher.start()

@@ -1,0 +1,82 @@
+import { useLaunchContext } from '../common/base'
+import { parseTime2Sec, readRecordsOfFirstPage } from "../common/record"
+import { setSiteOption } from '../common/site'
+import { MOCK_HOST, MOCK_URL, sleep } from '../common/util'
+
+describe('Run time tracking', () => {
+    const context = useLaunchContext()
+
+    async function waitForRunTimeAtLeast(minSecond: number, timeoutMs = 5000): Promise<number> {
+        const start = Date.now()
+        let latest = 0
+        while (Date.now() - start < timeoutMs) {
+            const records = await readRecordsOfFirstPage(context)
+            latest = parseTime2Sec(records[0]?.runTime) ?? 0
+            if (latest >= minSecond) return latest
+            await sleep(0.2)
+        }
+        return latest
+    }
+
+    test('Basically track', async () => {
+        await context.newPageAndWaitCsInjected(MOCK_URL)
+        await sleep(1.5)
+        let records = await readRecordsOfFirstPage(context)
+        let record = records[0]
+        expect(parseTime2Sec(record?.time)).toBeGreaterThanOrEqual(1)
+        expect(record?.runTime).toBeFalsy()
+
+        // 1. Enable run time tracking
+        const enableTs = Date.now()
+        await setSiteOption(context, MOCK_HOST, 'run', true)
+
+        // 2. Sleep
+        const emptyPage = await context.newPage()
+        await sleep(1.1)
+
+        const runTime1 = await waitForRunTimeAtLeast(1)
+        expect(runTime1).toBeGreaterThanOrEqual(1)
+
+        // 3. Add another page sharing the same run time with old page
+        await context.newPageAndWaitCsInjected(MOCK_URL)
+        // jump to new page
+        await emptyPage.bringToFront()
+        await sleep(2)
+
+        records = await readRecordsOfFirstPage(context)
+        const runTime2 = parseTime2Sec(records[0]?.runTime)
+        expect(runTime2).toBeGreaterThan(runTime1)
+        expect(runTime2).toBeLessThan((Date.now() - enableTs) / 1000)
+
+        // 3. Disable run time tracking
+        await setSiteOption(context, MOCK_HOST, 'run', false)
+        const disableTs = Date.now()
+        await emptyPage.bringToFront()
+        await sleep(4)
+        records = await readRecordsOfFirstPage(context)
+        const runTime3 = parseTime2Sec(records[0]?.runTime)
+        expect(runTime3).toBeLessThanOrEqual(Math.round((disableTs - enableTs) / 1000))
+    }, 60000)
+
+    test('white list', async () => {
+        await context.newPageAndWaitCsInjected(MOCK_URL)
+
+        // 1. Enable
+        await setSiteOption(context, MOCK_HOST, 'run', true)
+        const enableTs = Date.now()
+
+        const runTime = await waitForRunTimeAtLeast(1)
+        expect(runTime).toBeTruthy()
+        expect(runTime).toBeLessThanOrEqual((Date.now() - enableTs) / 1000 + 1)
+
+        // 2. Add whitelist
+        await setSiteOption(context, MOCK_HOST, 'white', true)
+        const disableTs = Date.now()
+
+        await sleep(2)
+
+        const records = await readRecordsOfFirstPage(context)
+        const runTime1 = parseTime2Sec(records[0]?.runTime)
+        expect(runTime1).toBeLessThan((disableTs - enableTs) / 1000 + 1)
+    }, 60000)
+})

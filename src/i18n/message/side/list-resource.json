@@ -1,0 +1,58 @@
+{
+    "zh_CN": {
+        "searchPlaceholder": "输入域名或网址",
+        "title": "浏览历史统计"
+    },
+    "en": {
+        "searchPlaceholder": "Enter domain or URL",
+        "title": "Browsing Analytics"
+    },
+    "de": {
+        "searchPlaceholder": "Domain oder URL eingeben",
+        "title": "Nutzungsanalyse"
+    },
+    "ja": {
+        "searchPlaceholder": "ドメインまたはURLを入力",
+        "title": "閲覧履歴分析"
+    },
+    "zh_TW": {
+        "searchPlaceholder": "輸入網域或網址",
+        "title": "瀏覽紀錄統計"
+    },
+    "pt_PT": {
+        "searchPlaceholder": "Insira um domínio ou URL",
+        "title": "Análise de Navegação"
+    },
+    "uk": {
+        "searchPlaceholder": "Пошук за URL",
+        "title": "Усі дані перегляду"
+    },
+    "fr": {
+        "searchPlaceholder": "Saisir un domaine ou URL",
+        "title": "Analytique de navigation"
+    },
+    "es": {
+        "searchPlaceholder": "Ingresar dominio o URL",
+        "title": "Análisis de Navegación"
+    },
+    "ru": {
+        "searchPlaceholder": "Введите домен или URL",
+        "title": "Анализ браузера"
+    },
+    "ar": {
+        "searchPlaceholder": "أدخل النطاق أو الرابط",
+        "title": "تحليل التصفح"
+    },
+    "tr": {
+        "searchPlaceholder": "Alan adı veya URL giriniz",
+        "title": "Gezinme Analizi"
+    },
+    "pl": {
+        "searchPlaceholder": "Wprowadź domenę lub adres URL",
+        "title": "Analiza przeglądania "
+    },
+    "it": {
+        "searchPlaceholder": "Inserisci dominio o URL",
+        "title": "Analisi Di Esplorazione"
+    }
+}

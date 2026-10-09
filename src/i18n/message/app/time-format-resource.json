@@ -1,0 +1,86 @@
+{
+    "zh_CN": {
+        "default": "默认时间格式",
+        "hour": "按小时显示",
+        "minute": "按分钟显示",
+        "second": "按秒显示"
+    },
+    "zh_TW": {
+        "default": "預設時間格式",
+        "hour": "小時制",
+        "minute": "分鐘制",
+        "second": "秒數制"
+    },
+    "en": {
+        "default": "Default time format",
+        "hour": "Display in hours",
+        "minute": "Display in minutes",
+        "second": "Display in seconds"
+    },
+    "ja": {
+        "default": "デフォルトの時間形式",
+        "hour": "時間単位で表示",
+        "minute": "分単位で表示",
+        "second": "秒単位で表示"
+    },
+    "pt_PT": {
+        "default": "Formato de hora padrão",
+        "hour": "Exibir em horas",
+        "minute": "Exibir em minutos",
+        "second": "Exibir em segundos"
+    },
+    "uk": {
+        "default": "Типовий формат часу",
+        "hour": "Показувати в годинах",
+        "minute": "Показувати у хвилинах",
+        "second": "Показувати в секундах"
+    },
+    "es": {
+        "default": "Formato de tiempo predeterminado",
+        "hour": "Mostrar en horas",
+        "minute": "Mostrar en minutos",
+        "second": "Mostrar en segundos"
+    },
+    "de": {
+        "default": "Voreingestelltes Zeitformat",
+        "hour": "Anzeige in Stunden",
+        "minute": "Anzeige in Minuten",
+        "second": "Anzeige in Sekunden"
+    },
+    "fr": {
+        "default": "Format de temps par défaut",
+        "hour": "Afficher en heures",
+        "minute": "Afficher en minutes",
+        "second": "Afficher en secondes"
+    },
+    "ru": {
+        "default": "Формат времени по умолчанию",
+        "hour": "Отображение в часах",
+        "minute": "Отображение в минутах",
+        "second": "Отображение в секундах"
+    },
+    "ar": {
+        "default": "تنسيق الوقت الافتراضي",
+        "hour": "عرض في ساعات",
+        "minute": "عرض في دقائق",
+        "second": "العرض بالثواني"
+    },
+    "tr": {
+        "default": "Varsayılan tarih formatı",
+        "hour": "Saat cinsinden göster",
+        "minute": "Dakika cinsinden göster",
+        "second": "Saniye cinsinden göster"
+    },
+    "pl": {
+        "default": "Domyślny format czasu",
+        "hour": "Wyświetl w godzinach",
+        "minute": "Wyświetl w minutach",
+        "second": "Wyświetl w sekundach"
+    },
+    "it": {
+        "default": "Formato orario predefinito",
+        "hour": "Visualizza in ore",
+        "minute": "Visualizza in minuti",
+        "second": "Visualizza in secondi"
+    }
+}

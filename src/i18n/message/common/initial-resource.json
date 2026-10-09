@@ -1,0 +1,114 @@
+{
+    "zh_CN": {
+        "localFile": {
+            "json": "JSON文件",
+            "pdf": "PDF文件",
+            "pic": "图片",
+            "txt": "文本文件"
+        }
+    },
+    "zh_TW": {
+        "localFile": {
+            "json": "JSON檔案",
+            "pdf": "PDF檔案",
+            "pic": "圖片",
+            "txt": "文字檔"
+        }
+    },
+    "en": {
+        "localFile": {
+            "json": "JSON",
+            "pdf": "PDF",
+            "pic": "Images",
+            "txt": "Text"
+        }
+    },
+    "ja": {
+        "localFile": {
+            "json": "JSONファイル",
+            "pdf": "PDFファイル",
+            "pic": "画像",
+            "txt": "テキスト"
+        }
+    },
+    "pt_PT": {
+        "localFile": {
+            "json": "Arquivos JSON",
+            "pdf": "Arquivos PDF",
+            "pic": "Imagens",
+            "txt": "Texto"
+        }
+    },
+    "uk": {
+        "localFile": {
+            "json": "Файли JSON",
+            "pdf": "Файли PDF",
+            "pic": "Зображення",
+            "txt": "Текстові файли"
+        }
+    },
+    "es": {
+        "localFile": {
+            "json": "Archivos JSON",
+            "pdf": "Archivos PDF",
+            "pic": "Imágenes",
+            "txt": "Texto"
+        }
+    },
+    "de": {
+        "localFile": {
+            "json": "JSON-Dateien",
+            "pdf": "PDF-Dateien",
+            "pic": "Bilder",
+            "txt": "Text-Dateien"
+        }
+    },
+    "fr": {
+        "localFile": {
+            "json": "Fichiers JSON",
+            "pdf": "Fichiers PDF",
+            "pic": "Images",
+            "txt": "Texte"
+        }
+    },
+    "ru": {
+        "localFile": {
+            "json": "JSON файлы",
+            "pdf": "PDF файлы",
+            "pic": "Изображения",
+            "txt": "Текст"
+        }
+    },
+    "ar": {
+        "localFile": {
+            "json": "ملفات JSON",
+            "pdf": "ملفات PDF",
+            "pic": "الصور",
+            "txt": "نص"
+        }
+    },
+    "tr": {
+        "localFile": {
+            "json": "JSON",
+            "pdf": "PDF",
+            "pic": "Resimler",
+            "txt": "Metin"
+        }
+    },
+    "pl": {
+        "localFile": {
+            "json": "JSON",
+            "pdf": "PDF",
+            "pic": "Zdjęcia",
+            "txt": "Tekst"
+        }
+    },
+    "it": {
+        "localFile": {
+            "json": "JSON",
+            "pdf": "PDF",
+            "pic": "Immagini",
+            "txt": "Testo"
+        }
+    }
+}

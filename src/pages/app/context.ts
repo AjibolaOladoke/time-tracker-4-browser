@@ -1,0 +1,43 @@
+import { listAllCategories } from "@api/sw/cate"
+import { MediaSize, useMediaSize, useProvide, useProvider, useRequest } from "@hooks"
+import { toMap } from '@util/array'
+import { CATE_NOT_SET_ID } from '@util/site'
+import { computed, reactive } from "vue"
+import { t } from './locale'
+
+type MenuLayout = 'nav' | 'sidebar'
+
+interface CategoryInstance {
+    all: tt4b.site.Cate[]
+    nameMap: Record<number, string>
+    refresh(): void
+}
+
+type AppContextValue = {
+    category: Readonly<CategoryInstance>
+}
+
+const NAMESPACE = '_'
+
+export const initAppContext = () => {
+    const { refresh: refreshCategories } = useRequest(listAllCategories, {
+        onSuccess: categories => {
+            category.all = categories.sort((a, b) => a.name.localeCompare(b.name))
+            const map = toMap(categories, c => c.id, c => c.name)
+            map[CATE_NOT_SET_ID] = t(msg => msg.shared.cate.notSet)
+            category.nameMap = map
+        }
+    })
+    const mediaSize = useMediaSize()
+    const layout = computed<MenuLayout>(() => mediaSize.value > MediaSize.sm ? 'sidebar' : 'nav')
+    const category = reactive<CategoryInstance>({
+        all: [],
+        nameMap: {},
+        refresh: refreshCategories,
+    })
+    useProvide<AppContextValue>(NAMESPACE, { category })
+
+    return { layout }
+}
+
+export const useCategory = () => useProvider<AppContextValue, "category">(NAMESPACE, "category").category

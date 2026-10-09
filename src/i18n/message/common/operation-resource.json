@@ -1,0 +1,49 @@
+{
+    "zh_CN": {
+        "confirmMsg": "确定吗？",
+        "successMsg": "操作成功！"
+    },
+    "zh_TW": {
+        "confirmMsg": "確定嗎？",
+        "successMsg": "操作成功！"
+    },
+    "en": {
+        "confirmMsg": "Are you sure?",
+        "successMsg": "Successfully!"
+    },
+    "ja": {
+        "successMsg": "正常に動作しました！"
+    },
+    "pt_PT": {
+        "successMsg": "Sucesso!"
+    },
+    "uk": {
+        "successMsg": "Успішно!"
+    },
+    "es": {
+        "successMsg": "¡Exitosamente!"
+    },
+    "de": {
+        "successMsg": "Erfolgreich!"
+    },
+    "fr": {
+        "confirmMsg": "Êtes-vous certain ?",
+        "successMsg": "Réussi !"
+    },
+    "ru": {
+        "successMsg": "Успешно!"
+    },
+    "ar": {
+        "successMsg": "بنجاح!"
+    },
+    "tr": {
+        "successMsg": "Başarılı oldu!"
+    },
+    "pl": {
+        "confirmMsg": "Czy na pewno?",
+        "successMsg": "Pomyślnie!"
+    },
+    "it": {
+        "successMsg": "Con successo!"
+    }
+}

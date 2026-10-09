@@ -1,0 +1,88 @@
+{
+    "en": {
+        "rating": "Submit rating",
+        "discord": "Join Discord",
+        "showSiteName": "Display site name",
+        "showTopN": "Display top {n}",
+        "donutChart": "Displayed as donut charts",
+        "bug": "Report Bug",
+        "feature": "Request Feature"
+    },
+    "zh_CN": {
+        "rating": "提交评价",
+        "discord": "加入 Discord",
+        "showSiteName": "显示网站名称",
+        "showTopN": "显示前 {n} 名",
+        "donutChart": "以圆环图显示",
+        "bug": "提交 Bug",
+        "feature": "功能提案"
+    },
+    "zh_TW": {
+        "rating": "送出評分",
+        "discord": "加入 Discord",
+        "showSiteName": "顯示網站名稱",
+        "showTopN": "顯示前{n}个",
+        "donutChart": "以圓餅圖顯示",
+        "bug": "回報錯誤",
+        "feature": "功能建議"
+    },
+    "ja": {
+        "rating": "評価を送信",
+        "showSiteName": "サイト名を表示",
+        "showTopN": "トップ {n} を表示",
+        "donutChart": "ドーナツグラフとして表示"
+    },
+    "pt_PT": {
+        "showSiteName": "Mostrar nome do site",
+        "donutChart": "Mostrado como gráfico estilo donut"
+    },
+    "uk": {},
+    "es": {
+        "rating": "Enviar Puntuación",
+        "showSiteName": "Mostrar nombre del sitio",
+        "showTopN": "Mostrar primeros {n}",
+        "donutChart": "Mostrar como gráfico de donas"
+    },
+    "de": {
+        "rating": "Bewertung absenden",
+        "showSiteName": "Seitenname anzeigen",
+        "showTopN": "Top {n} anzeigen",
+        "donutChart": "Als Donut-Diagramme angezeigt"
+    },
+    "fr": {
+        "rating": "Donner une note",
+        "discord": "Rejoignez notre Discord",
+        "showSiteName": "Afficher le nom du site",
+        "showTopN": "Afficher les {n} premiers",
+        "donutChart": "Affichés sous forme de graphiques en anneau",
+        "bug": "Signaler un bug",
+        "feature": "Soumettre une idée"
+    },
+    "ru": {
+        "rating": "Отправить оценку",
+        "showSiteName": "Отобразить имя сайта",
+        "showTopN": "Отображать заголовок {n}"
+    },
+    "ar": {},
+    "tr": {
+        "rating": "Değerlendirmeyi Gönder",
+        "showSiteName": "Site adını göster",
+        "showTopN": "En iyi {n} göster",
+        "donutChart": "Halka grafik olarak göster"
+    },
+    "pl": {
+        "rating": "Prześlij ocenę",
+        "discord": "Dołącz do Discord",
+        "showSiteName": "Wyświetl nazwę witryny",
+        "showTopN": "Wyświetl górną część {n}",
+        "donutChart": "Wyświetlane jako wykresy",
+        "bug": "Zgłoś błąd",
+        "feature": "Zaproponuj nową funkcję"
+    },
+    "it": {
+        "rating": "Invia il tuo voto",
+        "showSiteName": "Visualizza nome del sito",
+        "showTopN": "Mostra top {n}",
+        "donutChart": "Visualizzati come grafici di ciambella"
+    }
+}

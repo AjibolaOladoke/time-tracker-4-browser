@@ -1,0 +1,142 @@
+{
+    "zh_CN": {
+        "tracking": "数据追踪",
+        "dashboard": "仪表盘",
+        "record": "报表明细",
+        "analysis": "分析",
+        "siteAnalysis": "站点分析",
+        "habit": "上网习惯",
+        "productivity": "效率",
+        "other": "其他",
+        "migration": "数据迁移",
+        "about": "关于"
+    },
+    "zh_TW": {
+        "dashboard": "數據總覽",
+        "record": "報表明細",
+        "siteAnalysis": "網站分析",
+        "habit": "習慣分析",
+        "other": "其他",
+        "migration": "資料遷移",
+        "about": "關於"
+    },
+    "en": {
+        "tracking": "Tracking",
+        "dashboard": "Dashboard",
+        "record": "Record",
+        "analysis": "Analysis",
+        "siteAnalysis": "Site Analysis",
+        "habit": "Habits",
+        "productivity": "Productivity",
+        "other": "Other Features",
+        "migration": "Data Migration",
+        "about": "About"
+    },
+    "ja": {
+        "dashboard": "ダッシュボード",
+        "record": "報告する",
+        "siteAnalysis": "ウェブサイト分析",
+        "habit": "閲覧の習慣",
+        "other": "その他の機能",
+        "about": "について"
+    },
+    "pt_PT": {
+        "tracking": "Rastreamento",
+        "dashboard": "Painel",
+        "record": "Registos",
+        "analysis": "Estatísticas",
+        "siteAnalysis": "Análise de Sites",
+        "habit": "Hábitos",
+        "productivity": "Produtividade",
+        "other": "Outras Opções",
+        "migration": "Migração de dados",
+        "about": "Sobre"
+    },
+    "uk": {
+        "dashboard": "Огляд",
+        "record": "Записи",
+        "siteAnalysis": "Аналіз сайту",
+        "habit": "Звички",
+        "other": "Інші функції",
+        "about": "Про нас"
+    },
+    "es": {
+        "tracking": "Seguimiento",
+        "dashboard": "Tablero",
+        "record": "Registro",
+        "analysis": "Análisis",
+        "siteAnalysis": "Análisis de sitios",
+        "habit": "Hábitos",
+        "productivity": "Productividad",
+        "other": "Otras Funciones",
+        "migration": "Migración de datos",
+        "about": "Acerca de"
+    },
+    "de": {
+        "dashboard": "Übersicht",
+        "record": "Aufzeichnen",
+        "siteAnalysis": "Analysebericht",
+        "habit": "Gewohnheit",
+        "other": "Andere Eigenschaften",
+        "about": "Über uns"
+    },
+    "fr": {
+        "tracking": "Tracking",
+        "dashboard": "Tableau de bord",
+        "record": "Enregistrement",
+        "analysis": "Analyse",
+        "siteAnalysis": "Analyse du site",
+        "habit": "Habitudes",
+        "productivity": "Productivité",
+        "other": "Autres fonctionnalités",
+        "migration": "Migration des données",
+        "about": "À propos"
+    },
+    "ru": {
+        "tracking": "Статистика",
+        "dashboard": "Панель Данных",
+        "record": "Рекорд",
+        "analysis": "Анализ",
+        "siteAnalysis": "Анализ сайта",
+        "habit": "Привычки",
+        "productivity": "Продуктивность",
+        "other": "Другие особенности",
+        "migration": "Перенос данных",
+        "about": "О нас"
+    },
+    "ar": {
+        "dashboard": "لوحة التحكم",
+        "record": "تسجيل",
+        "siteAnalysis": "تحليل الموقع",
+        "habit": "العادات",
+        "other": "مميزات اخزي",
+        "about": "حول"
+    },
+    "tr": {
+        "dashboard": "Kontrol Paneli",
+        "record": "Kayıtlı Veriler",
+        "siteAnalysis": "Site Analizi",
+        "habit": "Alışkanlıklar",
+        "other": "Diğer Özellikler",
+        "about": "Hakkımızda"
+    },
+    "pl": {
+        "tracking": "Monitorowanie",
+        "dashboard": "Panel",
+        "record": "Wpisy",
+        "analysis": "Analiza",
+        "siteAnalysis": "Analiza strony",
+        "habit": "Nawyki",
+        "productivity": "Produktywność",
+        "other": "Pozostałe funkcje",
+        "migration": "Przenoszenie danych",
+        "about": "O rozszerzeniu"
+    },
+    "it": {
+        "dashboard": "Dashboard",
+        "siteAnalysis": "Analisi Sito",
+        "habit": "Abitudini",
+        "other": "Altre funzioni",
+        "about": "Info su"
+    }
+}

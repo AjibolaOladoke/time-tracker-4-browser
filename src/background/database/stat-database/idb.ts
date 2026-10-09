@@ -1,0 +1,299 @@
+import { BaseIDBStorage, closedRangeKey, IndexResult, iterateCursor, type Key, req2Promise, type Table } from '../common/indexed-storage'
+import { cvtGroupId2Host, formatDateStr, increase, zeroRow } from './common'
+import { filterDate, filterHost, processCondition, type ProcessedCondition } from './condition'
+import type { StatCondition, StatDatabase } from './types'
+
+type StoredRow = tt4b.core.Row & {
+    // If present, this is a group row
+    groupId?: number
+}
+
+const INDEXES: (Key<StoredRow> | Key<StoredRow>[])[] = [
+    'date', 'host', 'groupId',
+    'focus', 'time',
+    ['date', 'host'],
+] as const
+
+const isGroup = (row: StoredRow): boolean => row.groupId !== undefined
+
+type IndexCoverage = {
+    date?: boolean
+    host?: boolean
+}
+
+function buildFilter(cond: ProcessedCondition, coverage: IndexCoverage): (row: StoredRow) => boolean {
+    return (row: StoredRow) => {
+        if (!coverage.date && !filterDate(row.date, cond)) {
+            return false
+        }
+
+        // Only check virtual if host keys are not fully covered by index
+        const keys = coverage.host ? undefined : cond.keys
+        return filterHost(row.host, keys, cond.virtual)
+    }
+}
+
+type StatIndex = typeof INDEXES[number]
+
+export class IDBStatDatabase extends BaseIDBStorage<StoredRow> implements StatDatabase {
+    table: Table = 'stat'
+    key: StatIndex = ['date', 'host']
+    indexes: StatIndex[] = INDEXES
+
+    get(host: string, date: Date | string): Promise<tt4b.core.Row> {
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            const dateStr = formatDateStr(date)
+            const req = index.get([dateStr, host])
+            return await req2Promise<StoredRow>(req) ?? zeroRow(host, dateStr)
+        }, 'readonly')
+    }
+
+    batchSelect(keys: tt4b.core.RowKey[]): Promise<tt4b.core.Row[]> {
+        if (!keys.length) return Promise.resolve([])
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            const out: tt4b.core.Row[] = []
+            for (const { host, date } of keys) {
+                const req = index.get([date, host])
+                const row = await req2Promise<StoredRow>(req) ?? zeroRow(host, date)
+                out.push(row)
+            }
+            return out
+        }, 'readonly')
+    }
+
+    private judgeIndex(store: IDBObjectStore, cond: ProcessedCondition, expectGroup: boolean): IndexResult<IndexCoverage> {
+        const keys = typeof cond.keys === 'string' ? [cond.keys] : cond.keys
+        const { useExactDate, exactDateStr, startDateStr, endDateStr } = cond
+
+        if (expectGroup) {
+            const groupId = parseInt(keys?.[0] ?? 'NaN')
+            return isNaN(groupId) ? {
+                cursorReq: this.assertIndexCursor(store, 'groupId', IDBKeyRange.lowerBound(0)),
+            } : {
+                cursorReq: this.assertIndexCursor(store, 'groupId', IDBKeyRange.only(groupId)),
+                coverage: { host: true }
+            }
+        }
+
+        if (useExactDate && exactDateStr) {
+            return keys?.length === 1 ? {
+                cursorReq: this.assertIndexCursor(store, ['date', 'host'], IDBKeyRange.only([exactDateStr, keys[0]])),
+                coverage: { date: true, host: true }
+            } : {
+                cursorReq: this.assertIndexCursor(store, 'date', IDBKeyRange.only(exactDateStr)),
+                coverage: { date: true }
+            }
+        }
+        const dateRange = closedRangeKey(startDateStr, endDateStr)
+        if (dateRange) {
+            return {
+                cursorReq: this.assertIndexCursor(store, 'date', dateRange),
+                coverage: { date: true }
+            }
+        }
+
+        return {
+            cursorReq: store.openCursor(),
+            coverage: {}
+        }
+    }
+
+    private async selectInternal(store: IDBObjectStore, cond: ProcessedCondition, expectGroup: boolean): Promise<tt4b.core.Row[]> {
+        const allRows: tt4b.core.Row[] = []
+        const { cursorReq, coverage = {} } = this.judgeIndex(store, cond, expectGroup)
+        const filter = buildFilter(cond, coverage)
+
+        const rows = await iterateCursor<StoredRow>(cursorReq)
+        for (const row of rows) {
+            if (expectGroup !== isGroup(row)) continue
+            if (!filter(row)) continue
+
+            if (expectGroup) {
+                allRows.push({
+                    host: row.groupId?.toString() ?? '',
+                    date: row.date,
+                    time: row.time,
+                    focus: row.focus,
+                    run: row.run,
+                })
+            } else {
+                allRows.push(row)
+            }
+        }
+
+        return allRows
+    }
+
+    select(condition?: StatCondition): Promise<tt4b.core.Row[]> {
+        return this.withStore(async store => {
+            const cond = processCondition(condition)
+            return this.selectInternal(store, cond, false)
+        }, 'readonly')
+    }
+
+    accumulate(host: string, date: Date | string, item: tt4b.core.Result): Promise<tt4b.core.Result> {
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            const dateStr = formatDateStr(date)
+            const req = index.get([dateStr, host])
+            const existing = await req2Promise<StoredRow>(req)
+            const newVal = increase(item, existing)
+            const newData: StoredRow = { host, date: dateStr, ...newVal }
+            await req2Promise(store.put(newData))
+            return newData
+        }, 'readwrite')
+    }
+
+    batchAccumulate(data: Record<string, tt4b.core.Result>, date: Date | string): Promise<Record<string, tt4b.core.Row>> {
+        return this.withStore(async store => {
+            const dateStr = formatDateStr(date)
+            const cursorReq = super.assertIndexCursor(store, 'date', IDBKeyRange.only(dateStr))
+            const toUpdate: Record<string, tt4b.core.Row> = {}
+
+            await iterateCursor(cursorReq, cursor => {
+                const stored = cursor.value as StoredRow | undefined
+                if (!stored || isGroup(stored)) return
+                toUpdate[stored.host] = stored
+            })
+
+            for (const [host, result] of Object.entries(data)) {
+                const existing = toUpdate[host]
+                const newValue: tt4b.core.Row = { host, date: dateStr, ...increase(result, existing) }
+                toUpdate[host] = newValue
+                store.put(newValue)
+            }
+            return toUpdate
+        }, 'readwrite')
+    }
+
+    delete(...rows: tt4b.core.RowKey[]): Promise<void> {
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            for (const { host, date } of rows) {
+                const req = index.getKey([date, host])
+                const key = await req2Promise(req)
+                if (key) {
+                    await req2Promise(store.delete(key))
+                }
+            }
+        }, 'readwrite')
+    }
+
+    deleteByHost(host: string, range?: string | [string?, string?]): Promise<void> {
+        const [start, end] = Array.isArray(range) ? range : [range, range]
+        return this.withStore(async store => {
+            if (start && start === end) {
+                // Delete one day
+                const index = super.assertIndex(store, ['date', 'host'])
+                const req = index.getKey([start, host])
+                const key = await req2Promise(req)
+                if (key) {
+                    await req2Promise(store.delete(key))
+                }
+                return
+            }
+
+            // Delete by range
+            const index = super.assertIndex(store, 'host')
+            const cursorReq = index.openCursor(IDBKeyRange.only(host))
+            const deletedDates = new Set<string>()
+
+            await iterateCursor(cursorReq, cursor => {
+                const r = cursor.value as StoredRow | undefined
+                if (!r || isGroup(r)) return
+
+                const dateStr = r.date
+                const inRange = (!start || start <= dateStr) && (!end || dateStr <= end)
+                if (inRange) {
+                    cursor.delete()
+                    deletedDates.add(dateStr)
+                }
+            })
+        }, 'readwrite')
+    }
+
+    deleteByGroup(groupId: number, range?: string | [string, string]): Promise<void> {
+        return this.withStore(async store => {
+            const [start, end] = Array.isArray(range) ? range : [range, range]
+            const host = cvtGroupId2Host(groupId)
+            if (start && start === end) {
+                // Delete one day
+                const index = super.assertIndex(store, ['date', 'host'])
+                const req = index.getKey([start, host])
+                const key = await req2Promise(req)
+                if (key) {
+                    await req2Promise(store.delete(key))
+                }
+                return
+            }
+
+            // Delete by range
+            const index = super.assertIndex(store, 'host')
+            const cursorReq = index.openCursor(IDBKeyRange.only(host))
+
+            await iterateCursor(cursorReq, cursor => {
+                const r = cursor.value as StoredRow | undefined
+                if (!r) return
+                const dateStr = r.date
+                const inRange = (!start || start <= dateStr) && (!end || dateStr <= end)
+                inRange && cursor.delete()
+            })
+        }, 'readwrite')
+    }
+
+    accumulateGroup(groupId: number, date: Date | string, item: tt4b.core.Result): Promise<tt4b.core.Result> {
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            const dateStr = formatDateStr(date)
+            const host = cvtGroupId2Host(groupId)
+            const req = index.get([dateStr, host])
+            const existing = await req2Promise<StoredRow>(req)
+            const newVal = increase(item, existing)
+            const newData: StoredRow = { host, date: dateStr, groupId, ...newVal }
+            await req2Promise(store.put(newData))
+            return newData
+        }, 'readwrite')
+    }
+
+    selectGroup(condition?: StatCondition): Promise<tt4b.core.Row[]> {
+        return this.withStore(async store => {
+            const cond = processCondition(condition)
+            return this.selectInternal(store, cond, true)
+        }, 'readonly')
+    }
+
+    deleteGroup(...rows: [groupId: number, date: string][]): Promise<void> {
+        return this.withStore(async store => {
+            const index = super.assertIndex(store, ['date', 'host'])
+            for (const [groupId, date] of rows) {
+                const host = cvtGroupId2Host(groupId)
+                const dateStr = formatDateStr(date)
+                const req = index.getKey([dateStr, host])
+                const key = await req2Promise(req)
+                if (key) {
+                    await req2Promise(store.delete(key))
+                }
+            }
+        }, 'readwrite')
+    }
+
+    forceUpdate(...rows: tt4b.core.Row[]): Promise<void> {
+        return this.withStore(store => rows.forEach(row => store.put(row)), 'readwrite')
+    }
+
+    forceUpdateGroup(...rows: tt4b.core.Row[]): Promise<void> {
+        return this.withStore(store => {
+            for (const row of rows) {
+                const { host, date, time, focus, run } = row
+                const groupId = parseInt(host)
+                if (isNaN(groupId)) {
+                    throw new Error(`Invalid group host: ${host}`)
+                }
+                const newData: StoredRow = { host, date, time, focus, run, groupId }
+                store.put(newData)
+            }
+        }, 'readwrite')
+    }
+}

@@ -1,0 +1,267 @@
+import { t } from '@app/locale'
+import { getSeriesPalette, tooltipDot } from '@app/util/echarts'
+import { EchartsWrapper } from '@hooks'
+import { getPrimaryTextColor } from '@pages/util/style'
+import { groupBy, toMap } from '@util/array'
+import { CATE_NOT_SET_ID } from '@util/site'
+import {
+    formatPeriodCommon, getStartOfDay, MILL_PER_DAY, MILL_PER_HOUR, MILL_PER_MINUTE, MILL_PER_SECOND
+} from '@util/time'
+import type {
+    ComposeOption, CustomSeriesOption, CustomSeriesRenderItem, DataZoomComponentOption, GridComponentOption,
+    LegendComponentOption, TooltipComponentOption,
+} from 'echarts'
+import { graphic } from "echarts/core"
+import { formatYAxis } from '../common'
+
+export type BizData = {
+    activities: tt4b.timeline.Activity[]
+    merge: tt4b.timeline.MergeMethod
+    dates: string[]
+}
+
+export type EcOption = ComposeOption<
+    | CustomSeriesOption
+    | GridComponentOption
+    | TooltipComponentOption
+    | LegendComponentOption
+    | DataZoomComponentOption
+>
+
+type LegendInfo = {
+    name: string
+    displayName?: string
+    color: string
+}
+
+type MyValue = [
+    yIndex: number,
+    start: number, // milliseconds, offset of this day
+    end: number, // milliseconds, offset of this day
+    duration: number,
+]
+
+const formatTimeLabel = (val: number) => {
+    let minute = Math.floor(val / MILL_PER_MINUTE)
+    const hour = Math.floor(minute / 60)
+    minute -= hour * 60
+    return `${hour.toFixed(0).padStart(2, '0')}:${minute.toFixed(0).padStart(2, '0')}`
+}
+
+const formatStart = (startMs: number): string => {
+    let second = Math.floor(startMs / MILL_PER_SECOND)
+    let minute = Math.floor(second / 60)
+    second -= minute * 60
+    const hour = Math.floor(minute / 60)
+    minute -= hour * 60
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+}
+
+const formatDuration = (duration: number): string => {
+    if (duration < MILL_PER_SECOND) {
+        return `${duration}ms`
+    } else if (duration < MILL_PER_SECOND * 10) {
+        return `${(duration / MILL_PER_SECOND).toFixed(1)}s`
+    } else {
+        return formatPeriodCommon(duration)
+    }
+}
+
+const LEGEND_WIDTH = 180
+
+const collectLegends = (activities: tt4b.timeline.Activity[], merge: tt4b.timeline.MergeMethod): LegendInfo[] => {
+    const colors = getSeriesPalette()
+    const colorLen = colors.length || 1
+
+    const keyNameMap = toMap(activities, a => a.seriesKey, a => a.seriesName)
+    let totalDuration = groupBy(activities, a => a.seriesKey, l => l.map(t => t.duration).reduce((a, b) => a + b, 0))
+    return Object.entries(totalDuration)
+        // sort by duration desc
+        .sort((a, b) => b[1] - a[1])
+        .map(([key], idx) => ({
+            name: key,
+            displayName: merge === 'cate' && key === String(CATE_NOT_SET_ID)
+                ? t(msg => msg.shared.cate.notSet)
+                : keyNameMap[key],
+            color: colors[idx % colorLen] ?? '#000',
+        } satisfies LegendInfo))
+}
+
+type Cartesian2DCoordSys = {
+    x: number
+    y: number
+    width: number
+    height: number
+}
+
+const renderItem: CustomSeriesRenderItem = (params, api) => {
+    const categoryIndex = api.value(0)
+    const [sX = 0, sY = 0] = api.coord([api.value(1), categoryIndex])
+    const [eX = 0] = api.coord([api.value(2), categoryIndex])
+
+    const size = api.size?.([0, 1])
+    const height = ((Array.isArray(size) ? size[1] : size) ?? 0) * 0.6
+
+    const coordSys = params.coordSys as unknown as Cartesian2DCoordSys
+
+    var rectShape = graphic.clipRectByRect({
+        x: sX,
+        y: sY - height / 2,
+        width: eX - sX,
+        height
+    }, {
+        x: coordSys.x,
+        y: coordSys.y,
+        width: coordSys.width,
+        height: coordSys.height,
+    })
+
+    return rectShape && {
+        type: 'rect',
+        transition: ['shape', 'style'],
+        shape: rectShape,
+        style: {
+            fill: api.visual('color'),
+        },
+        focus: 'series',
+    }
+}
+
+const generateSeries = (biz: BizData, legendColors: Record<string, string>): EcOption['series'] => {
+    const { activities, dates, merge } = biz
+    const groupBySeries = groupBy(activities, a => a.seriesKey, l => l)
+
+    return Object.entries(groupBySeries).map(([series, list]) => {
+        const color = legendColors[series]
+        return {
+            name: series,
+            type: 'custom',
+            id: `${merge}-${series}`,
+            itemStyle: { color },
+            encode: {
+                x: [1, 2],
+                y: 0,
+            },
+            renderItem,
+            selectedMode: true,
+            data: list.map(({ start, duration }) => {
+                const date = formatYAxis(start)
+                const dateIdx = dates.indexOf(date)
+                const dayStart = getStartOfDay(start)
+                const startOffset = start - dayStart
+                const endOffset = start + duration - dayStart
+                const value: MyValue = [dateIdx, startOffset, endOffset, duration]
+                return { value }
+            })
+        }
+    })
+}
+
+const calcDataZoomDefaultRange = (activities: tt4b.timeline.Activity[]): [start: number | undefined, end: number | undefined] => {
+    if (!activities.length) return [undefined, undefined]
+    let min = activities.map(a => a.start).reduce((a, b) => b < a ? b : a)
+    let max = activities.map(({ start, duration }) => start + duration).reduce((a, b) => b > a ? b : a)
+
+    const interval = 30 * MILL_PER_MINUTE
+    min = Math.floor(min / interval) * interval
+    max = Math.ceil(max / interval) * interval
+
+    return [min, max]
+}
+
+class Wrapper extends EchartsWrapper<BizData, EcOption> {
+    protected override replaceSeries: boolean = true
+    protected override isSizeSensitize: boolean = true
+
+    protected async generateOption(bizData: BizData): Promise<EcOption> {
+        const { dates, activities, merge } = bizData
+        const domWidth = this.getDomWidth()
+        const gridLeft = Math.min(Math.max(30, domWidth * .05), 60)
+        const primaryTextColor = getPrimaryTextColor()
+
+        const legendData = collectLegends(activities, merge)
+        const legendNames = toMap(legendData, e => e.name, e => e.displayName)
+        const legendColor = toMap(legendData, e => e.name, e => e.color)
+
+        const tooltipSeriesName = (key: string) => {
+            const name = legendNames[key]
+            if (merge === 'cate') return name ?? key
+            return name ? `${name} (${key})` : key
+        }
+
+        const [zoomStart, zoomEnd] = calcDataZoomDefaultRange(bizData.activities)
+
+        return {
+            grid: {
+                left: gridLeft, width: domWidth - gridLeft - LEGEND_WIDTH,
+                bottom: '35%', height: '60%',
+            },
+            dataZoom: {
+                type: 'slider',
+                borderColor: 'transparent',
+                bottom: 5,
+                height: 20,
+                labelFormatter: '',
+                handleStyle: { opacity: 0 },
+                startValue: zoomStart,
+                endValue: zoomEnd,
+            },
+            yAxis: {
+                type: 'category',
+                data: dates,
+                axisTick: {
+                    show: false,
+                },
+                axisLine: { show: false, },
+                axisLabel: { color: primaryTextColor }
+            },
+            xAxis: {
+                type: 'value',
+                offset: 0,
+                max: MILL_PER_DAY,
+                minInterval: 10 * MILL_PER_MINUTE,
+                interval: 4 * MILL_PER_HOUR,
+                axisLabel: {
+                    formatter: formatTimeLabel,
+                    color: primaryTextColor,
+                },
+                splitLine: { show: false },
+            },
+            tooltip: {
+                position: 'top',
+                borderWidth: 0,
+                formatter: params => {
+                    const color = (params as any)?.color ?? "#000"
+                    const param = Array.isArray(params) ? params[0] : params
+                    const { value, seriesName } = param ?? {}
+                    const [_1, start, _2, duration] = value as MyValue
+                    const startStr = formatStart(start)
+                    const durStr = formatDuration(duration)
+                    return `${tooltipDot(color)} ${seriesName ? tooltipSeriesName(seriesName) : ''}`
+                        + `<br/>${startStr} ~ ${durStr}`
+                },
+            },
+            series: generateSeries(bizData, legendColor),
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                align: 'left',
+                top: '6%',
+                right: 0,
+                textStyle: {
+                    width: 120,
+                    color: primaryTextColor,
+                    overflow: 'truncate',
+                },
+                itemWidth: 20,
+                data: legendData.map(({ name, color }) => ({
+                    name,
+                    itemStyle: { color },
+                })),
+                formatter: name => legendNames[name] ?? name,
+            }
+        }
+    }
+}
+
+export default Wrapper

@@ -1,0 +1,31 @@
+import { getOption, setOption } from "@api/sw/option"
+import { useRequest } from '@hooks'
+import { reactive, toRaw, watch } from "vue"
+
+type Options<T> = {
+    defaultValue: (() => T) | T
+    copy: (target: T, source: Readonly<T>) => void
+    onChange?: (newVal: T) => void
+}
+
+type MutableKeys<T> = {
+    -readonly [K in keyof T]: T[K]
+}
+
+export const useOption = <T extends object = Partial<tt4b.option.AllOption>>(options: Options<T>) => {
+    const { defaultValue, copy, onChange } = options
+    const option = reactive<MutableKeys<T>>(typeof defaultValue === 'function' ? defaultValue() : structuredClone(defaultValue))
+
+    const { loading } = useRequest(async () => {
+        const currentVal = await getOption() as T
+        copy(option as T, currentVal)
+    })
+
+    watch(option, async () => {
+        const newVal = toRaw(option) as T
+        !loading.value && await setOption(newVal)
+        onChange?.(newVal)
+    })
+
+    return { option, loading }
+}

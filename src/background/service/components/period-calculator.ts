@@ -1,0 +1,62 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { sum } from "@util/array"
+import { after, compare, indexOf, keyOf, rowOf, startOfKey } from "@util/period"
+
+/**
+ * @param timestamp current ts
+ * @param milliseconds milliseconds
+ * @returns results, can't be empty if milliseconds is positive
+ */
+export function calculate(timestamp: number, milliseconds: number): tt4b.period.Result[] {
+    if (milliseconds <= 0) return []
+
+    const key = keyOf(timestamp)
+    const start = startOfKey(key)?.getTime()
+
+    const currentResult = { ...key, milliseconds: 0 }
+    const extraMill = timestamp - start
+    const result: tt4b.period.Result[] = []
+    if (extraMill < milliseconds) {
+        // milliseconds including before period
+        // 1st. add before ones
+        const before = calculate(timestamp - extraMill - 1, milliseconds - extraMill)
+        result.push(...before)
+        // 2nd. shorten milliseconds
+        currentResult.milliseconds = extraMill
+    } else {
+        // All is in current minute
+        currentResult.milliseconds = milliseconds
+    }
+    result.push(currentResult)
+    return result
+}
+
+export function merge(periods: tt4b.period.Result[], size: number): tt4b.period.Row[] {
+    periods = periods.sort(compare)
+    const first = periods[0]
+    const last = periods[periods.length - 1]
+    if (!first || !last) return []
+
+    const map: Map<number, number> = new Map()
+    periods.forEach(p => map.set(indexOf(p), p.milliseconds))
+
+    let mills: number[] = []
+    let start: tt4b.period.Key = first
+    const rows: tt4b.period.Row[] = []
+    for (; compare(start, last) <= 0; start = after(start, 1)) {
+        mills.push(map.get(indexOf(start)) ?? 0)
+        const isEndOfWindow = (start.order % size) === size - 1
+        if (isEndOfWindow) {
+            const isFullWindow = mills.length === size
+            isFullWindow && rows.push(rowOf(start, size, sum(mills)))
+            mills = []
+        }
+    }
+    return rows
+}

@@ -1,0 +1,115 @@
+/**
+ * Copyright (c) 2022 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+export function groupBy<T, R>(
+    arr: T[],
+    keyFunc: (e: T, idx: number) => string | undefined | null,
+    downstream: (grouped: T[], key: string) => R
+): Record<string, R>
+
+export function groupBy<T, R>(
+    arr: T[],
+    keyFunc: (e: T, idx: number) => number,
+    downstream: (grouped: T[], key: string) => R
+): Record<number, R>
+
+/**
+ * Group by
+ *
+ * @param arr original array
+ * @param keyFunc key generator
+ * @returns grouped map
+ * @since 1.0.0
+ */
+export function groupBy<T, R>(
+    arr: T[],
+    keyFunc: (e: T, idx: number) => string | number | undefined | null,
+    downstream: (grouped: T[], key: string) => R
+): Record<string | number, R> {
+    const groupedMap: Record<string | number, T[]> = {}
+    arr.forEach((e, i) => {
+        const key = keyFunc(e, i)
+        if (key === undefined || key === null) {
+            return
+        }
+        const existArr: T[] = groupedMap[key] || []
+        existArr.push(e)
+        groupedMap[key] = existArr
+    })
+    const result: Record<string, R> = {}
+    Object.entries(groupedMap)
+        .forEach(([key, grouped]) => result[key] = downstream(grouped, key))
+    return result
+}
+
+export function toMap<E, K extends string | number>(
+    arr: E[],
+    keyFun: (e: E, idx: number) => K | undefined | null,
+): Record<K, E>
+
+export function toMap<E, K extends string | number, V>(
+    arr: E[],
+    keyFun: (e: E, idx: number) => K | undefined | null,
+    valFunc: (t: E, key: K) => V,
+): Record<K, V>
+
+/**
+ * To map
+ *
+ * @param arr original array
+ * @param keyFunc key generator
+ * @param valFunc value generator
+ * @returns k-v map
+ * @since 3.6.1
+ */
+export function toMap<E, K extends string | number, V>(
+    arr: E[],
+    keyFunc: (e: E, idx: number) => K | undefined | null,
+    valFunc?: (t: E, key: K) => V,
+): Record<K, E | V> {
+    const result: Record<string | number, V | E> = {}
+    arr.forEach((e, i) => {
+        const key = keyFunc(e, i)
+        if (key === undefined || key === null) {
+            return
+        }
+        result[key] = valFunc ? valFunc(e, key) : e
+    })
+    return result
+}
+
+/**
+ * Rotate the array without new one returned
+ *
+ * @param arr the targe array
+ * @param count count to rotate
+ */
+export function rotate<T extends Exclude<any, undefined>>(arr: T[], count: number): void {
+    const arrLen = arr.length
+    if (!arrLen || !Number.isInteger(count) || count === 0) return
+    count %= arrLen
+    if (count < 0) count += arrLen
+    const tail = arr.splice(arrLen - count, count)
+    arr.unshift(...tail)
+}
+
+/**
+ * Summarize
+ *
+ * @param arr target arr
+ */
+export function sum(arr: number[]): number {
+    return arr?.reduce?.((a, b) => (a ?? 0) + (b ?? 0), 0) ?? 0
+}
+
+export function range(len: number): number[] {
+    const arr: number[] = []
+    for (let i = 0; i < len; i++) {
+        arr.push(i)
+    }
+    return arr
+}

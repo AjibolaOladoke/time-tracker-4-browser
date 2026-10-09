@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) 2022 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { t } from "@app/locale"
+import type { ValueFormatter } from '../common/kanban/types'
+
+/**
+ * Transfer host info to label
+ */
+export function labelOfHostInfo(site: tt4b.site.SiteKey | undefined): string {
+    if (!site) return ''
+    const { host, type } = site
+    if (type === 'normal') return host
+    return `${host}[${t(msg => msg.shared.site.type[type])}]`
+}
+
+export const formatValue = (val: number | undefined, formatter?: ValueFormatter) => formatter ? formatter(val) : val?.toString() || '-'

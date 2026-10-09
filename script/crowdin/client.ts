@@ -1,0 +1,392 @@
+import {
+    Client,
+    type Credentials,
+    type Pagination,
+    type PatchRequest,
+    type ResponseList,
+    type SourceFilesModel,
+    type SourceStringsModel,
+    type StringTranslationsModel,
+    type UploadStorageModel,
+} from '@crowdin/crowdin-api-client'
+import { createArrayGuard, createObjectGuard, isInt, isString } from 'typescript-guard'
+import { exitWith } from '../util/process'
+import { ALL_CROWDIN_LANGUAGES, type CrowdinLanguage, type Dir, type ItemSet } from './common'
+
+const PROJECT_ID = 516822
+
+export type TopMember = {
+    username: string
+    avatarUrl: string
+    translated: number
+    approved: number
+    languages: string[]
+}
+
+const MAIN_BRANCH_NAME = 'main'
+
+type TopMemberRow = {
+    user: {
+        username: string
+        avatarUrl: string
+    }
+    languages: { name: string }[]
+    translated: number
+    approved: number
+}
+
+const isTopMemberRow = createObjectGuard<TopMemberRow>({
+    user: createObjectGuard({
+        username: isString,
+        avatarUrl: isString,
+    }),
+    languages: createArrayGuard(createObjectGuard({
+        name: isString,
+    })),
+    translated: isInt,
+    approved: isInt,
+})
+
+type TopMemberData = {
+    data: TopMemberRow[]
+}
+
+const isTopMemberData = createObjectGuard<TopMemberData>({
+    data: createArrayGuard(isTopMemberRow)
+})
+
+/**
+ * The iterator of response
+ */
+class PaginationIterator<T> {
+    private offset = 0
+    private limit = 500
+    private isEnd = false
+    private buf: T[] = []
+    private cursor = 0
+
+    constructor(private query: (pagination: Pagination) => Promise<ResponseList<T>>) {
+    }
+
+    reset(): void {
+        this.offset = 0
+        this.isEnd = false
+        this.buf = []
+        this.cursor = 0
+    }
+
+    async findFirst(predicate: (ele: T) => boolean): Promise<T | undefined> {
+        while (true) {
+            const data = await this.next()
+            if (!data) {
+                break
+            }
+            if (data && predicate(data)) {
+                return data
+            }
+        }
+        return undefined
+    }
+
+    async findAll(predicate?: ((ele: T) => boolean)): Promise<T[]> {
+        const result: T[] = []
+        while (true) {
+            const data = await this.next()
+            if (!data) {
+                break
+            }
+            if (predicate ? predicate(data) : true) {
+                result.push(data)
+            }
+        }
+        return result
+    }
+
+    async next(): Promise<T | undefined> {
+        if (this.isEnd) {
+            return undefined
+        }
+        if (this.cursor >= this.buf.length) {
+            await this.processBuf()
+        }
+        if (this.isEnd) {
+            return undefined
+        }
+        return this.buf[this.cursor++]
+    }
+
+    private async processBuf() {
+        const pagination: Pagination = { offset: this.offset, limit: this.limit }
+        const list = await this.query(pagination)
+        const data = list.data
+        if (!data.length) {
+            this.isEnd = true
+        } else {
+            this.buf = data.map(obj => obj.data)
+            this.cursor = 0
+            this.offset += this.buf.length
+        }
+    }
+}
+
+/**
+ * Key of crowdin file/directory
+ */
+export type NameKey = {
+    name: Dir
+    branchId: number
+}
+
+type TranslationKey = {
+    stringId: number
+    lang: CrowdinLanguage
+}
+
+/**
+ * The wrapper of client with auth
+ */
+export class CrowdinClient {
+    crowdin: Client
+
+    constructor(token: string) {
+        const credentials: Credentials = {
+            token: token
+        }
+        this.crowdin = new Client(credentials)
+        console.info("Initialized client successfully")
+    }
+
+    async createStorage(fileName: string, content: any): Promise<UploadStorageModel.Storage> {
+        const response = await this.crowdin.uploadStorageApi.addStorage(fileName, content)
+        return response.data
+    }
+
+    /**
+     * Get the main branch
+     *
+     * @returns main branch or undefined
+     */
+
+    async getMainBranch(): Promise<SourceFilesModel.Branch | undefined> {
+        return new PaginationIterator(
+            pagination => this.crowdin.sourceFilesApi.listProjectBranches(PROJECT_ID, { ...pagination })
+        ).findFirst(e => e.name === MAIN_BRANCH_NAME)
+    }
+
+    /**
+     * Create the main branch
+     */
+    async createMainBranch(): Promise<SourceFilesModel.Branch> {
+        const request: SourceFilesModel.CreateBranchRequest = {
+            name: MAIN_BRANCH_NAME
+        }
+        const res = await this.crowdin.sourceFilesApi.createBranch(PROJECT_ID, request)
+        return res.data
+    }
+
+    async getOrCreateMainBranch(): Promise<SourceFilesModel.Branch> {
+        let branch = await this.getMainBranch()
+        if (!branch) {
+            branch = await this.createMainBranch()
+        }
+        console.info("getOrCreateMainBranch: " + JSON.stringify(branch))
+        return branch
+    }
+
+    async createFile(
+        directoryId: number,
+        storage: UploadStorageModel.Storage,
+        fileName: string
+    ): Promise<SourceFilesModel.File> {
+        const request: SourceFilesModel.CreateFileRequest = {
+            name: fileName,
+            storageId: storage.id,
+            directoryId,
+            type: 'json',
+        }
+        const response = await this.crowdin.sourceFilesApi.createFile(PROJECT_ID, request)
+        return response.data
+    }
+
+    getDirByName(param: NameKey): Promise<SourceFilesModel.Directory | undefined> {
+        return new PaginationIterator(
+            p => this.crowdin.sourceFilesApi.listProjectDirectories(PROJECT_ID, { ...p, branchId: param.branchId })
+        ).findFirst(d => d.name === param.name)
+    }
+
+    async createDirectory(param: NameKey): Promise<SourceFilesModel.Directory> {
+        const res = await this.crowdin.sourceFilesApi.createDirectory(PROJECT_ID, {
+            name: param.name,
+            branchId: param.branchId,
+        })
+        return res.data
+    }
+
+    listFilesByDirectory(directoryId: number) {
+        return new PaginationIterator(
+            p => this.crowdin.sourceFilesApi.listProjectFiles(PROJECT_ID, { ...p, directoryId: directoryId })
+        ).findAll()
+    }
+
+    async downloadSourceFile(fileId: number): Promise<Record<string, unknown>> {
+        const res = await this.crowdin.sourceFilesApi.downloadFile(PROJECT_ID, fileId)
+        const response = await fetch(res.data.url)
+        return await response.json() as Record<string, unknown>
+    }
+
+    listStringsByFile(fileId: number): Promise<SourceStringsModel.String[]> {
+        return new PaginationIterator(
+            p => this.crowdin.sourceStringsApi.listProjectStrings(PROJECT_ID, { ...p, fileId: fileId })
+        ).findAll()
+    }
+
+    async batchCreateString(
+        fileId: number,
+        content: ItemSet,
+    ): Promise<void> {
+        for (const [path, value] of Object.entries(content)) {
+            const request: SourceStringsModel.CreateStringRequest = {
+                fileId,
+                text: value,
+                identifier: path,
+            }
+            console.log(`Try to create new string: ${JSON.stringify(request)}`)
+            await this.crowdin.sourceStringsApi.addString(PROJECT_ID, request)
+        }
+    }
+
+    async batchUpdateIfNecessary(
+        content: ItemSet,
+        existStringsKeyMap: { [path: string]: SourceStringsModel.String }
+    ): Promise<void> {
+        console.log("=========start to update strings========")
+        console.log("Content length: " + Object.keys(content).length)
+        for (const [path, value] of Object.entries(content)) {
+            const string = existStringsKeyMap[path]
+            if (!string) continue
+            const patch: PatchRequest[] = []
+            string.text !== value && patch.push({
+                op: 'replace',
+                path: '/text',
+                value: value
+            })
+            if (!patch.length) continue
+            console.log('Try to edit string: ' + string.identifier)
+            await this.crowdin.sourceStringsApi.editString(PROJECT_ID, string.id, patch)
+        }
+        console.log("=========end to update strings========")
+    }
+
+    async batchDeleteString(stringIds: number[]): Promise<void> {
+        console.log("=========start to delete strings========")
+        for (const stringId of stringIds) {
+            await this.crowdin.sourceStringsApi.deleteString(PROJECT_ID, stringId)
+            console.log("Delete string: id=" + stringId)
+        }
+        console.log("=========end to delete strings========")
+    }
+
+    async listTranslationByStringAndLang(transKey: TranslationKey): Promise<StringTranslationsModel.StringTranslation[]> {
+        const { stringId, lang } = transKey
+        return await new PaginationIterator(
+            p => this.crowdin.stringTranslationsApi.listStringTranslations(PROJECT_ID, stringId, lang, { ...p })
+        ).findAll()
+    }
+
+    async deleteTranslation(translationId: number): Promise<void> {
+        await this.crowdin.stringTranslationsApi.deleteTranslation(PROJECT_ID, translationId)
+    }
+
+    async createTranslation(transKey: TranslationKey, text: string) {
+        const { stringId, lang } = transKey
+        const request: StringTranslationsModel.AddStringTranslationRequest = {
+            stringId,
+            languageId: lang,
+            text
+        }
+        await this.crowdin.stringTranslationsApi.addTranslation(PROJECT_ID, request)
+    }
+
+    async buildProjectTranslation(branchId: number) {
+        const buildRes = await this.crowdin.translationsApi.buildProject(PROJECT_ID, {
+            branchId,
+            targetLanguageIds: [...ALL_CROWDIN_LANGUAGES],
+            skipUntranslatedStrings: true,
+        })
+        const buildId = buildRes.data.id
+        await this.#retryWith(async () => {
+            const statusRes = await this.crowdin.translationsApi.checkBuildStatus(PROJECT_ID, buildId)
+            const { status, progress } = statusRes.data
+            console.log(`Build status: ${status}, progress: ${progress}%`)
+            if (status === 'finished') return true
+            if (status === 'canceled' || status === 'failed') {
+                throw new Error(`Build ${status}: buildId=${buildId}`)
+            }
+        })
+
+        const res = await this.crowdin.translationsApi.downloadTranslations(PROJECT_ID, buildId)
+        return res.data.url
+    }
+
+    async fetchTopMembers(): Promise<TopMember[]> {
+        const reportUrl = await this.#buildMemberReport()
+        const result = await fetch(reportUrl)
+        const json = await result.json()
+        if (!isTopMemberData(json)) {
+            exitWith(`Unexpected report data format: ${JSON.stringify(json)}`)
+        }
+        return json.data.map(r => ({
+            username: r.user.username,
+            avatarUrl: r.user.avatarUrl,
+            translated: r.translated,
+            approved: r.approved,
+            languages: r.languages.map(l => l.name),
+        }))
+    }
+
+    async #buildMemberReport(): Promise<string> {
+        const { data: { identifier: reportId } } = await this.crowdin.reportsApi.generateReport(PROJECT_ID, {
+            name: 'top-members',
+            schema: { unit: 'words', format: 'json' },
+        })
+
+        await this.#retryWith(async () => {
+            const status = await this.crowdin.reportsApi.checkReportStatus(PROJECT_ID, reportId)
+            const { status: s, progress } = status.data
+            console.log(`Crowdin report: ${s} ${progress}%`)
+            if (s === 'finished') return true
+            if (s === 'canceled' || s === 'failed') throw new Error(`Report ${s}`)
+        })
+
+        const report = await this.crowdin.reportsApi.downloadReport(PROJECT_ID, reportId)
+        return report.data.url
+    }
+
+    async #retryWith(predicate: () => Promise<boolean | void>) {
+        const maxRetries = 120
+        let retryCount = 0
+        while (true) {
+            if (retryCount >= maxRetries) {
+                throw new Error(`Build timed out after ${maxRetries} retries`)
+            }
+            const pass = await predicate()
+            if (pass) break
+            retryCount++
+            await new Promise(r => setTimeout(r, 1000))
+        }
+    }
+}
+
+/**
+ * Get the client from environment variable [TIMER_CROWDIN_AUTH]
+ *
+ * @returns client
+ */
+export function getClientFromEnv(): CrowdinClient {
+    const envVar = process.env.TIMER_CROWDIN_AUTH
+    if (!envVar) {
+        console.error("Failed to get the variable named [TIMER_CROWDIN_AUTH]")
+        process.exit(1)
+    }
+    return new CrowdinClient(envVar)
+}

@@ -1,0 +1,77 @@
+/**
+ * Copyright (c) 2024 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { listPeriods } from '@api/sw/period'
+import { localReactive, useProvide, useProvider, useRequest } from '@hooks'
+import { keyOf, MAX_PERIOD_ORDER } from "@util/period"
+import { getDayLength, MILL_PER_DAY } from "@util/time"
+import { createObjectGuard } from 'typescript-guard'
+import { computed, type Ref } from "vue"
+import { useHabitFilter } from "../context"
+import { isChartType, isPeriodSize, type ChartType, type PeriodRange, type PeriodSize } from './types'
+
+type FilterOption = {
+    periodSize: PeriodSize
+    chartType: ChartType
+}
+
+const isFilterOption = createObjectGuard<FilterOption>({
+    periodSize: isPeriodSize,
+    chartType: isChartType,
+})
+
+type Value = {
+    curr: tt4b.period.Row[]
+    prev: tt4b.period.Row[]
+}
+
+type Context = {
+    value: Ref<Value>
+    filter: FilterOption
+}
+
+const computeRange = (dateRange: [number, number]): PeriodRange => {
+    const [startDate, endDate] = dateRange
+    const dateLength = getDayLength(startDate, endDate)
+    const prevStartDate = new Date(startDate - MILL_PER_DAY * dateLength)
+    const prevEndDate = new Date(startDate - MILL_PER_DAY)
+    return {
+        curr: [keyOf(startDate, 0), keyOf(endDate, MAX_PERIOD_ORDER)],
+        prev: [keyOf(prevStartDate, 0), keyOf(prevEndDate, MAX_PERIOD_ORDER)],
+    }
+}
+
+const NAMESPACE = 'habitPeriod'
+
+export const initProvider = () => {
+    const globalFilter = useHabitFilter()
+    const periodRange = computed(() => computeRange(globalFilter.dateRange))
+    const filter = localReactive<FilterOption>(
+        'habit_period_filter', isFilterOption, { periodSize: 1, chartType: 'average' }
+    )
+
+    const { data: value } = useRequest(async () => {
+        const { curr: currRange, prev: prevRange } = periodRange.value || {}
+        const periodSize = filter.periodSize
+        const [curr, prev] = await Promise.all([
+            listPeriods({ range: currRange, size: periodSize }),
+            listPeriods({ range: prevRange, size: periodSize }),
+        ])
+        return { curr, prev }
+    }, {
+        deps: [periodRange, () => filter.chartType, () => filter.periodSize],
+        defaultValue: { curr: [], prev: [] },
+    })
+
+    useProvide<Context>(NAMESPACE, { value, filter })
+
+    return { filter, periodRange }
+}
+
+export const usePeriodValue = () => useProvider<Context, 'value'>(NAMESPACE, "value").value
+
+export const usePeriodFilter = () => useProvider<Context, 'filter'>(NAMESPACE, "filter").filter

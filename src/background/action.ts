@@ -1,0 +1,90 @@
+/**
+ * Copyright (c) 2021-present Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+import { APP_OPTION_ROUTE, APP_RECORD_ROUTE } from "@/shared/route"
+import { onIconClick } from "@api/chrome/action"
+import { createContextMenu } from "@api/chrome/context-menu"
+import { getRuntimeId } from "@api/chrome/runtime"
+import { createTab } from "@api/chrome/tab"
+import { IS_MOBILE, IS_MV3, IS_SAFARI } from "@util/constant/environment"
+import { CHANGE_LOG_PAGE, SOURCE_CODE_PAGE, getAppPageUrl, getGuidePageUrl } from "@util/constant/url"
+import { t } from './i18n'
+
+const APP_PAGE_URL = getAppPageUrl()
+
+const baseProps: Partial<ChromeContextMenuCreateProps> = {
+    // Cast unknown to fix the error with manifestV2
+    // Because 'browser_action' will be replaced with 'action' in union type chrome.contextMenus.ContextType since V3
+    // But 'action' does not work in V2
+    contexts: [IS_MV3 ? 'action' : 'browser_action'],
+    visible: true
+}
+
+function titleOf(prefixEmoji: string, title: string) {
+    if (IS_SAFARI) {
+        // Emoji does not work in Safari's context menu
+        return title
+    } else {
+        return `${prefixEmoji} ${title}`
+    }
+}
+
+const allFunctionProps: ChromeContextMenuCreateProps = {
+    id: getRuntimeId() + '_timer_menu_item_app_link',
+    title: titleOf('🏷️', t(msg => msg.base.allFunction)),
+    onclick: () => createTab(APP_PAGE_URL),
+    ...baseProps
+}
+
+const optionPageProps: ChromeContextMenuCreateProps = {
+    id: getRuntimeId() + '_timer_menu_item_option_link',
+    title: titleOf('🥰', t(msg => msg.base.option)),
+    onclick: () => createTab(getAppPageUrl(APP_OPTION_ROUTE)),
+    ...baseProps
+}
+
+const repoPageProps: ChromeContextMenuCreateProps = {
+    id: getRuntimeId() + '_timer_menu_item_repo_link',
+    title: titleOf('🍻', t(msg => msg.base.sourceCode)),
+    onclick: () => createTab(SOURCE_CODE_PAGE),
+    ...baseProps
+}
+
+const guidePageProps: ChromeContextMenuCreateProps = {
+    id: getRuntimeId() + '_timer_menu_item_guide_link',
+    title: titleOf('📖', t(msg => msg.base.guidePage)),
+    onclick: () => createTab(getGuidePageUrl()),
+    ...baseProps
+}
+
+const changeLogProps: ChromeContextMenuCreateProps = {
+    id: getRuntimeId() + '_timer_menu_item_changelog',
+    title: titleOf('📆', t(msg => msg.base.changeLog)),
+    onclick: () => createTab(CHANGE_LOG_PAGE),
+    ...baseProps
+}
+
+export function initBrowserAction() {
+    createContextMenu(allFunctionProps)
+    createContextMenu(optionPageProps)
+    createContextMenu(repoPageProps)
+    createContextMenu(guidePageProps)
+    createContextMenu(changeLogProps)
+
+    if (IS_MOBILE) {
+        // Forbidden popup page
+        onIconClick(() => createTab({ url: getAppPageUrl(APP_RECORD_ROUTE) }))
+    }
+}
+
+export function initSidePanel() {
+    if (!IS_MV3) return
+    const sidePanel = chrome.sidePanel
+    // sidePanel not supported for Firefox
+    // Avoid `chrome.sidePanel.setOptions` to skip web-ext lint
+    if (!sidePanel?.setOptions) return
+    sidePanel.setOptions({ path: "/static/side.html" })
+}

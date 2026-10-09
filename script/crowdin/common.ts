@@ -1,0 +1,227 @@
+import { type SourceFilesModel } from '@crowdin/crowdin-api-client'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { exitWith } from '../util/process'
+import { type CrowdinClient } from './client'
+
+export const ALL_DIRS = ['app', 'common', 'popup', 'side', 'cs', 'bg'] as const
+
+/**
+ * The directory of messages
+ */
+export type Dir = typeof ALL_DIRS[number]
+
+/**
+ * Items of message
+ */
+export type ItemSet = {
+    [path: string]: string
+}
+
+export const ALL_CROWDIN_LANGUAGES = [
+    'zh-CN', 'zh-TW', 'ja',
+    'pt-PT', 'uk', 'es-ES', 'de', 'fr', 'ru', 'pl',
+    'ar', 'tr',
+    'it',
+] as const
+
+/**
+ * The language code of crowdin
+ *
+ * @see https://developer.crowdin.com/language-codes/
+ */
+export type CrowdinLanguage = typeof ALL_CROWDIN_LANGUAGES[number]
+
+export const SOURCE_LOCALE: tt4b.RequiredLocale = 'en'
+
+const OPTIONAL_PLACEHOLDER: Record<tt4b.OptionalLocale, 0> = {
+    ja: 0,
+    uk: 0,
+    de: 0,
+    fr: 0,
+    ru: 0,
+    pl: 0,
+    ar: 0,
+    tr: 0,
+    zh_CN: 0,
+    zh_TW: 0,
+    pt_PT: 0,
+    es: 0,
+    it: 0,
+}
+
+export const ALL_TRANS_LOCALES = Object.keys(OPTIONAL_PLACEHOLDER) as tt4b.OptionalLocale[]
+
+const I18N_CROWDIN_MAP: Record<tt4b.OptionalLocale, CrowdinLanguage> = {
+    zh_CN: 'zh-CN',
+    ja: 'ja',
+    zh_TW: 'zh-TW',
+    pt_PT: 'pt-PT',
+    uk: 'uk',
+    es: 'es-ES',
+    de: 'de',
+    fr: 'fr',
+    ru: 'ru',
+    ar: 'ar',
+    tr: 'tr',
+    pl: 'pl',
+    it: 'it',
+}
+
+export const crowdinLangOf = (locale: tt4b.OptionalLocale): CrowdinLanguage => I18N_CROWDIN_MAP[locale]
+
+const IGNORED_FILE: Partial<{ [dir in Dir]: string[] }> = {
+    common: [
+        // Strings for market
+        'meta',
+        // Name of locales
+        'locale',
+    ]
+}
+
+export function isIgnored(dir: Dir, fileName: string) {
+    return !!IGNORED_FILE[dir]?.includes(fileName)
+}
+
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
+const MSG_BASE = path.join(SCRIPT_DIR, '..', '..', 'src', 'i18n', 'message')
+export const RSC_FILE_SUFFIX = "-resource.json"
+
+/**
+ * Read all messages from source file
+ *
+ * @param dir the directory of messages
+ * @returns
+ */
+export async function readAllMessages(dir: Dir): Promise<Record<string, Messages<Record<string, unknown>>>> {
+    const dirPath = path.join(MSG_BASE, dir)
+
+    const files = fs.readdirSync(dirPath)
+    const result: Record<string, any> = {}
+    await Promise.all(files.map(async file => {
+        if (!file.endsWith(RSC_FILE_SUFFIX)) {
+            return
+        }
+        const message = (await import(`@i18n/message/${dir}/${file}`))?.default as Messages<Record<string, unknown>>
+        const name = file.replace(RSC_FILE_SUFFIX, '')
+        message && (result[name] = message)
+        return
+    }))
+    return result
+}
+
+/**
+ * Merge crowdin message into locale resource JSON files
+ *
+ * @param dir dir
+ * @param filename the name of JSON file
+ * @param messages crowdin messages
+ */
+export async function mergeMessage(
+    dir: Dir,
+    filename: string,
+    messages: Partial<Record<tt4b.Locale, ItemSet>>
+): Promise<void> {
+    const dirPath = path.join(MSG_BASE, dir)
+    const filePath = path.join(dirPath, filename)
+    let existMessages: Messages<Record<string, unknown>>
+    try {
+        const module = await import(`@i18n/message/${dir}/${filename}`)
+        existMessages = module.default
+    } catch {
+        logError(`Failed to find local code: dir=${dir}, filename=${filename}`)
+        return
+    }
+    const sourceItemSet = transMsg(existMessages[SOURCE_LOCALE])
+    const sourceKeyIdx = Object.keys(sourceItemSet)
+    Object.entries(messages).forEach(([locale, itemSet]) => {
+        const newMessage: any = {}
+        Object.entries(itemSet)
+            .sort((a, b) => (sourceKeyIdx.findIndex(v => v === a[0]) - sourceKeyIdx.findIndex(v => v === b[0])))
+            .forEach(([path, text]) => {
+                // Not translated
+                if (!text) return
+                const sourceText = sourceItemSet[path]
+                // Deleted key
+                if (!sourceText) return
+                if (!checkPlaceholder(text, sourceText)) {
+                    logError(`Invalid placeholder: locale=${locale}, dir=${dir}, filename=${filename}, path=${path}, source=${sourceText}, translated=${text}`)
+                    return
+                }
+                const pathSeg = path.split('.')
+                fillItem(pathSeg, 0, newMessage, text)
+            })
+        Object.entries(newMessage).length && (existMessages[locale as tt4b.Locale] = newMessage)
+    })
+
+    const newFileContent = JSON.stringify(existMessages, null, 4)
+    fs.writeFileSync(filePath, newFileContent, { encoding: 'utf-8' })
+}
+
+function logError(msg: string) {
+    console.error(`\x1b[31m[CROWDIN-ERROR]\x1b[0m ${msg}`)
+}
+
+function checkPlaceholder(translated: string, source: string) {
+    const allSourcePlaceholders =
+        Array.from(source.matchAll(/\{(.*?)}/g))
+            .map(matched => matched[1])
+            .sort()
+    const allTranslatedPlaceholders =
+        Array.from(translated.matchAll(/\{(.*?)}/g))
+            .map(matched => matched[1])
+            .sort()
+    if (allSourcePlaceholders.length != allTranslatedPlaceholders.length) {
+        return false
+    }
+    for (let i = 0; i < allSourcePlaceholders.length; i++) {
+        if (allSourcePlaceholders[i] !== allTranslatedPlaceholders[i]) {
+            return false
+        }
+    }
+    return true
+}
+
+function fillItem(fields: string[], index: number, obj: Record<string, any>, text: string) {
+    const field = fields[index]
+    if (!field) return
+    if (index === fields.length - 1) {
+        obj[field] = text
+        return
+    }
+    let sub = obj[field]
+    if (sub === undefined) {
+        obj[field] = sub = {}
+    } else if (typeof sub !== 'object') {
+        exitWith("Invalid key path: " + fields.join('.'))
+    }
+    fillItem(fields, index + 1, sub, text)
+}
+
+/**
+ * Trans msg object to k-v map
+ */
+export function transMsg(message: any, prefix?: string): ItemSet {
+    const result: Record<string, any> = {}
+    const pathPrefix = prefix ? prefix + '.' : ''
+    Object.entries(message).forEach(([key, value]) => {
+        const path = pathPrefix + key
+        if (typeof value === 'object') {
+            const subResult = transMsg(value, path)
+            Object.entries(subResult)
+                .forEach(([path, val]) => result[path] = val)
+        } else {
+            let realVal = value
+            // Replace tab with blank
+            typeof value === 'string' && (realVal = value.replace(/\s{4}/g, ''))
+            result[path] = realVal
+        }
+    })
+    return result
+}
+
+export async function checkMainBranch(client: CrowdinClient): Promise<SourceFilesModel.Branch> {
+    const branch = await client.getMainBranch()
+    return branch ?? exitWith("Main branch is null")
+}

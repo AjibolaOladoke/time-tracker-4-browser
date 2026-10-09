@@ -1,0 +1,114 @@
+/**
+ * Copyright (c) 2023 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { allBackupClients } from "@api/sw/backup"
+import { t } from '@app/locale'
+import { cvt2LocaleTime } from '@app/util/time'
+import { Loading, RefreshRight } from "@element-plus/icons-vue"
+import { css } from '@emotion/css'
+import { useRequest } from '@hooks'
+import {
+    ElLink, ElMessage, ElRadio, ElTable, ElTableColumn, ElTag, useNamespace, type RenderRowData,
+} from "element-plus"
+import { defineComponent, ref, toRaw, type StyleValue } from "vue"
+
+const useStyle = () => {
+    const radioNs = useNamespace('radio')
+    const radioCls = css`
+        & .${radioNs.e('label')} {
+            padding: 0;
+        }
+    `
+    return { radioCls }
+}
+
+const formatTime = (value: tt4b.backup.Client): string => {
+    const { minDate, maxDate } = value || {}
+    const min = minDate ? cvt2LocaleTime(minDate) : ''
+    const max = maxDate ? cvt2LocaleTime(maxDate) : ''
+    return `${min} - ${max}`
+}
+
+const _default = defineComponent<{ onSelect: ArgCallback<tt4b.backup.Client> }>(props => {
+    const { data: list, loading, refresh } = useRequest(allBackupClients, {
+        defaultValue: [],
+        onError: e => ElMessage.error(e instanceof Error ? e.message : String(e ?? 'Unknown error...'))
+    })
+
+    const selectedCid = ref<string>()
+    const handleRowSelect = (row: tt4b.backup.Client) => {
+        selectedCid.value = row.id
+        props.onSelect?.(toRaw(row))
+    }
+    const { radioCls } = useStyle()
+
+    return () => (
+        <ElTable
+            data={list.value}
+            border
+            maxHeight="40vh"
+            class="backup-client-table"
+            highlightCurrentRow
+            onCurrent-change={row => row && handleRowSelect(row)}
+            emptyText={loading.value ? 'Loading data ...' : 'Empty data'}
+        >
+            <ElTableColumn
+                align="center"
+                width={50}
+                v-slots={{
+                    header: () => (
+                        <ElLink
+                            icon={loading.value ? <Loading /> : <RefreshRight />}
+                            onClick={refresh}
+                            type="primary"
+                            underline="never"
+                        />
+                    ),
+                    default: ({ row }: RenderRowData<tt4b.backup.Client>) => (
+                        <ElRadio
+                            class={radioCls}
+                            value={row.id}
+                            modelValue={selectedCid.value}
+                            onChange={() => handleRowSelect(row)}
+                        />
+                    ),
+                }}
+            />
+            <ElTableColumn
+                label="CID"
+                align="center"
+                headerAlign="center"
+                width={320}
+                formatter={(client: tt4b.backup.Client) => client.id || '-'}
+            />
+            <ElTableColumn
+                label={t(msg => msg.option.backup.client, { input: '' })}
+                align="center"
+                headerAlign="center"
+            >
+                {({ row: client }: RenderRowData<(tt4b.backup.Client & { current: boolean })>) => <>
+                    {client.name || '-'}
+                    <ElTag
+                        v-show={client.current}
+                        size="small" type="danger"
+                        style={{ height: '20px', marginInline: '6px 0' } satisfies StyleValue}
+                    >
+                        {t(msg => msg.option.backup.clientTable.current)}
+                    </ElTag>
+                </>}
+            </ElTableColumn>
+            <ElTableColumn
+                label={t(msg => msg.option.backup.clientTable.dataRange)}
+                align="center"
+                headerAlign="center"
+                formatter={formatTime}
+            />
+        </ElTable>
+    )
+}, { props: ['onSelect'] })
+
+export default _default

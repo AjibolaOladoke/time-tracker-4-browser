@@ -1,0 +1,674 @@
+{
+    "zh_CN": {
+        "onlyEffective": "仅生效中",
+        "wildcardTip": "您可以使用通配符来匹配子域名或子页面，使用\"+\"作为前缀来排除子页面！",
+        "emptyTips": "点击这里创建一条规则！",
+        "item": {
+            "name": "规则名称",
+            "condition": "限制网址",
+            "weekStartInfo": "每周的第一天是【{weekStart}】，你可以在统计选项中修改该值",
+            "delayCount": "延时次数",
+            "detail": "规则详情",
+            "visitTime": "单次访问最长时间",
+            "enabled": "启用",
+            "locked": "锁定",
+            "effectiveDay": "生效日期",
+            "or": "或者",
+            "notEffective": "未生效",
+            "unlimited": "无限制"
+        },
+        "step": {
+            "base": "基本信息",
+            "url": "设置 URL",
+            "rule": "设置规则"
+        },
+        "button": {
+            "test": "网址测试"
+        },
+        "message": {
+            "noUrl": "未添加任何限制网址",
+            "noRule": "未填写任何规则",
+            "deleteConfirm": "是否要删除规则 [{name}]？",
+            "lockConfirm": "锁定后，即使未触发此规则，所有操作也需要验证",
+            "inputTestUrl": "请先输入需要测试的网址链接",
+            "noRuleMatched": "该网址未命中任何规则",
+            "rulesMatched": "该网址命中以下规则：",
+            "timeout": "倒计时已结束 XD"
+        },
+        "verification": {
+            "inputTip": "规则已触发或者被锁定，如要继续操作，请在 {second} 秒内输入以下问题的答案：{prompt}",
+            "inputTip2": "时限规则已触发或者被锁定，如要继续操作，请于 {second} 秒内在下列输入框中原样输入：{answer}",
+            "pswInputTip": "时限规则已触发或者被锁定，如要继续操作，所以请在下列输入框中输入您的解锁密码",
+            "strictTip": "时限规则已触发，不允许手动解锁！",
+            "incorrectPsw": "密码错误",
+            "incorrectAnswer": "回答错误",
+            "twoFaInputTip": "规则已被触发或锁定。请从您的身份验证程序中输入6位数字代码以继续。",
+            "incorrect2fa": "2FA 验证码错误",
+            "pi": "圆周率 π 的小数部分第 {startIndex} 位到第 {endIndex} 位的共 {digitCount} 位数字",
+            "confession": "一寸光阴一寸金，寸金难买寸光阴"
+        },
+        "reminder": "距离时间限制不到 {min} 分钟！"
+    },
+    "zh_TW": {
+        "wildcardTip": "你可以使用萬用字元來匹配子網域或子頁面，使用\"+\"作為前置詞來排除子頁面！",
+        "emptyTips": "點擊此處新增規則！",
+        "item": {
+            "name": "規則名稱",
+            "condition": "被限制網址",
+            "weekStartInfo": "每週起始日為「{weekStart}」，您可於統計設定中調整",
+            "delayCount": "延遲次數",
+            "detail": "規則詳細內容",
+            "visitTime": "單次造訪時長限制",
+            "enabled": "是否啟用",
+            "locked": "已鎖定",
+            "effectiveDay": "生效日期",
+            "or": "或",
+            "notEffective": "未生效"
+        },
+        "step": {
+            "base": "基本設定",
+            "url": "網址設定",
+            "rule": "規則設定"
+        },
+        "button": {
+            "test": "測試網址"
+        },
+        "message": {
+            "noUrl": "未填寫限制網址",
+            "noRule": "未設定任何規則",
+            "deleteConfirm": "確定要刪除規則「{name}」嗎？",
+            "lockConfirm": "如果鎖定，所有操作都需要驗證，即使規則未觸發也一樣。",
+            "inputTestUrl": "請輸入要測試的網址",
+            "noRuleMatched": "此網址未符合任何規則",
+            "rulesMatched": "此網址符合以下規則：",
+            "timeout": "時間到啦！XDDD"
+        },
+        "verification": {
+            "inputTip": "規則已觸發或鎖定，請於 {second} 秒內回答：{prompt}",
+            "inputTip2": "規則已被觸發或鎖定。請在 {second} 秒內輸入：{answer}",
+            "pswInputTip": "時間限制已觸發或鎖定，請輸入解鎖密碼繼續",
+            "strictTip": "時間限制已觸發，禁止手動解鎖！",
+            "incorrectPsw": "密碼錯誤",
+            "incorrectAnswer": "回答錯誤",
+            "twoFaInputTip": "規則已被觸發或鎖定。請在身份驗證程式中輸入6位數字密碼以繼續。",
+            "pi": "圓周率 π 小數點後第 {startIndex} 至 {endIndex} 位共 {digitCount} 位數字",
+            "confession": "一寸光陰一寸金，寸金難買寸光陰"
+        },
+        "reminder": "距離時間限制僅剩 {min} 分鐘！"
+    },
+    "en": {
+        "onlyEffective": "Only Effective",
+        "wildcardTip": "You can use wildcards to match subdomains or subpages, and use \"+\" as a prefix to exclude subpages!",
+        "emptyTips": "Click here to create one rule!",
+        "item": {
+            "name": "Rule name",
+            "condition": "Restricted URL",
+            "weekStartInfo": "The first day of each week is {weekStart}, you can change this value in the tracking options",
+            "delayCount": "Delay count",
+            "detail": "Rule detail",
+            "visitTime": "Time limit per visit",
+            "enabled": "Enabled",
+            "locked": "Locked",
+            "effectiveDay": "Effective On",
+            "or": "or",
+            "notEffective": "Not effective",
+            "unlimited": "Unlimited"
+        },
+        "step": {
+            "base": "Basic Information",
+            "url": "Config URL",
+            "rule": "Config rule"
+        },
+        "button": {
+            "test": "Test URL"
+        },
+        "message": {
+            "noUrl": "No URL added",
+            "noRule": "No rules filled in",
+            "deleteConfirm": "Do you want to delete the rule [{name}]?",
+            "lockConfirm": "If locked, all operations will require verification even if the rule is not triggered.",
+            "inputTestUrl": "Please enter the URL link to be tested first",
+            "noRuleMatched": "The URL does not hit any rules",
+            "rulesMatched": "The URL hits the following rules:",
+            "timeout": "Time is up! XD"
+        },
+        "verification": {
+            "inputTip": "The rule has been triggered or locked. To continue, please enter the answer to the following question within {second} seconds: {prompt}",
+            "inputTip2": "The rule has been triggered or locked. To continue, please enter it as it is within {second} seconds: {answer}",
+            "pswInputTip": "The rule has been triggered or locked. To continue, please enter your unlock password",
+            "strictTip": "Triggered, no operation is allowed before release!",
+            "incorrectPsw": "Incorrect password",
+            "incorrectAnswer": "Incorrect answer",
+            "twoFaInputTip": "The rule has been triggered or locked. Enter the 6-digit code from your authenticator app to continue.",
+            "incorrect2fa": "Incorrect 2FA code",
+            "pi": "{digitCount} digits from {startIndex} to {endIndex} of the decimal part of π",
+            "confession": "Time is fleeting"
+        },
+        "reminder": "Less than {min} minutes until the time limit!",
+        "thisSession": "This Session"
+    },
+    "ja": {
+        "wildcardTip": "ワイルドカードを使用してサブドメインまたはサブページに一致させることができ、「+」をプレフィックスとしてサブページを除外することができます！",
+        "emptyTips": "ここをクリックしてルールを一つ作成！",
+        "item": {
+            "name": "規則名",
+            "condition": "制限 URL",
+            "weekStartInfo": "各週の最初の日は「{weekStart}」, 統計オプションでこの値を変更することができます",
+            "delayCount": "遅延回数",
+            "detail": "規則明細",
+            "visitTime": "訪問ごとの制限",
+            "enabled": "有效",
+            "locked": "ロック済み",
+            "effectiveDay": "発効日",
+            "or": "や",
+            "notEffective": "効果がない"
+        },
+        "step": {
+            "base": "基本情報",
+            "url": "設定 URL",
+            "rule": "設定ルール"
+        },
+        "button": {
+            "test": "テストURL"
+        },
+        "message": {
+            "noUrl": "埋められていない制限URL",
+            "noRule": "ルールが記入されていません",
+            "deleteConfirm": "ルール [{name}] を削除しますか?",
+            "inputTestUrl": "最初にテストする URL リンクを入力してください",
+            "noRuleMatched": "URL がどのルールとも一致しません",
+            "rulesMatched": "URL は次のルールに一致します。",
+            "timeout": "時間切れです！ XD"
+        },
+        "verification": {
+            "inputTip": "ルールがトリガーされたかロックされました。続行するには、次の質問に対する回答を {second} 秒以内に入力してください: {prompt}",
+            "inputTip2": "ルールがトリガーされたかロックされました。続行するには、{second} 秒以内にそのまま入力してください: {answer}",
+            "pswInputTip": "このルールはすでにトリガーされています。続行するには、ロック解除パスワードを入力してください",
+            "strictTip": "制限ルールがすでにトリガーされており、手動によるロック解除は許可されていません。",
+            "incorrectPsw": "間違ったパスワード",
+            "incorrectAnswer": "間違った回答",
+            "pi": "πの小数部の{digitCount} から {startIndex} までの {endIndex} 桁の数",
+            "confession": "人生とは今日一日のことである"
+        },
+        "reminder": "制限時間まで {min} 分未満！"
+    },
+    "pt_PT": {
+        "wildcardTip": "Pode usar wildcards para corresponder a subdomínios ou subpáginas, e usar o \"+\" como prefixo para excluir subpáginas!",
+        "emptyTips": "Clica aqui para criar uma regra!",
+        "item": {
+            "name": "Nome da regra",
+            "condition": "URL restrito",
+            "weekStartInfo": "O primeiro dia da semana é {weekStart}. Pode alterar nas opções de estatísticas",
+            "delayCount": "Atrasos permitidos",
+            "detail": "Detalhe da regra",
+            "visitTime": "Tempo limite por visita",
+            "enabled": "Ativo",
+            "locked": "Bloqueado",
+            "effectiveDay": "Dias de aplicação",
+            "or": "ou",
+            "notEffective": "Não aplicável"
+        },
+        "step": {
+            "base": "Informação básica",
+            "url": "Configurar URL",
+            "rule": "Configurar regra"
+        },
+        "button": {
+            "test": "Testar URL"
+        },
+        "message": {
+            "noUrl": "Nenhum URL configurado",
+            "noRule": "Nenhuma regra preenchida",
+            "deleteConfirm": "Eliminar a regra [{name}]?",
+            "lockConfirm": "Se bloqueado, exigirá verificação mesmo sem ser acionado",
+            "inputTestUrl": "Introduza primeiro o URL a testar",
+            "noRuleMatched": "O URL não corresponde a nenhuma regra",
+            "rulesMatched": "O URL corresponde às seguintes regras:",
+            "timeout": "Tempo esgotado! XD"
+        },
+        "verification": {
+            "inputTip": "Regra acionada/bloqueada. Responda em {second}s: {prompt}",
+            "inputTip2": "Regra acionada/bloqueada. Repita em {second}s: {answer}",
+            "pswInputTip": "Regra acionada/bloqueada. Introduza a palavra-passe",
+            "strictTip": "Acionado - operações bloqueadas até libertação!",
+            "incorrectPsw": "Palavra-passe incorreta",
+            "incorrectAnswer": "Resposta incorreta",
+            "pi": "{digitCount} dígitos (posições {startIndex}-{endIndex}) da parte decimal de π",
+            "confession": "O tempo é efémero"
+        },
+        "reminder": "Menos de {min} minutos até ao limite!"
+    },
+    "uk": {
+        "onlyEffective": "Лише дійсні",
+        "wildcardTip": "Можна використовувати символи підставлення для пошуку піддоменів або підсторінок, а \"+\" як префікс для виключення підсторінки!",
+        "emptyTips": "Натисніть тут, щоб створити одне правило!",
+        "item": {
+            "name": "Назва правила",
+            "condition": "Обмежена URL-адреса",
+            "weekStartInfo": "Перший день кожного тижня {weekStart}. Ви можете змінити це значення у налаштуваннях статистики",
+            "delayCount": "Лічильник затримок",
+            "detail": "Подробиці правила",
+            "visitTime": "Ліміт на відвідування",
+            "enabled": "Увімкнено",
+            "locked": "Заблоковано",
+            "effectiveDay": "Діє",
+            "or": "або",
+            "notEffective": "Не діє"
+        },
+        "step": {
+            "base": "Загальна інформація",
+            "url": "URL конфігурації",
+            "rule": "Правило конфігурації"
+        },
+        "button": {
+            "test": "Тестова URL-адреса"
+        },
+        "message": {
+            "noUrl": "Не заповнена обмежена URL-адреса",
+            "noRule": "Не заповнено жодного правила",
+            "deleteConfirm": "Ви хочете видалити правило {name}?",
+            "lockConfirm": "Якщо заблоковано, всі операції потребують перевірки, навіть якщо правило не спрацьовує.",
+            "inputTestUrl": "Спочатку введіть URL-адресу посилання для перевірки",
+            "noRuleMatched": "URL не відповідає жодному правилу",
+            "rulesMatched": "URL-адреса отримує такі правила:",
+            "timeout": "Час вийшов! XD"
+        },
+        "verification": {
+            "inputTip": "Правило було ініційовано або заблоковано. Щоб продовжити, введіть відповідь на зазначене запитання протягом {second} секунд: {prompt}",
+            "inputTip2": "Правило було ініційовано або заблоковано. Щоб продовжити, введіть зазначене протягом {second} секунд: {answer}",
+            "pswInputTip": "Правило обмеження вже було запущено. Щоб продовжити, введіть пароль",
+            "strictTip": "Правило обмеження вже активовано і ручне розблокування не дозволено!",
+            "incorrectPsw": "Неправильний пароль",
+            "incorrectAnswer": "Неправильна відповідь",
+            "twoFaInputTip": "Правило було ініційовано або заблоковано. Щоб продовжити, введіть код із 6 цифр зі своєї програми автентифікації.",
+            "incorrect2fa": "Неправильний код 2FA",
+            "pi": "{digitCount} цифр від {startIndex} до {endIndex} десяткової частини числа π",
+            "confession": "Час спливає"
+        },
+        "reminder": "Менш як {min} хв до ліміту часу!"
+    },
+    "es": {
+        "wildcardTip": "¡Puedes usar comodines para coincidir con subdominios o subpáginas, y usar el \"+\" como prefijo para excluir subpáginas!",
+        "item": {
+            "name": "Nombre de la regla",
+            "condition": "URL restringida",
+            "weekStartInfo": "El primer día de cada semana es {weekStart}, puedes cambiar este valor en las opciones de estadísticas",
+            "delayCount": "Contador de retraso",
+            "detail": "Detalle de la regla",
+            "visitTime": "Límite por visita",
+            "enabled": "Habilitado",
+            "locked": "Bloqueado",
+            "effectiveDay": "En vigor él",
+            "or": "o",
+            "notEffective": "No efectivo"
+        },
+        "step": {
+            "base": "Información básica",
+            "url": "Configurar URL",
+            "rule": "Configurar regla"
+        },
+        "button": {
+            "test": "Probar URL"
+        },
+        "message": {
+            "noUrl": "URL restringida sin completar",
+            "noRule": "No hay reglas llenadas",
+            "deleteConfirm": "¿Deseas eliminar la regla dé {name}?",
+            "lockConfirm": "Si está bloqueado, todas las operaciones requerirán verificación incluso si no se activa la regla.",
+            "inputTestUrl": "Por favor, introduce primero el enlace URL a ser probado",
+            "noRuleMatched": "La URL no sigue ninguna regla",
+            "rulesMatched": "La URL sigue las siguientes reglas:",
+            "timeout": "¡Tiempo se acabó! XD"
+        },
+        "verification": {
+            "inputTip": "La regla se ha activado o bloqueado. Para continuar, responda la siguiente pregunta en menos de {second} segundos: {prompt}",
+            "inputTip2": "La regla se ha activado o bloqueado. Para continuar, introdúzcala en {second} segundos: {answer}",
+            "pswInputTip": "La regla de límite ya ha sido activada. Para continuar, por favor introduce tu contraseña de desbloqueo",
+            "strictTip": "¡La regla de límite ya ha sido activada y el desbloqueo manual no está permitido!",
+            "incorrectPsw": "Contraseña incorrecta",
+            "incorrectAnswer": "Respuesta incorrecta",
+            "pi": "{digitCount} dígitos de {startIndex} a {endIndex} de la parte decimal de π",
+            "confession": "El tiempo se está fugando"
+        },
+        "reminder": "¡Menos de {min} minutos hasta el límite de tiempo!"
+    },
+    "de": {
+        "onlyEffective": "Nur wirksam",
+        "wildcardTip": "Sie können Platzhalter verwenden, um Subdomains oder Unterseiten zuzuordnen, und \"+\" als Präfix verwenden, um Unterseiten auszuschließen!",
+        "emptyTips": "Klicke hier, um eine Regel zu erstellen!",
+        "item": {
+            "name": "Regelname",
+            "condition": "Eingeschränkte URL",
+            "weekStartInfo": "Der erste Tag jeder Woche ist {weekStart}, Sie können diesen Wert in den Statistikoptionen ändern",
+            "delayCount": "Anzahl der Verspätungen",
+            "detail": "Regeldetail",
+            "visitTime": "Limit pro Besuch",
+            "enabled": "Aktiviert",
+            "locked": "Gesperrt",
+            "effectiveDay": "Wirksam auf",
+            "or": "oder",
+            "notEffective": "Nicht wirksam"
+        },
+        "step": {
+            "base": "Basisdaten",
+            "url": "URL konfigurieren",
+            "rule": "Regel konfigurieren"
+        },
+        "button": {
+            "test": "URL testen"
+        },
+        "message": {
+            "noUrl": "Nicht ausgefüllte eingeschränkte URL",
+            "noRule": "Keine Regeln ausgefüllt",
+            "deleteConfirm": "Möchten Sie die Regel [{name}] löschen?",
+            "lockConfirm": "Wenn gesperrt, müssen alle Operationen geprüft werden, auch wenn die Regel nicht ausgelöst wird.",
+            "inputTestUrl": "Bitte geben Sie zunächst den zu testenden URL-Link ein",
+            "noRuleMatched": "Die URL entspricht keinen Regeln",
+            "rulesMatched": "Die URL erfüllt die folgenden Regeln:",
+            "timeout": "Zeit ist abgelaufen! XD"
+        },
+        "verification": {
+            "inputTip": "Die Regel wurde ausgelöst oder gesperrt. Um fortzufahren, geben Sie bitte innerhalb von {second} Sekunden die Antwort auf die folgende Frage ein: {prompt}",
+            "inputTip2": "Die Regel wurde ausgelöst oder gesperrt. Um fortzufahren, geben Sie sie bitte innerhalb von {second} Sekunden unverändert ein: {answer}",
+            "pswInputTip": "Die Limit regel wurde bereits ausgelöst. Um fortzufahren, geben Sie bitte Ihr Entsperrkennwort ein",
+            "strictTip": "Die Limit-Regel wurde bereits ausgelöst und eine manuelle Entsperrung ist nicht zulässig!",
+            "incorrectPsw": "Falsches Passwort",
+            "incorrectAnswer": "Falsche Antwort",
+            "twoFaInputTip": "Die Regel wurde ausgelöst oder gesperrt. Geben Sie den 6-stelligen Code aus Ihrer Authentifizierungs-App ein, um fortzufahren.",
+            "incorrect2fa": "Falscher 2FA-Code",
+            "pi": "{digitCount} Ziffern von {startIndex} bis {endIndex} des Dezimalteils von π",
+            "confession": "Zeit vergeht"
+        },
+        "reminder": "Weniger als {min} Minuten bis zum Zeitlimit!"
+    },
+    "fr": {
+        "onlyEffective": "Seulement en vigueur",
+        "wildcardTip": "Vous pouvez utiliser des caractères génériques pour cibler des sous-domaines ou des sous-pages, et le préfixe \"+\" pour en exclure !",
+        "emptyTips": "Cliquez ici pour créer une règle !",
+        "item": {
+            "name": "Nom de règle",
+            "condition": "URL restreinte",
+            "weekStartInfo": "Le premier jour de chaque semaine est {weekStart}, vous pouvez modifier cette valeur dans les options de statistiques",
+            "delayCount": "Nombre de retards",
+            "detail": "Détail des règles",
+            "visitTime": "Limite par visite",
+            "enabled": "Activé",
+            "locked": "Verrouillé",
+            "effectiveDay": "Effectif le",
+            "or": "ou",
+            "notEffective": "Non efficace",
+            "unlimited": "Illimité"
+        },
+        "step": {
+            "base": "Informations de base",
+            "url": "URL de configuration",
+            "rule": "Règle de configuration"
+        },
+        "button": {
+            "test": "Test URL"
+        },
+        "message": {
+            "noUrl": "Aucune URL de restriction configurée",
+            "noRule": "Aucune règle remplie",
+            "deleteConfirm": "Voulez-vous supprimer la règle [{name}] ?",
+            "lockConfirm": "Si verrouillé, toutes les opérations nécessiteront une vérification, même si la règle n'est pas activée.",
+            "inputTestUrl": "Veuillez entrer le lien URL à tester en premier",
+            "noRuleMatched": "L'URL ne correspond à aucune règle",
+            "rulesMatched": "L'URL atteint les règles suivantes :",
+            "timeout": "Temps écoulé ! XD"
+        },
+        "verification": {
+            "inputTip": "La règle a été déclenchée ou verrouillée. Pour continuer, veuillez répondre à la question suivante dans un délai de {second} secondes : {prompt}",
+            "inputTip2": "La règle a été déclenchée ou verrouillée. Pour continuer, veuillez la saisir telle quelle dans un délai de {second} secondes : {answer}",
+            "pswInputTip": "La règle de limite a déjà été déclenchée. Pour continuer, veuillez saisir votre mot de passe de déverrouillage",
+            "strictTip": "La règle de limite a déjà été déclenchée et le déverrouillage manuel n'est pas autorisé !",
+            "incorrectPsw": "Mot de passe incorrect",
+            "incorrectAnswer": "Réponse incorrecte",
+            "twoFaInputTip": "La règle a été déclenchée ou verrouillée. Entrez le code à 6 chiffres de votre application d'authentification pour continuer.",
+            "incorrect2fa": "Code d’authentification à deux facteurs incorrect",
+            "pi": "{digitCount} chiffres de {startIndex} à {endIndex} de la partie décimale de π",
+            "confession": "Le temps, c'est de l'argent"
+        },
+        "reminder": "Moins de {min} minutes jusqu'à la limite de temps !"
+    },
+    "ru": {
+        "onlyEffective": "Только эффективный режим",
+        "wildcardTip": "Вы можете использовать шаблоны для совпадения с поддоменами или подстраницами, а также использовать «+» в качестве префикса, чтобы исключить подстраницы!",
+        "emptyTips": "Нажмите здесь, чтобы создать новое правило!",
+        "item": {
+            "name": "Имя правила",
+            "condition": "Ограниченный URL",
+            "weekStartInfo": "Первый день каждой недели {weekStart}, вы можете изменить это значение в настройках статистики",
+            "delayCount": "Отложенный",
+            "detail": "Детали правила",
+            "visitTime": "Лимит за посещение",
+            "enabled": "Включено",
+            "locked": "Заблокировано",
+            "effectiveDay": "Эффективный",
+            "or": "или",
+            "notEffective": "Не активировано"
+        },
+        "step": {
+            "base": "Основная информация",
+            "url": "Установить URL-адрес",
+            "rule": "Установить правило"
+        },
+        "button": {
+            "test": "Тестовый URL"
+        },
+        "message": {
+            "noUrl": "Ограничение URL-адресов не настроено",
+            "noRule": "Нет заполненных правил",
+            "deleteConfirm": "Вы хотите удалить правило [{name}]?",
+            "lockConfirm": "Если заблокировано, то все операции потребуют проверки, даже если правило не срабатывает.",
+            "inputTestUrl": "Пожалуйста, введите ссылку для тестирования",
+            "noRuleMatched": "URL не содержит правил",
+            "rulesMatched": "URL попадает в следующие правила:",
+            "timeout": "Время вышло! XD"
+        },
+        "verification": {
+            "inputTip": "Правило было активировано или заблокировано. Чтобы продолжить, введите ответ на следующий вопрос в течение {second} секунд: {prompt}",
+            "inputTip2": "Правило было запущено или заблокировано. Чтобы продолжить, введите его как есть в течение {second} секунд: {answer}",
+            "pswInputTip": "Лимит правило уже срабатывается. Чтобы продолжить, введите пароль разблокировки",
+            "strictTip": "Ограниченное правило уже было вызвано и разблокировка вручную запрещена!",
+            "incorrectPsw": "Неправильный пароль",
+            "incorrectAnswer": "Неправильный ответ",
+            "twoFaInputTip": "Правило было вызвано или заблокировано. Введите 6-значный код из вашего приложения-аутентификатора, чтобы продолжить.",
+            "incorrect2fa": "Неверный код двухфакторной авторизации",
+            "pi": "{digitCount} цифр от {startIndex} до {endIndex} десятичной части числа π",
+            "confession": "Время быстротечно"
+        },
+        "reminder": "Осталось меньше чем {min} минут до конца лимита времени!"
+    },
+    "ar": {
+        "wildcardTip": "يمكنك استخدام الرموز البديلة لتطابق النطاقات الفرعية أو الصفحات الفرعية، ويمكنك استخدام العلامة \"+\" كبادئة لاستبعاد الصفحات الفرعية！",
+        "item": {
+            "name": "اسم القاعدة",
+            "condition": "عنوان URL مقيد",
+            "weekStartInfo": "اليوم الأول من كل أسبوع هو: {weekStart}، يمكنك تغيير هذه القيمة في خيارات الإحصائيات",
+            "delayCount": "عدد التأخير",
+            "detail": "تفاصيل القاعدة",
+            "visitTime": "الحد الزمني لكل زيارة",
+            "enabled": "مُمَكَّن",
+            "locked": "مقفل",
+            "effectiveDay": "ساري المفعول على",
+            "or": "أو",
+            "notEffective": "غير فعال"
+        },
+        "step": {
+            "base": "معلومات أساسية",
+            "url": "عنوان URL للتكوين",
+            "rule": "قاعدة التكوين"
+        },
+        "button": {
+            "test": "اختبار عنوان URL"
+        },
+        "message": {
+            "noUrl": "لم يتم تكوين عناوين URL الخاصة بالقيود",
+            "noRule": "لم يتم ملء أي قواعد",
+            "deleteConfirm": "هل تريد حذف القاعدة [{name}]؟",
+            "lockConfirm": "إذا تم القَفل، فإن جميع العمليات ستتطلب التحقق حتى وإن لم يتم تفعيل القاعدة.",
+            "inputTestUrl": "الرجاء إدخال رابط URL ليتم اختباره أولاً",
+            "noRuleMatched": "عنوان URL لا يصطدم بأي قواعد",
+            "rulesMatched": "يتوافق عنوان URL مع القواعد التالية:",
+            "timeout": "انتهى الوقت! XD"
+        },
+        "verification": {
+            "inputTip": "تم تفعيل القاعدة أو قفلها. للمتابعة، يُرجى إدخال إجابة السؤال التالي خلال {second} ثانية: {prompt}",
+            "inputTip2": "تم تفعيل القاعدة أو قفلها. للمتابعة، يُرجى إدخالها كما هي خلال {second} ثانية: {answer}",
+            "pswInputTip": "تم فعلًا تشغيل قاعدة الحد. للمتابعة، يرجى إدخال كلمة مرور إلغاء القُفْل الخاصة بك",
+            "strictTip": "لقد تم فعلًا تشغيل قاعدة الحد الأقصى ولا يُسمح بإلغاء القُفْل يدويًا!",
+            "incorrectPsw": "كلمة المرور غير صحيحة",
+            "incorrectAnswer": "إجابة خاطئة",
+            "pi": "{digitCount} أرقام من {startIndex} إلى {endIndex} من الجزء العشري من π",
+            "confession": "الوقت سريع الزوال"
+        },
+        "reminder": "أقل من {min} دقيقة على انتهاء الوقت المحدد!"
+    },
+    "tr": {
+        "wildcardTip": "Alt alan adlarını veya alt sayfaları eşleştirmek için joker karakterler kullanabilir ve alt sayfaları hariç tutmak için “+” ön ekini kullanabilirsiniz!",
+        "emptyTips": "Bir kural oluşturmak için burayı tıklayın!",
+        "item": {
+            "name": "Kural adı",
+            "condition": "Kısıtlanmış URL",
+            "weekStartInfo": "Her haftanın ilk günü {weekStart}, bu değeri istatistik seçeneklerinden değiştirebilirsiniz",
+            "delayCount": "Gecikme sayısı",
+            "detail": "Kural detayı",
+            "visitTime": "Ziyaret başına zaman sınırı",
+            "enabled": "Etkinleştirildi",
+            "locked": "Kilitli",
+            "effectiveDay": "Geçerli Olduğu Gün(ler)",
+            "or": "yada",
+            "notEffective": "Geçerli değil"
+        },
+        "step": {
+            "base": "Temel bilgiler",
+            "url": "Yapılandırma URL'si",
+            "rule": "Yapılandırma kuralı"
+        },
+        "button": {
+            "test": "Test URL"
+        },
+        "message": {
+            "noUrl": "URL eklenemedi",
+            "noRule": "Hiçbir kural girilmemiş",
+            "deleteConfirm": "{name} kuralını silmek istiyor musunuz?",
+            "lockConfirm": "Kilitliyse, kural tetiklenmemiş olsa bile tüm işlemler doğrulama gerektirecektir.",
+            "inputTestUrl": "Lütfen önce test edilecek URL bağlantısını girin",
+            "noRuleMatched": "URL hiçbir kurala uymuyor",
+            "rulesMatched": "URL aşağıdaki kurallara uygundur:",
+            "timeout": "Zaman doldu!"
+        },
+        "verification": {
+            "inputTip": "Kural tetiklendi veya kilitlendi. Devam etmek için lütfen {second} saniye içinde sorunun cevabını giriniz: {prompt}",
+            "inputTip2": "Kural tetiklendi veya kilitlendi. Devam etmek için lütfen {second} saniye içinde olduğu gibi girin: {answer}",
+            "pswInputTip": "Kural tetiklendi veya kilitlendi. Devam etmek için lütfen şifrenizi girin",
+            "strictTip": "Tetiklendiğinde, serbest bırakılmadan önce hiçbir işlem yapılmasına izin verilmez!",
+            "incorrectPsw": "Hatalı şifre",
+            "incorrectAnswer": "Hatalı cevap",
+            "pi": "π sayısının ondalık kısmının {startIndex} ile {endIndex} arasındaki {digitCount} basamağı girin",
+            "confession": "Zaman akıp gidiyor"
+        },
+        "reminder": "Zaman sınırı dolmasına {min} dakikadan az kaldı!"
+    },
+    "pl": {
+        "onlyEffective": "Tylko aktywne",
+        "wildcardTip": "Możesz używać symbolu \"*\", aby dopasowywać subdomeny lub podstrony, a także użyć znaku „+” jako prefiksu, aby wykluczyć podstrony!",
+        "emptyTips": "Kliknij tutaj, aby utworzyć zasadę!",
+        "item": {
+            "name": "Nazwa zasady",
+            "condition": "Limitowany URL",
+            "weekStartInfo": "Pierwszym dniem każdego tygodnia jest {weekStart}, możesz zmienić tę wartość w opcjach śledzenia",
+            "delayCount": "Licznik opóźnień",
+            "detail": "Szczegóły zasady",
+            "visitTime": "Limit czasu na wizytę",
+            "enabled": "Aktywne",
+            "locked": "Zablokowane",
+            "effectiveDay": "Aktywna w",
+            "or": "lub",
+            "notEffective": "Nieskuteczny",
+            "unlimited": "Nielimitowany"
+        },
+        "step": {
+            "base": "Podstawowe informacje",
+            "url": "URL konfiguracji",
+            "rule": "Reguła konfiguracji"
+        },
+        "button": {
+            "test": "Przetestuj URL"
+        },
+        "message": {
+            "noUrl": "Nie dodano URL",
+            "noRule": "Nie wpisano żadnych reguł",
+            "deleteConfirm": "Na pewno chcesz usunąć regułę [{name}]?",
+            "lockConfirm": "Jeśli zablokowane, wszystkie operacje będą wymagały weryfikacji, nawet jeśli reguła nie zostanie uruchomiona.",
+            "inputTestUrl": "Wpisz URL do przetestowania",
+            "noRuleMatched": "Podany URL nie aktywuje żadnej reguły",
+            "rulesMatched": "Podany URL aktywuje następujące reguły:",
+            "timeout": "Czas minął! XD"
+        },
+        "verification": {
+            "inputTip": "Reguła została aktywowana lub zablokowana. Aby kontynuować, odpowiedz na podane pytanie w {second} sekund: {prompt}",
+            "inputTip2": "Reguła została uruchomiona lub zablokowana. Aby kontynuować, wprowadź ją w ciągu {second} sekund: {answer}",
+            "pswInputTip": "Reguła została uruchomiona lub zablokowana. Aby kontynuować, wprowadź hasło odblokowania",
+            "strictTip": "Aktywowano, żadna operacja nie jest dozwolona przed zwolnieniem!",
+            "incorrectPsw": "Nieprawidłowe hasło",
+            "incorrectAnswer": "Niepoprawna odpowiedź",
+            "twoFaInputTip": "Reguła została uruchomiona lub zablokowana. Wprowadź 6-cyfrowy kod z aplikacji uwierzytelniającej, aby kontynuować.",
+            "incorrect2fa": "Nieprawidłowy kod 2FA",
+            "pi": "{digitCount} cyfr od {startIndex} do {endIndex} części dziesiętnej liczby π",
+            "confession": "Czas ucieka"
+        },
+        "reminder": "Mniej niż {min} minut do osiągnięcia limitu!",
+        "thisSession": "Aktualna sesja"
+    },
+    "it": {
+        "onlyEffective": "Solo Efficace",
+        "wildcardTip": "Puoi usare caratteri jolly per abbinare sotto-domini o sotto-pagine, e usare \"+\" come prefisso per escludere le sotto-pagine!",
+        "emptyTips": "Clicca qui per creare una regola!",
+        "item": {
+            "name": "Nome della regola",
+            "condition": "URL Ristretto",
+            "weekStartInfo": "Il primo giorno di ogni settimana è {weekStart}, puoi cambiare questo valore nelle opzioni di tracciamento",
+            "delayCount": "Ritardo conteggio",
+            "detail": "Dettagli regola",
+            "visitTime": "Limite di tempo per visita",
+            "enabled": "Attivata",
+            "locked": "Bloccato",
+            "effectiveDay": "Effettivo On",
+            "or": "o",
+            "notEffective": "Non valido"
+        },
+        "step": {
+            "base": "Informazione Base",
+            "url": "URL Di Configurazione",
+            "rule": "Regola di configurazione"
+        },
+        "button": {
+            "test": "Test URL"
+        },
+        "message": {
+            "noUrl": "Nessuna URL aggiunta",
+            "noRule": "Nessuna regola inserita",
+            "deleteConfirm": "Vorresti eliminare la regola [{name}]?",
+            "lockConfirm": "Se bloccato, tutte le operazioni richiederanno la verifica anche se la regola non viene attivata.",
+            "inputTestUrl": "Si prega d'inserire il link URL da testare per primo",
+            "noRuleMatched": "L'URL non soddisfa alcuna regola",
+            "rulesMatched": "L'URL soddisfa le seguenti regole:",
+            "timeout": "Tempo scaduto! XD"
+        },
+        "verification": {
+            "inputTip": "La regola è stata attivata o bloccata. Per continuare, inserisci la risposta alla seguente domanda entro {second} secondi: {prompt}",
+            "inputTip2": "La regola è stata attivata o bloccata. Per continuare, inseriscila così com'è entro {second} secondi: {answer}",
+            "pswInputTip": "La regola è stata attivata o bloccata. Per continuare, inserisci la password",
+            "strictTip": "Attivato, nessuna operazione è consentita prima del rilascio!",
+            "incorrectPsw": "Password non e corretta",
+            "incorrectAnswer": "Risposta sbagliata",
+            "twoFaInputTip": "La regola è stata attivata o bloccata. Inserisci il codice a 6 cifre dall'app di autenticazione per continuare.",
+            "incorrect2fa": "Codice 2FA non valido",
+            "pi": "{digitCount} cifre da {startIndex} a {endIndex} della parte decimale di π",
+            "confession": "Il tempo è fugace"
+        },
+        "reminder": "Meno di {min} minuti fino al limite!"
+    }
+}

@@ -1,0 +1,91 @@
+{
+    "en": {
+        "route": {
+            "percentage": "Distribution",
+            "site": "Current Page",
+            "ranking": "Ranking"
+        }
+    },
+    "zh_CN": {
+        "route": {
+            "percentage": "占比分析",
+            "site": "当前页面",
+            "ranking": "数据排名"
+        }
+    },
+    "ja": {
+        "route": {
+            "percentage": "割合分布",
+            "ranking": "ランキング"
+        }
+    },
+    "zh_TW": {
+        "route": {
+            "percentage": "比例分布",
+            "site": "目前頁面",
+            "ranking": "數據排行"
+        }
+    },
+    "pt_PT": {
+        "route": {
+            "percentage": "Distribuição",
+            "ranking": "Classificação"
+        }
+    },
+    "uk": {
+        "route": {
+            "percentage": "Розподіл",
+            "ranking": "Рейтинг"
+        }
+    },
+    "es": {
+        "route": {
+            "percentage": "Distribución",
+            "ranking": "Listas"
+        }
+    },
+    "de": {
+        "route": {
+            "percentage": "Verteilung",
+            "ranking": "Rangliste"
+        }
+    },
+    "fr": {
+        "route": {
+            "percentage": "Répartition",
+            "site": "Page actuelle",
+            "ranking": "Classement"
+        }
+    },
+    "ar": {
+        "route": {
+            "percentage": "التوزيع",
+            "ranking": "الترتيب"
+        }
+    },
+    "tr": {
+        "route": {
+            "percentage": "Dağılım",
+            "ranking": "Sıralama"
+        }
+    },
+    "pl": {
+        "route": {
+            "percentage": "Rozkład",
+            "site": "Bieżąca strona",
+            "ranking": "Ranking"
+        }
+    },
+    "it": {
+        "route": {
+            "percentage": "Distribuzione",
+            "ranking": "Classifica"
+        }
+    },
+    "ru": {
+        "route": {
+            "percentage": "Распределение",
+            "ranking": "Ранг"
+        }
+    }
+}

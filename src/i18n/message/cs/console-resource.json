@@ -1,0 +1,58 @@
+{
+    "zh_CN": {
+        "consoleLog": "今天您打开了 {time} 次 {host}，花费了 {focus} 来浏览它。",
+        "closeAlert": "你可以在【{appName}】的选项中关闭以上提示！"
+    },
+    "zh_TW": {
+        "consoleLog": "今日您開啟了 {host} 共 {time} 次，總計瀏覽時間 {focus}。",
+        "closeAlert": "您可以在【{appName}】設定中關閉此提示！"
+    },
+    "en": {
+        "consoleLog": "Today you opened {host} {time} time(s), spending {focus} browsing it.",
+        "closeAlert": "You can disable these notifications in [{appName}] settings!"
+    },
+    "ja": {
+        "consoleLog": "本日{host}を{time}回開き、合計{focus}閲覧しました。",
+        "closeAlert": "[{appName}]の設定でこの通知を無効にできます"
+    },
+    "pt_PT": {
+        "consoleLog": "Hoje abriu {host} {time} vezes, gastou {focus} a navegar nele.",
+        "closeAlert": "Pode desativar estas notificações nas definições do [{appName}]!"
+    },
+    "uk": {
+        "consoleLog": "Сьогодні ви відкривали {host} {time} разів, витративши {focus}.",
+        "closeAlert": "Ви можете вимкнути ці сповіщення в налаштуваннях [{appName}]!"
+    },
+    "es": {
+        "consoleLog": "Hoy abriste {host} {time} vez(ces), pasando {focus} navegando.",
+        "closeAlert": "¡Puedes desactivar estas notificaciones en la configuración de [{appName}]!"
+    },
+    "de": {
+        "consoleLog": "Sie haben heute {host} {time} Mal geöffnet und {focus} damit verbracht.",
+        "closeAlert": "Sie können diese Benachrichtigungen in den Einstellungen von [{appName}] deaktivieren!"
+    },
+    "fr": {
+        "consoleLog": "Aujourd'hui vous avez ouvert {host} {time} fois, y passant {focus} à naviguer.",
+        "closeAlert": "Vous pouvez désactiver ces notifications dans les paramètres de [{appName}] !"
+    },
+    "ru": {
+        "consoleLog": "Сегодня вы открывали {host} {time} раз(а), потратив {focus} на просмотр.",
+        "closeAlert": "Вы можете отключить эти уведомления в настройках [{appName}]!"
+    },
+    "ar": {
+        "consoleLog": "اليوم فتحت {host} {time} مرة, أنفقت {focus} أثناء تصفحها.",
+        "closeAlert": "يمكنك تعطيل هذه الإشعارات في إعدادات [{appName}]"
+    },
+    "tr": {
+        "consoleLog": "Bugün {host} {time} saat(ler) açtınız ve {focus} saniye boyunca göz attınız.",
+        "closeAlert": "Bu bildirimleri [{appName}] ayarlarından devre dışı bırakabilirsiniz!"
+    },
+    "pl": {
+        "consoleLog": "Dziś otworzyłeś {host} {time} raz(y) i spędziłeś {focus} przeglądając go.",
+        "closeAlert": "Możesz wyłączyć te powiadomienia w ustawieniach [{appName}]!"
+    },
+    "it": {
+        "consoleLog": "Oggi hai aperto {host} {time} volta(e), spendendo {focus} navigandolo.",
+        "closeAlert": "Puoi disabilitare queste notifiche nelle impostazioni di [{appName}]!"
+    }
+}

@@ -1,0 +1,33 @@
+name: Feature Request
+title: "[FEATURE] "
+labels: feature
+description: Suggest an idea for this project
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Tell us your wants~
+    - type: input
+      id: browser
+      validations:
+          required: true
+      attributes:
+          label: Browser
+          description: Which browsers are you using? (Chrome/Firefox/Edge/Other)
+          placeholder: ex. Chrome
+    - type: input
+      id: os
+      validations:
+          required: false
+      attributes:
+          label: OS
+          description: Which operating system are you using? (Mac/Linux/Win, Optional)
+          placeholder: ex. Linux
+    - type: textarea
+      id: description
+      validations:
+          required: false
+      attributes:
+          label: Feature Description
+          description: Please describe the feature in detail.
+          placeholder: "1. What you want.\n2. Why you want it.\n3. Any additional context."

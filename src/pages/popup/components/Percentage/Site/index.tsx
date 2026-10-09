@@ -1,0 +1,19 @@
+import { useEcharts } from '@hooks'
+import { useDarkMode } from "@popup/context"
+import { defineComponent, toRef } from "vue"
+import { type PercentageResult } from "../query"
+import Wrapper from "./Wrapper"
+
+type Props = {
+    value: PercentageResult | undefined
+}
+
+const Site = defineComponent<Props>(props => {
+    const { darkMode } = useDarkMode()
+    const data = toRef(props, 'value')
+    const { elRef } = useEcharts(Wrapper, data, { deps: darkMode })
+
+    return () => <div ref={elRef} style={{ width: '100%', height: '100%' }} />
+}, { props: ['value'] })
+
+export default Site

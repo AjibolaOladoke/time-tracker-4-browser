@@ -1,0 +1,156 @@
+{
+    "en": {
+        "sidebar": "Sidebar",
+        "allFunction": "All Features",
+        "guidePage": "User Guide",
+        "option": "Options",
+        "sourceCode": "Source Code",
+        "changeLog": "Release Notes",
+        "limit": "Time Limit",
+        "helpUs": "Help Translation",
+        "sites": "Site Management"
+    },
+    "zh_CN": {
+        "sidebar": "侧边栏",
+        "allFunction": "全部功能",
+        "guidePage": "使用指南",
+        "option": "设置",
+        "sourceCode": "源代码",
+        "changeLog": "版本日志",
+        "limit": "时间限制",
+        "helpUs": "帮助翻译",
+        "sites": "网站管理"
+    },
+    "zh_TW": {
+        "sidebar": "側邊欄",
+        "allFunction": "完整功能",
+        "guidePage": "使用指南",
+        "option": "設定",
+        "sourceCode": "原始碼",
+        "changeLog": "版本紀錄",
+        "limit": "時間限制",
+        "helpUs": "協助翻譯",
+        "sites": "網站管理"
+    },
+    "ja": {
+        "sidebar": "サイドバー",
+        "allFunction": "全機能",
+        "guidePage": "使い方ガイド",
+        "option": "設定",
+        "sourceCode": "ソースコード",
+        "changeLog": "リリースノート",
+        "limit": "時間制限",
+        "helpUs": "協力する",
+        "sites": "ウェブサイト管理"
+    },
+    "pt_PT": {
+        "sidebar": "Barra Lateral",
+        "allFunction": "Todas as Funcionalidades",
+        "guidePage": "Guia do Utilizador",
+        "option": "Definições",
+        "sourceCode": "Código Fonte",
+        "changeLog": "Notas de Lançamento",
+        "limit": "Limite de Tempo",
+        "helpUs": "Ajudar a Traduzir",
+        "sites": "Gestão de Sites"
+    },
+    "uk": {
+        "sidebar": "Бічна панель",
+        "allFunction": "Усі функції",
+        "guidePage": "Посібник",
+        "option": "Налаштування",
+        "sourceCode": "Програмний код",
+        "changeLog": "Журнал змін",
+        "limit": "Обмеження часу",
+        "helpUs": "Допомогти нам",
+        "sites": "Керування сайтами"
+    },
+    "es": {
+        "sidebar": "Barra Lateral",
+        "allFunction": "Todas Funciones",
+        "guidePage": "Guía de Usuario",
+        "option": "Ajustes",
+        "sourceCode": "Código Fuente",
+        "changeLog": "Notas de Versión",
+        "limit": "Límite de tiempo",
+        "helpUs": "Ayúdanos",
+        "sites": "Gestión de sitios"
+    },
+    "de": {
+        "sidebar": "Seitenleiste",
+        "allFunction": "Alle Funktionen",
+        "guidePage": "Benutzeranleitung",
+        "option": "Einstellungen",
+        "sourceCode": "Quellcode",
+        "changeLog": "Versionshinweise",
+        "limit": "Zeitlimit",
+        "helpUs": "Hilfe bei der Übersetzung",
+        "sites": "Websites"
+    },
+    "fr": {
+        "sidebar": "Barre Latérale",
+        "allFunction": "Toutes Fonctions",
+        "guidePage": "Guide d'Utilisation",
+        "option": "Paramètres",
+        "sourceCode": "Code Source",
+        "changeLog": "Notes de Version",
+        "limit": "Limite de temps",
+        "helpUs": "Aider à la traduction",
+        "sites": "Gestion des sites"
+    },
+    "ru": {
+        "sidebar": "Боковая панель",
+        "allFunction": "Все функции",
+        "guidePage": "Руководство",
+        "option": "Настройки",
+        "sourceCode": "Исходный код",
+        "changeLog": "Версионные изменения",
+        "limit": "Ограничение по времени",
+        "helpUs": "Помогите перевести",
+        "sites": "Управление сайтом"
+    },
+    "ar": {
+        "sidebar": "الشريط الجانبي",
+        "allFunction": "كل الوظائف",
+        "guidePage": "دليل الاستخدام",
+        "option": "الإعدادات",
+        "sourceCode": "الكود المصدري",
+        "changeLog": "ملاحظات الإصدار",
+        "limit": "المهلة",
+        "helpUs": "ساعدني في التَّرْجَمَةً",
+        "sites": "إدارة المواقع"
+    },
+    "tr": {
+        "sidebar": "Kenar Çubuğu",
+        "allFunction": "Tüm Özellikler",
+        "guidePage": "Kullanım Kılavuzu",
+        "option": "Seçenekler",
+        "sourceCode": "Kaynak Kodu",
+        "changeLog": "Sürüm Notları",
+        "limit": "Zaman Sınırı",
+        "helpUs": "Çeviriye yardım et",
+        "sites": "Site Yönetimi"
+    },
+    "pl": {
+        "sidebar": "Pasek boczny",
+        "allFunction": "Wszystkie funkcje",
+        "guidePage": "Podręcznik użytkownika",
+        "option": "Ustawienia",
+        "sourceCode": "Kod źródłowy",
+        "changeLog": "Lista Zmian",
+        "limit": "Limit czasu",
+        "helpUs": "Pomóż w tłumaczeniu",
+        "sites": "Zarządzanie stronami"
+    },
+    "it": {
+        "sidebar": "Barra laterale",
+        "allFunction": "Tutte le funzionalità",
+        "guidePage": "Guida per l'utente",
+        "option": "Opzioni",
+        "sourceCode": "Codice sorgente",
+        "changeLog": "Note di Rilascio",
+        "limit": "Limite di tempo",
+        "helpUs": "Aiuto Traduzione",
+        "sites": "Gestione del sito"
+    }
+}

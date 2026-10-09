@@ -1,0 +1,79 @@
+import { useOption } from '@app/components/Option/useOption'
+import { DEFAULT_BACKUP } from "@util/constant/option"
+import { computed } from "vue"
+
+function copy(target: tt4b.option.BackupOption, source: tt4b.option.BackupOption) {
+    target.backupType = source.backupType
+    target.autoBackUp = source.autoBackUp
+    target.autoBackUpInterval = source.autoBackUpInterval
+    target.backupExts = source.backupExts
+    target.backupAuths = source.backupAuths
+    target.clientName = source.clientName
+    target.backupLogin = source.backupLogin
+}
+
+export const useBackup = () => {
+    const { option } = useOption<tt4b.option.BackupOption>({ defaultValue: DEFAULT_BACKUP, copy })
+
+    const reset = () => {
+        // Only reset type and auto flag
+        option.backupType = DEFAULT_BACKUP.backupType
+        option.autoBackUp = DEFAULT_BACKUP.autoBackUp
+    }
+
+    const auth = computed({
+        get: () => option.backupAuths[option.backupType],
+        set: val => {
+            const typeVal = option.backupType
+            if (!typeVal) return
+            const newAuths = {
+                ...option.backupAuths,
+                [typeVal]: val,
+            }
+            option.backupAuths = newAuths
+        }
+    })
+
+    const ext = computed<tt4b.backup.TypeExt | undefined>({
+        get: () => option.backupExts?.[option.backupType],
+        set: val => {
+            const typeVal = option.backupType
+            if (!typeVal) return
+            const newExts = {
+                ...option.backupExts,
+                [typeVal]: val,
+            }
+            option.backupExts = newExts
+        },
+    })
+
+    const setExtField = (field: keyof tt4b.backup.TypeExt, val: string) => {
+        const newVal = { ...(ext.value || {}), [field]: val?.trim?.() }
+        ext.value = newVal
+    }
+
+    const setLoginField = (field: keyof tt4b.backup.LoginInfo, val: string) => {
+        const typeVal = option.backupType
+        if (!typeVal) return
+        const newLogin = {
+            ...option.backupLogin,
+            [typeVal]: { ...option.backupLogin?.[typeVal], [field]: val }
+        }
+        option.backupLogin = newLogin
+    }
+
+    const account = computed<string | undefined>({
+        get: () => option.backupLogin?.[option.backupType]?.acc,
+        set: val => setLoginField('acc', val ?? '')
+    })
+
+    const password = computed<string | undefined>({
+        get: () => option.backupLogin?.[option.backupType]?.psw,
+        set: val => setLoginField('psw', val ?? '')
+    })
+
+    return {
+        option, auth, account, password, reset,
+        ext, setExtField,
+    }
+}

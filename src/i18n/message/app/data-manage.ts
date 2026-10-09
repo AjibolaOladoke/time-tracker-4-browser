@@ -1,0 +1,45 @@
+/**
+ * Copyright (c) 2021-present Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import resource from './data-manage-resource.json'
+
+export type DataManageMessage = {
+    totalMemoryAlert: string
+    totalMemoryAlert1: string
+    usedMemoryAlert: string
+    idbAlert: string
+    operationAlert: string
+    filterItems: string
+    focusLtOrEq: string
+    visitLtOrEq: string
+    filterDate: string
+    deleteConfirm: string
+    migrationAlert: string
+    importError: string
+    importOther: {
+        step1: string
+        step2: string
+        dataSource: string
+        file: string
+        conflictType: string
+        conflictTip: string
+        selectFileBtn: string
+        imported: string
+        local: string
+        fileNotSelected: string
+        conflictNotSelected: string
+    } & {
+        [resolution in tt4b.imported.ConflictResolution]: string
+    }
+    exportData: string
+    restoreData: string
+    restoreFromOther: string
+}
+
+const _default: Messages<DataManageMessage> = resource
+
+export default _default

@@ -1,0 +1,208 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { getUILanguage } from "../api/chrome/i18n"
+import { getOption } from '../api/sw/option'
+import { setDir, setLocale } from "../util/document"
+import { ALL_LOCALES as _ALL_LOCALES } from "./message/merge"
+
+/**
+ * Not to import this one if not necessary
+ */
+export type FakedLocale = tt4b.Locale
+
+/**
+ * @since 0.2.2
+ */
+const FEEDBACK_LOCALE: tt4b.Locale = "en"
+
+export const ALL_LOCALES: tt4b.Locale[] = _ALL_LOCALES
+
+// Standardize the locale code according to the Chrome locale code
+const chrome2I18n: { [key: string]: tt4b.Locale } = {
+    'zh': 'zh_CN',
+    'zh-CN': "zh_CN",
+    'zh-TW': "zh_TW",
+    'en': 'en',
+    'en-US': "en",
+    'en-GB': "en",
+    'ja': "ja",
+    'pt': 'pt_PT',
+    'pt-PT': 'pt_PT',
+    'pt-BR': 'pt_PT',
+    'de': 'de',
+    'fr': 'fr',
+    'fr-CA': 'fr',
+    'fr-CH': 'fr',
+    'ar': 'ar',
+    'ru': 'ru',
+    'tr': 'tr',
+    'pl': 'pl',
+}
+
+const translationChrome2I18n: { [key: string]: tt4b.TranslatingLocale } = {
+    ko: 'ko',
+    it: 'it',
+    sv: 'sv',
+    fi: 'fi',
+    da: 'da',
+    hr: 'hr',
+    id: 'id',
+    cs: 'cs',
+    ro: 'ro',
+    nl: 'nl',
+    vi: 'vi',
+    sk: 'sk',
+    mn: 'mn',
+}
+
+/**
+ * Codes returned by getUILanguage() are defined by Chrome browser
+ * @see https://github.com/unicode-cldr/cldr-localenames-modern/blob/master/main/en/languages.json
+ * But supported locale codes in Chrome extension
+ * @see https://developer.chrome.com/docs/extensions/reference/i18n#locales
+ *
+ * They are different, so translate
+ */
+function chromeLocale2ExtensionLocale(chromeLocale: string): tt4b.Locale {
+    if (!chromeLocale) return FEEDBACK_LOCALE
+    const code2 = chromeLocale.substring(0, 2)
+    return chrome2I18n[chromeLocale] ?? chrome2I18n[code2] ?? FEEDBACK_LOCALE
+}
+
+const browserUiLocale: tt4b.Locale = chromeLocale2ExtensionLocale(getUILanguage())
+
+/**
+ * @since 0.9.0
+ */
+export const localeSameAsBrowser: tt4b.Locale = browserUiLocale
+
+/**
+ * @since 1.5.0
+ */
+export function isTranslatingLocale(): boolean {
+    const uiLang = getUILanguage()
+    if (chrome2I18n[uiLang]) {
+        return false
+    }
+    return !!translationChrome2I18n[uiLang]
+}
+
+/**
+ * Real locale with locale option
+ */
+export let locale: tt4b.Locale = browserUiLocale
+
+export function cvtOption2Locale(option: tt4b.option.LocaleOption): tt4b.Locale {
+    if (!option || option === 'default') {
+        return chromeLocale2ExtensionLocale(getUILanguage())
+    }
+    return option
+}
+
+export function handleLocaleOption(option: tt4b.option.LocaleOption) {
+    locale = cvtOption2Locale(option)
+
+    setLocale(locale)
+    setDir(locale === 'ar' ? 'rtl' : 'ltr')
+}
+
+/**
+ * Please invoke this function before doing anything
+ * @since 0.8.0
+ */
+export async function initLocale(option?: tt4b.option.AppearanceOption) {
+    option ??= await getOption()
+    handleLocaleOption(option.locale)
+}
+
+function tryGetOriginalI18nVal<MessageType>(
+    messages: Messages<MessageType>,
+    keyPath: I18nKey<MessageType>,
+    specLocale?: tt4b.Locale
+) {
+    try {
+        return keyPath(messages[specLocale || locale] as MessageType)
+    } catch (ignore) {
+        return undefined
+    }
+}
+
+function getI18nVal<MessageType>(
+    messages: Messages<MessageType>,
+    keyPath: I18nKey<MessageType>,
+    specLocale?: tt4b.Locale
+): string {
+    const result = tryGetOriginalI18nVal(messages, keyPath, specLocale)
+        || keyPath(messages[FEEDBACK_LOCALE] as MessageType)
+        || ''
+    return typeof result === 'string' ? result : JSON.stringify(result)
+}
+
+type TranslateProps<MessageType> = {
+    key: I18nKey<MessageType>,
+    param?: { [key: string]: string | number }
+}
+
+function fillWithParam(result: string, param: { [key: string]: string | number }) {
+    if (!result) {
+        return ''
+    }
+    Object.entries(param)
+        .filter(([_key, value]) => value !== null && value !== undefined)
+        .forEach(([key, value]) => result = result.replace(`{${key}}`, value.toString()))
+    return result
+}
+
+export function t<MessageType>(messages: Messages<MessageType>, props: TranslateProps<MessageType>, specLocale?: tt4b.Locale): string {
+    const { key, param } = props
+    const result: string = getI18nVal(messages, key, specLocale)
+    return param ? fillWithParam(result, param) : result
+}
+
+export type I18nKey<MessageType> = (messages: MessageType) => any
+
+export type I18nResultItem<Node> = Node | string
+
+const findParamAndReplace = <Node,>(resultArr: I18nResultItem<Node>[], [key, value]: any) => {
+    const paramPlacement = `{${key}}`
+    const temp: I18nResultItem<Node>[] = []
+    resultArr.forEach((item) => {
+        if (typeof item === 'string' && item.includes(paramPlacement)) {
+            let splits: I18nResultItem<Node>[] = (item as string).split(paramPlacement)
+            splits = splits.reduce<I18nResultItem<Node>[]>((left, right) => left.length ? left.concat(value, right) : left.concat(right), [])
+            temp.push(...splits)
+        } else {
+            temp.push(item)
+        }
+    })
+    return temp
+}
+
+type NodeTranslateProps<MessageType, Node> = {
+    key: I18nKey<MessageType>,
+    param: { [key: string]: I18nResultItem<Node> }
+}
+
+/**
+ * Translate with slots for vue
+ * I18nResultItemArray of VNodes or strings
+ */
+export const tN = <MessageType, Node>(messages: Messages<MessageType>, props: NodeTranslateProps<MessageType, Node>): I18nResultItem<Node>[] => {
+    const { key, param } = props
+    const result = getI18nVal(messages, key)
+    let resultArr: I18nResultItem<Node>[] = [result]
+    if (param) {
+        resultArr = Object.entries(param).reduce(findParamAndReplace, resultArr)
+    }
+    return resultArr
+}
+
+export const tNum = (val: number) => {
+    const jsLocale = locale?.substring(0, 2)
+    return val.toLocaleString(jsLocale)
+}

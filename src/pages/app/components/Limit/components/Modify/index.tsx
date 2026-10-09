@@ -1,0 +1,140 @@
+/**
+ * Copyright (c) 2021 Hengyang Zhang
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { addLimit, updateLimits } from '@api/sw/limit'
+import DialogSop from '@app/components/common/DialogSop'
+import { initDialogSopContext } from '@app/components/common/DialogSop/context'
+import { useLimitData } from "@app/components/Limit/context"
+import type { ModifyForm, ModifyInstance } from '@app/components/Limit/types'
+import { t } from '@app/locale'
+import { cleanCond } from '@pages/components'
+import { range } from '@util/array'
+import { computed, defineComponent, ref, toRaw } from "vue"
+import Step1 from './Step1'
+import Step2 from './Step2'
+import Step3 from './Step3'
+
+type Mode = "create" | "modify"
+
+const STEP_TITLES = [
+    t(msg => msg.limit.step.base),
+    t(msg => msg.limit.step.url),
+    t(msg => msg.limit.step.rule),
+]
+
+const createInitial = (url?: string): ModifyForm => {
+    url = url ? cleanCond(url) : url
+    return {
+        name: `RULE-${String(new Date().getTime() % 10000).padStart(4, '0')}`,
+        time: 3600,
+        weekly: 0,
+        cond: url ? [url] : [],
+        visitTime: 0,
+        periods: [],
+        enabled: true,
+        weekdays: range(7),
+        count: 0,
+        weeklyCount: 0,
+        allowDelay: false,
+        locked: false,
+    }
+}
+
+const createFormData = (data: tt4b.limit.Item): ModifyForm => ({
+    name: data.name,
+    cond: [...data.cond],
+    enabled: data.enabled,
+    locked: data.locked,
+    allowDelay: data.allowDelay,
+    time: data.time,
+    count: data.count,
+    weekly: data.weekly,
+    weeklyCount: data.weeklyCount,
+    visitTime: data.visitTime,
+    weekdays: data.weekdays,
+    periods: data.periods,
+})
+
+const _default = defineComponent((_, ctx) => {
+    const { refresh } = useLimitData()
+    const mode = ref<Mode>()
+    const title = computed(() => mode.value === "create" ? t(msg => msg.button.create) : t(msg => msg.button.modify))
+
+    const { step, open } = initDialogSopContext<ModifyForm>({
+        stepCount: STEP_TITLES.length,
+        init: createInitial,
+        onNext: ({ form, current }) => {
+            if (current === 0) {
+                const nameVal = form.name?.trim?.()
+                const weekdaysVal = form.weekdays
+                if (!nameVal) {
+                    throw new Error("Name is empty")
+                } if (!weekdaysVal?.length) {
+                    throw new Error("Effective days are empty")
+                }
+            } else if (current === 1) {
+                if (!form.cond?.length) {
+                    form.urlMiss = true
+                    throw new Error(t(msg => msg.limit.message.noUrl))
+                }
+                form.urlMiss = false
+            }
+        },
+        onFinish: async ({ form }) => {
+            const { cond, enabled, name, time, count, weekly, weeklyCount, visitTime, periods, weekdays } = toRaw(form)
+            if (true
+                && !time && !count
+                && !weekly && !weeklyCount
+                && !visitTime && !periods?.length
+            ) {
+                throw new Error(t(msg => msg.limit.message.noRule))
+            }
+            if (mode.value === 'modify') {
+                if (!modifyingItem) return
+                await updateLimits([{
+                    ...modifyingItem,
+                    cond, enabled, name, time, weekly, visitTime, weekdays, count, weeklyCount,
+                    // Object to array
+                    periods: periods?.map(i => [i[0], i[1]]),
+                }])
+            } else {
+                await addLimit({
+                    cond, enabled, name, time, weekly, visitTime, weekdays, count, weeklyCount,
+                    // Object to array
+                    periods: periods?.map(i => [i[0], i[1]]),
+                    allowDelay: false, locked: false,
+                })
+            }
+            refresh?.()
+        }
+    })
+    // Cache
+    let modifyingItem: tt4b.limit.Rule | undefined = undefined
+
+    ctx.expose({
+        create(url?: string) {
+            open(createInitial(url))
+            mode.value = 'create'
+            modifyingItem = undefined
+        },
+        modify(row: tt4b.limit.Item) {
+            open(createFormData(toRaw(row)))
+            mode.value = 'modify'
+            modifyingItem = { ...row }
+        },
+    } satisfies ModifyInstance)
+
+    return () => (
+        <DialogSop title={title.value} stepTitles={STEP_TITLES}>
+            <Step1 v-show={step.value === 0} />
+            <Step2 v-show={step.value === 1} />
+            <Step3 v-show={step.value === 2} />
+        </DialogSop>
+    )
+})
+
+export default _default

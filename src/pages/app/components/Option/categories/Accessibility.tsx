@@ -1,0 +1,24 @@
+import { DEFAULT_ACCESSIBILITY } from "@util/constant/option"
+import { ElSwitch } from "element-plus"
+import { defineComponent } from "vue"
+import { OptionItem } from '../components'
+import type { CategoryInstance } from '../types'
+import { useOption } from "../useOption"
+
+function copy(target: tt4b.option.AccessibilityOption, source: Readonly<tt4b.option.AccessibilityOption>) {
+    target.chartDecal = source.chartDecal
+}
+
+const _default = defineComponent((_, ctx) => {
+    const { option } = useOption({ defaultValue: DEFAULT_ACCESSIBILITY, copy })
+    ctx.expose({
+        reset: () => copy(option, DEFAULT_ACCESSIBILITY)
+    } satisfies CategoryInstance)
+    return () => (
+        <OptionItem label={msg => msg.option.accessibility.chartDecal} defaultValue={false}>
+            <ElSwitch modelValue={option.chartDecal} onChange={val => option.chartDecal = val as boolean} />
+        </OptionItem>
+    )
+})
+
+export default _default

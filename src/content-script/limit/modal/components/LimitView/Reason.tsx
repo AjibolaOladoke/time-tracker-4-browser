@@ -1,0 +1,139 @@
+import { t } from "@cs/locale"
+import { Flex } from "@pages/components"
+import { period2Str } from '@pages/util/limit'
+import { matchCond, meetLimit, meetTimeLimit } from "@util/limit"
+import { formatPeriodCommon, MILL_PER_SECOND } from "@util/time"
+import { ElDescriptions, ElDescriptionsItem, ElTag } from 'element-plus'
+import { computed, defineComponent } from "vue"
+import { useApp, useRule } from '../../context'
+import { useDescriptions } from '../common'
+import { useLimitReason } from './context'
+
+const renderBaseItems = (rule: tt4b.limit.Rule | undefined, url: string) => <>
+    <ElDescriptionsItem label={t(msg => msg.limit.item.name)} labelAlign="right">
+        {rule?.name ?? '-'}
+    </ElDescriptionsItem>
+    <ElDescriptionsItem label={t(msg => msg.limit.item.condition)} labelAlign='right'>
+        {matchCond(rule?.cond ?? [], url).join(', ')}
+    </ElDescriptionsItem>
+</>
+
+type DescriptionProps = {
+    time?: number
+    waste?: number
+    count?: number
+    visit?: number
+    ruleLabel?: string
+    dataLabel?: string
+}
+
+const TimeDescriptions = defineComponent<DescriptionProps>(props => {
+    const { url, delayDuration } = useApp()
+    const reason = useLimitReason()
+    const rule = useRule()
+    const descProps = useDescriptions()
+
+    const timeLimited = computed(() => meetTimeLimit(
+        { wasted: props.waste ?? 0, maxLimit: (props.time ?? 0) * MILL_PER_SECOND },
+        {
+            count: reason.value.delayCount ?? 0,
+            duration: delayDuration.value,
+            allow: !!reason.value.allowDelay,
+        },
+    ))
+    const visitLimited = computed(() => meetLimit(props.count ?? 0, props.visit ?? 0))
+
+    return () => (
+        <ElDescriptions border column={1} {...descProps.value}>
+            {renderBaseItems(rule.value, url.value)}
+            <ElDescriptionsItem label={props.ruleLabel} labelAlign="right">
+                <Flex gap={5} width={200}>
+                    <ElTag v-show={!!props.time}>{formatPeriodCommon((props.time ?? 0) * MILL_PER_SECOND)}</ElTag>
+                    <ElTag v-show={!!props.count}>{t(msg => msg.shared.limit.visits, { n: props.count })}</ElTag>
+                </Flex>
+            </ElDescriptionsItem>
+            <ElDescriptionsItem label={props.dataLabel} labelAlign="right">
+                <Flex gap={5} width={200}>
+                    <ElTag
+                        v-show={!!props.waste || !!props.time}
+                        type={timeLimited.value ? 'danger' : 'info'}
+                    >
+                        {formatPeriodCommon(props.waste ?? 0)}
+                    </ElTag>
+                    <ElTag
+                        v-show={!!props.count || !!props.visit}
+                        type={visitLimited.value ? 'danger' : 'info'}
+                    >
+                        {t(msg => msg.shared.limit.visits, { n: props.visit ?? 0 })}
+                    </ElTag>
+                </Flex>
+            </ElDescriptionsItem>
+            <ElDescriptionsItem
+                v-show={!!reason.value?.allowDelay && !!props.time}
+                label={t(msg => msg.limit.item.delayCount)}
+                labelAlign="right"
+            >
+                {reason.value?.delayCount ?? 0}
+            </ElDescriptionsItem>
+        </ElDescriptions>
+    )
+}, { props: ['time', 'waste', 'count', 'visit', 'ruleLabel', 'dataLabel'] })
+
+const _default = defineComponent(() => {
+    const { visitTime, url } = useApp()
+    const reason = useLimitReason()
+    const type = computed(() => reason.value.type)
+    const rule = useRule()
+
+    const descProps = useDescriptions()
+
+    return () => (
+        <Flex justify='center' marginBottom={30}>
+            <TimeDescriptions
+                v-show={type.value === 'DAILY'}
+                time={rule.value?.time}
+                count={rule.value?.count}
+                waste={rule.value?.waste}
+                visit={rule.value?.visit}
+                ruleLabel={t(msg => msg.shared.limit.daily)}
+                dataLabel={t(msg => msg.calendar.range.today)}
+            />
+            <TimeDescriptions
+                v-show={type.value === 'WEEKLY'}
+                time={rule.value?.weekly}
+                count={rule.value?.weeklyCount}
+                waste={rule.value?.weeklyWaste}
+                visit={rule.value?.weeklyVisit}
+                ruleLabel={t(msg => msg.shared.limit.weekly)}
+                dataLabel={t(msg => msg.calendar.range.thisWeek)}
+            />
+            <ElDescriptions v-show={type.value === 'VISIT'} border column={1} {...descProps.value}>
+                {renderBaseItems(rule.value, url.value)}
+                <ElDescriptionsItem label={t(msg => msg.limit.item.visitTime)} labelAlign="right">
+                    {formatPeriodCommon((rule.value?.visitTime ?? 0) * MILL_PER_SECOND) || '-'}
+                </ElDescriptionsItem>
+                <ElDescriptionsItem label={t(msg => msg.modal.browsingTime)} labelAlign="right">
+                    {visitTime.value ? formatPeriodCommon(visitTime.value) : '-'}
+                </ElDescriptionsItem>
+                <ElDescriptionsItem
+                    v-show={!!reason.value.allowDelay || !!reason.value.delayCount}
+                    label={t(msg => msg.limit.item.delayCount)} labelAlign="right">
+                    {reason.value.delayCount ?? 0}
+                </ElDescriptionsItem>
+            </ElDescriptions>
+            <ElDescriptions v-show={type.value === 'PERIOD'} border column={1} {...descProps.value}>
+                {renderBaseItems(rule.value, url.value)}
+                <ElDescriptionsItem label={t(msg => msg.shared.limit.period)} labelAlign="right">
+                    {rule.value?.periods?.length
+                        ? <div>
+                            {rule.value.periods.map(p => <span style={{ display: "block" }}>{period2Str(p)}</span>)}
+                        </div>
+                        : '-'
+                    }
+                </ElDescriptionsItem>
+            </ElDescriptions>
+        </Flex>
+    )
+})
+
+export default _default

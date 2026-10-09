@@ -1,0 +1,412 @@
+{
+    "en": {
+        "merge": {
+            "mergeBy": "Merge by",
+            "mergeMethod": {
+                "date": "Date",
+                "domain": "URL",
+                "cate": "Category",
+                "group": "Tab Group",
+                "notMerge": "Not Merge"
+            }
+        },
+        "cate": {
+            "notSet": "Not Set"
+        },
+        "limit": {
+            "daily": "Daily limit",
+            "weekly": "Weekly limit",
+            "period": "Blocked periods",
+            "visits": "{n} visits"
+        },
+        "permGrantConfirm": "This feature requires relevant permissions",
+        "site": {
+            "type": {
+                "normal": "normal",
+                "merged": "merged",
+                "virtual": "subpage"
+            }
+        },
+        "followBrowser": "Follow browser",
+        "allowUnblocking": "Allow unblocking",
+        "unlimited": "Unlimited"
+    },
+    "zh_CN": {
+        "merge": {
+            "mergeBy": "数据合并",
+            "mergeMethod": {
+                "date": "按日期",
+                "domain": "按域名",
+                "cate": "按类目",
+                "group": "标签组",
+                "notMerge": "不合并"
+            }
+        },
+        "cate": {
+            "notSet": "未分类"
+        },
+        "limit": {
+            "daily": "每日上限",
+            "weekly": "每周上限",
+            "period": "不可访问的时间段",
+            "visits": "{n}次访问"
+        },
+        "permGrantConfirm": "该功能需要授予相关权限",
+        "site": {
+            "type": {
+                "normal": "普通站点",
+                "merged": "合并站点",
+                "virtual": "子页面"
+            }
+        },
+        "followBrowser": "跟随浏览器",
+        "allowUnblocking": "可解锁",
+        "unlimited": "无限制"
+    },
+    "ja": {
+        "merge": {
+            "mergeBy": "マージ方法",
+            "mergeMethod": {
+                "date": "日期",
+                "domain": "URL",
+                "cate": "カテゴリー",
+                "group": "タブグループ",
+                "notMerge": "不合并"
+            }
+        },
+        "cate": {
+            "notSet": "未設定"
+        },
+        "limit": {
+            "daily": "1日の限度",
+            "weekly": "週間の限度",
+            "period": "許可されない期間",
+            "visits": "{n}訪問"
+        },
+        "site": {
+            "type": {
+                "normal": "普通",
+                "merged": "合并"
+            }
+        },
+        "followBrowser": "ブラウザと同じ"
+    },
+    "zh_TW": {
+        "merge": {
+            "mergeBy": "資料合併",
+            "mergeMethod": {
+                "date": "依日期",
+                "domain": "依網域",
+                "cate": "依類別",
+                "group": "分頁群組",
+                "notMerge": "不合並"
+            }
+        },
+        "cate": {
+            "notSet": "未設定"
+        },
+        "limit": {
+            "daily": "每日上限",
+            "weekly": "每週上限",
+            "period": "限制時段",
+            "visits": "{n}次造訪"
+        },
+        "permGrantConfirm": "此功能需要相關權限才能運作",
+        "site": {
+            "type": {
+                "normal": "一般網站",
+                "merged": "合併網站"
+            }
+        },
+        "followBrowser": "跟隨瀏覽器"
+    },
+    "pt_PT": {
+        "merge": {
+            "mergeBy": "Agrupar por",
+            "mergeMethod": {
+                "date": "Data",
+                "domain": "URL",
+                "cate": "Categoria",
+                "group": "Grupo de Separadores",
+                "notMerge": "Não Agrupar"
+            }
+        },
+        "cate": {
+            "notSet": "Não Definido"
+        },
+        "limit": {
+            "daily": "Limite diário",
+            "weekly": "Limite semanal",
+            "period": "Períodos bloqueados",
+            "visits": "{n} visitas"
+        },
+        "permGrantConfirm": "Esta funcionalidade precisa de permissões relevantes",
+        "site": {
+            "type": {
+                "merged": "agrupado"
+            }
+        },
+        "followBrowser": "Usar do navegador"
+    },
+    "uk": {
+        "merge": {
+            "mergeBy": "Об'єднати за",
+            "mergeMethod": {
+                "date": "Дата",
+                "domain": "URL",
+                "cate": "Категорія",
+                "group": "Група вкладок",
+                "notMerge": "Не об'єднувати"
+            }
+        },
+        "cate": {
+            "notSet": "Не встановлено"
+        },
+        "limit": {
+            "daily": "Денний ліміт",
+            "weekly": "Тижневий ліміт",
+            "period": "Недозволені періоди",
+            "visits": "{n} відвідування"
+        },
+        "permGrantConfirm": "Ця функція потребує відповідних дозволів",
+        "site": {
+            "type": {
+                "normal": "звичайний",
+                "merged": "об'єднано"
+            }
+        },
+        "followBrowser": "Як у браузері"
+    },
+    "it": {
+        "merge": {
+            "mergeBy": "Unisci per",
+            "mergeMethod": {
+                "date": "Data",
+                "domain": "URL",
+                "cate": "Categoria",
+                "group": "Gruppo Di Schede",
+                "notMerge": "Non Unire"
+            }
+        },
+        "cate": {
+            "notSet": "Non impostato"
+        },
+        "limit": {
+            "daily": "Limite giornaliero",
+            "weekly": "Limite settimanale",
+            "period": "Periodi bloccati",
+            "visits": "{n} visite"
+        },
+        "permGrantConfirm": "Questa funzione richiede autorizzazioni rilevanti",
+        "site": {
+            "type": {
+                "normal": "normale",
+                "merged": "uniti"
+            }
+        },
+        "followBrowser": "Segui browser"
+    },
+    "es": {
+        "merge": {
+            "mergeBy": "Fusionar por",
+            "mergeMethod": {
+                "date": "Fecha",
+                "domain": "URL",
+                "cate": "Categoría",
+                "group": "Grupo de pestañas",
+                "notMerge": "No fusionar"
+            }
+        },
+        "cate": {
+            "notSet": "No establecido"
+        },
+        "limit": {
+            "daily": "Límite diario",
+            "weekly": "Límite semanal",
+            "period": "Periodos no permitidos",
+            "visits": "{n} visitas"
+        },
+        "permGrantConfirm": "Esta función requiere permisos pertinentes",
+        "site": {
+            "type": {
+                "merged": "fusionado"
+            }
+        },
+        "followBrowser": "Igual que el navegador"
+    },
+    "de": {
+        "merge": {
+            "mergeBy": "Zusammenführen durch",
+            "mergeMethod": {
+                "date": "Datum",
+                "domain": "URL",
+                "cate": "Kategorie",
+                "group": "Tab-Gruppe",
+                "notMerge": "Nicht zusammenführen"
+            }
+        },
+        "cate": {
+            "notSet": "Nicht festgelegt"
+        },
+        "limit": {
+            "daily": "Tägliches Limit",
+            "weekly": "Wöchentliches Limit",
+            "period": "Unzulässiger Zeitraum",
+            "visits": "{n} Besuche"
+        },
+        "permGrantConfirm": "Dieses Feature benötigt entsprechende Berechtigungen",
+        "site": {
+            "type": {
+                "merged": "zusammengeführt"
+            }
+        },
+        "followBrowser": "Browser verfolgen"
+    },
+    "fr": {
+        "merge": {
+            "mergeBy": "Fusionner par",
+            "mergeMethod": {
+                "date": "Date",
+                "domain": "URL",
+                "cate": "Catégorie",
+                "group": "Groupe d'onglets",
+                "notMerge": "Non Fusionner"
+            }
+        },
+        "cate": {
+            "notSet": "Non Défini"
+        },
+        "limit": {
+            "daily": "Limite quotidienne",
+            "weekly": "Limite hebdomadaire",
+            "period": "Périodes bloquées",
+            "visits": "{n} visites"
+        },
+        "permGrantConfirm": "Cette fonctionnalité nécessite des autorisations appropriées",
+        "site": {
+            "type": {
+                "normal": "normal",
+                "merged": "fusionné",
+                "virtual": "sous-page"
+            }
+        },
+        "followBrowser": "Suivre le navigateur",
+        "unlimited": "Illimité"
+    },
+    "ru": {
+        "merge": {
+            "mergeBy": "Объединить по",
+            "mergeMethod": {
+                "date": "Дата",
+                "domain": "URL",
+                "cate": "Категория",
+                "group": "Группа вкладок",
+                "notMerge": "Не объединять"
+            }
+        },
+        "cate": {
+            "notSet": "Не задано"
+        },
+        "limit": {
+            "daily": "Дневной лимит",
+            "weekly": "Недельный лимит",
+            "period": "Заблокированное время",
+            "visits": "{n} посещения"
+        },
+        "site": {
+            "type": {
+                "normal": "нормальный",
+                "merged": "соединено"
+            }
+        },
+        "followBrowser": "Как в браузере"
+    },
+    "ar": {
+        "merge": {
+            "mergeBy": "دمج بواسطة",
+            "mergeMethod": {
+                "date": "تاريخ",
+                "domain": "القيمة",
+                "cate": "الفئة",
+                "group": "مجموعة علامات التبويب",
+                "notMerge": "لا دمج"
+            }
+        },
+        "cate": {
+            "notSet": "غير مضبوط"
+        },
+        "limit": {
+            "daily": "الحد اليومي",
+            "weekly": "الحد الأسبوعي",
+            "period": "فترات محظورة",
+            "visits": "{n} زيارة"
+        },
+        "site": {
+            "type": {
+                "normal": "طبيعي",
+                "merged": "اندمجت"
+            }
+        },
+        "followBrowser": "نفس وضع المتصفح"
+    },
+    "tr": {
+        "merge": {
+            "mergeBy": "Birleştirme biçimi",
+            "mergeMethod": {
+                "date": "Tarih",
+                "domain": "URL",
+                "cate": "Kategori",
+                "group": "Sekme Grubu",
+                "notMerge": "Birleştirilemez"
+            }
+        },
+        "cate": {
+            "notSet": "Ayarlanmadı"
+        },
+        "limit": {
+            "daily": "Günlük limit",
+            "weekly": "Haftalık limit",
+            "period": "Engellenen periyotlar",
+            "visits": "{n} ziyaretler"
+        },
+        "permGrantConfirm": "Bu özellik ilgili izinleri gerektirir",
+        "site": {
+            "type": {
+                "merged": "birleştirildi"
+            }
+        },
+        "followBrowser": "Tarayıcıyı takip et"
+    },
+    "pl": {
+        "merge": {
+            "mergeBy": "Połącz przez",
+            "mergeMethod": {
+                "date": "Data",
+                "domain": "URL",
+                "cate": "Kategoria",
+                "group": "Grupa zakładek",
+                "notMerge": "Nie scalaj"
+            }
+        },
+        "cate": {
+            "notSet": "Nie ustawiono"
+        },
+        "limit": {
+            "daily": "Dzienny limit",
+            "weekly": "Limit tygodniowy",
+            "period": "Godziny blokowania",
+            "visits": "{n} wizyt"
+        },
+        "permGrantConfirm": "Ta opcja wymaga odpowiednich uprawnień",
+        "site": {
+            "type": {
+                "normal": "normalny",
+                "merged": "scalone",
+                "virtual": "podstrona"
+            }
+        },
+        "followBrowser": "Śledź przeglądarkę",
+        "allowUnblocking": "Zezwól na odblokowanie",
+        "unlimited": "Bez ograniczeń"
+    }
+}
