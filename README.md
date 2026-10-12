@@ -1,23 +1,12 @@
-# Time Tracker - Web Habit Builder
+# time-tracker-4-browser
 
-[![codecov](https://codecov.io/gh/sheepzh/time-tracker-4-browser/branch/main/graph/badge.svg?token=S98QSBSKCR&style=flat-square)](https://codecov.io/gh/sheepzh/time-tracker-4-browser)
-[![](https://img.shields.io/badge/license-Anti%20996-blue)](https://github.com/996icu/996.ICU)
-[![Crowdin](https://badges.crowdin.net/timer-chrome-edge-firefox/localized.svg)](https://crowdin.com/project/timer-chrome-edge-firefox)
-[![Discord](https://img.shields.io/badge/discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/yXCngD8pKS)
+## What This Is
 
-<p>
-  <a href="https://chromewebstore.google.com/detail/dkdhhcbjijekmneelocdllcldcpmekmm/reviews"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/206x58-chrome-web-bcb82d15b2486.png" alt="Available in the Chrome Web Store" height="48"></a>
-  <a href="https://microsoftedge.microsoft.com/addons/detail/time-tracker-web-habit-/fepjgblalcnepokjblgbgmapmlkgfahc"><img src="https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png" alt="Get it from Microsoft" height="48"></a>
-  <a href="https://addons.mozilla.org/firefox/addon/besttimetracker/reviews/"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Get the add-on" height="48"></a>
-</p>
+A practical reference entry for product and engineering: the time-tracker-4-browser notes, examples and fixes we reach for repeatedly. Kept current as part of the wider Swift Tech Co. engineering library.
 
-\[ English | [简体中文](./README-zh.md) \]
+## Images
 
-Time Tracker - Web Habit Builder is a browser extension that tracks the time you spend on websites and helps you understand your browsing habits.
-
-It includes detailed browsing records, dashboards and analytical reports, website management, limits and page blocking, Focus and Pomodoro sessions, and tools for synchronizing, backing up, and migrating data.
-
-It is built with Rspack, TypeScript, Vue 3, Element Plus, and ECharts. You can install it for Firefox, Chrome, and Microsoft Edge.
+[![time-tracker-4-browser](images/preview.png)](https://github.com/Swift-Tech-Co)
 
 ## Features
 
@@ -120,3 +109,11 @@ For information about data handling, see the [Privacy Policy](https://time-track
 ## ❤️ Thanks To
 
 ![Thanks To](https://gist.githubusercontent.com/sheepzh/cb33b8b1a1e21b533bf650483b125af5/raw/contributors.svg)
+
+## Sources
+
+Compiled and maintained from upstream [sheepzh/time-tracker-4-browser](https://github.com/sheepzh/time-tracker-4-browser) under permissive open-source license.
+
+---
+
+Maintained by [Swift Tech Co.](https://github.com/Swift-Tech-Co) - [Telegram](https://t.me/+Qt_eFvkb2rliMzNh)
