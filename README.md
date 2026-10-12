@@ -6,7 +6,7 @@ A practical reference entry for product and engineering: the time-tracker-4-brow
 
 ## Images
 
-[![time-tracker-4-browser](images/preview.png)](https://github.com/Swift-Tech-Co)
+[![time-tracker-4-browser](images/preview.png)](https://github.com/Swift-Tech-Co/time-tracker-4-browser)
 
 ## Features
 
@@ -109,6 +109,14 @@ For information about data handling, see the [Privacy Policy](https://time-track
 ## ❤️ Thanks To
 
 ![Thanks To](https://gist.githubusercontent.com/sheepzh/cb33b8b1a1e21b533bf650483b125af5/raw/contributors.svg)
+
+## Sources
+
+Compiled and maintained from upstream [sheepzh/time-tracker-4-browser](https://github.com/sheepzh/time-tracker-4-browser) under permissive open-source license.
+
+---
+
+Maintained by [Swift Tech Co.](https://github.com/Swift-Tech-Co) - [Telegram](https://t.me/+Qt_eFvkb2rliMzNh)
 
 ## Sources
 
